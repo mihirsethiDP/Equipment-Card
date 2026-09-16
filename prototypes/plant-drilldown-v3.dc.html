@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#141414;font-family:'IBM Plex Sans','Noto Sans Devanagari',sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:#1A4639;}
+  a:hover{color:#3DA385;}
+</style>
+</helmet>
+
+<section style="padding:48px 56px 96px;display:flex;flex-direction:column;gap:26px;">
+
+  <div style="display:flex;flex-direction:column;gap:12px;">
+    <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#141414;background:#3DA385;padding:4px 10px;border-radius:20px;">v3 · gap review applied</span>
+      <h1 style="font-size:20px;font-weight:700;color:#f2f2f2;margin:0;">One work queue, Covered state, restored no-data — levels unchanged</h1>
+    </div>
+    <p style="font-size:12.5px;color:#8a8a8a;margin:0;max-width:860px;line-height:1.6;">Plant → unit process → unit → equipment is unchanged, and the card still composes itself from its type profile. What changed in v3: Maintenance folds into <strong style="color:#c8c8c8;">Tasks</strong> as preventive work, so the tab strip is the same three tabs on every asset. A claimed issue now produces the <strong style="color:#c8c8c8;">Covered</strong> state and no CTA. No-data, empty-asset, part tags, duty group and the full ⋯ menu are back — disabled entries state why. Use the state chips to flip live data, the health gate and part tags.</p>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6f6f6f;">jump to</span>
+      <sc-for list="{{ jumps }}" as="j" hint-placeholder-count="6">
+        <div onClick="{{ j.onClick }}" style="{{ j.style }}">{{ j.label }}</div>
+      </sc-for>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6f6f6f;margin-left:10px;">state</span>
+      <sc-for list="{{ controls }}" as="c" hint-placeholder-count="3">
+        <div onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+
+    <div id="2a" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#141414;background:#3DA385;padding:3px 8px;border-radius:4px;">2a</span>
+        <span style="font-size:12px;font-weight:600;color:#aaa;">Desktop · 1440 × 900</span>
+      </div>
+
+      <div style="width:1440px;height:900px;background:#F2F7FB;border:1px solid #2e2e2e;border-radius:10px;overflow:hidden;display:flex;box-shadow:0 24px 64px rgba(0,0,0,.55);">
+
+        <div style="flex:1;display:flex;flex-direction:column;background:linear-gradient(170deg,#F6FAFD,#E9F0F6);min-width:0;">
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;border-bottom:1px solid #E1E3E5;background:rgba(255,255,255,.75);">
+            <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
+              <sc-for list="{{ dCrumbs }}" as="c" hint-placeholder-count="3">
+                <div onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</div>
+                <span style="{{ c.sepStyle }}">/</span>
+              </sc-for>
+            </div>
+            <div onClick="{{ dOpenDrawer }}" style="{{ dReopenStyle }}">{{ t.openCard }}</div>
+          </div>
+
+          <div style="padding:18px 24px 10px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;">
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:0;">
+              <span style="font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#8D8D8D;">{{ dNode.levelLabel }}</span>
+              <span style="font-size:19px;font-weight:700;color:#161616;">{{ dNode.name }}</span>
+            </div>
+            <span style="font-size:12px;font-weight:600;color:#525252;white-space:nowrap;">{{ dNode.composition }}</span>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:6px 24px 24px;">
+            <sc-if value="{{ dHasChildren }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:12px;">
+                <sc-for list="{{ dChildren }}" as="ch" hint-placeholder-count="5">
+                  <div onClick="{{ ch.onClick }}" style="{{ ch.style }}">
+                    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+                      <span style="font-size:14.5px;font-weight:700;color:#161616;line-height:1.3;">{{ ch.name }}</span>
+                      <span style="{{ ch.healthStyle }}">{{ ch.health }}</span>
+                    </div>
+                    <span style="font-size:11.5px;color:#8D8D8D;margin-top:3px;">{{ ch.sub }}</span>
+                    <span style="{{ ch.typeStyle }}">{{ ch.typeLabel }}</span>
+                    <div style="display:flex;align-items:center;gap:6px;margin-top:12px;">
+                      <span style="{{ ch.dotStyle }}"></span>
+                      <span style="{{ ch.attnStyle }}">{{ ch.attn }}</span>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ dIsEquipment }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:18px;">
+                <div style="{{ dArt.wrapStyle }}">
+                  <sc-for list="{{ dArt.shapes }}" as="sh" hint-placeholder-count="6">
+                    <div style="{{ sh.style }}"></div>
+                  </sc-for>
+                  <sc-for list="{{ dArt.parts }}" as="pt" hint-placeholder-count="3">
+                    <div style="{{ pt.style }}">{{ pt.label }}</div>
+                  </sc-for>
+                  <sc-for list="{{ dArt.tags }}" as="tag" hint-placeholder-count="4">
+                    <div style="{{ tag.style }}"><span style="{{ tag.dotStyle }}">{{ tag.dot }}</span>{{ tag.value }}<span style="font-size:10px;font-weight:600;color:#8D8D8D;">{{ tag.label }}</span></div>
+                  </sc-for>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8D8D8D;">{{ t.renderNote }}</span>
+                  <span style="{{ dNode.profileChipStyle }}">{{ dNode.profileLabel }}</span>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ dNothingMapped }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;justify-content:center;height:100%;padding:0 40px;">
+                <div style="max-width:420px;background:#fff;border:1px dashed #C9CDD1;border-radius:12px;padding:22px 24px;text-align:center;">
+                  <div style="font-size:15px;font-weight:700;color:#161616;">{{ t.noneMappedTitle }}</div>
+                  <div style="font-size:12.5px;color:#525252;margin-top:7px;line-height:1.6;">{{ t.noneMappedBody }}</div>
+                  <div onClick="{{ dMapEquipment }}" style="display:inline-block;margin-top:14px;font-size:12.5px;font-weight:700;color:#fff;background:#183650;border-radius:8px;padding:10px 15px;cursor:pointer;">{{ t.mapEquipment }}</div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <sc-if value="{{ dDrawer }}" hint-placeholder-val="{{ true }}">
+        <aside style="width:452px;flex-shrink:0;background:#fff;border-left:1px solid #E1E3E5;box-shadow:-14px 0 34px rgba(15,35,55,.12);display:flex;flex-direction:column;position:relative;">
+
+          <div style="padding:12px 20px 14px;border-bottom:1px solid #E1E3E5;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="display:flex;background:#F4F7FA;border:1px solid #E1E3E5;border-radius:7px;overflow:hidden;">
+                  <div onClick="{{ setEn }}" style="{{ langEnStyle }}">EN</div>
+                  <div onClick="{{ setHi }}" style="{{ langHiStyle }}">हिं</div>
+                </div>
+                <span style="{{ dNode.levelChipStyle }}">{{ dNode.levelLabel }}</span>
+                <span style="{{ dNode.profileChipStyle }}">{{ dNode.profileLabel }}</span>
+              </div>
+              <div style="display:flex;gap:4px;">
+                <div onClick="{{ dToggleMenu }}" style="width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#183650;background:#F4F7FA;cursor:pointer;">⋯</div>
+                <div onClick="{{ dCloseDrawer }}" style="width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#183650;background:#F4F7FA;cursor:pointer;">✕</div>
+              </div>
+            </div>
+
+            <div style="font-size:21px;font-weight:700;color:#161616;line-height:1.25;margin-top:10px;">{{ dNode.name }}</div>
+            <div style="font-size:12.5px;color:#525252;margin-top:3px;">{{ dNode.place }}</div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;">
+              <div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#161616;font-variant-numeric:tabular-nums;min-width:0;">
+                <span style="{{ dNode.statusDotStyle }}"></span>{{ dNode.status }}
+              </div>
+              <span style="font-size:11px;font-weight:600;color:#8D8D8D;white-space:nowrap;">{{ dNode.updated }}</span>
+            </div>
+            <div style="{{ bannerStyle }}">
+              <span style="flex:1;line-height:1.5;">{{ bannerText }}</span>
+              <span onClick="{{ onRetry }}" style="font-weight:700;text-decoration:underline;cursor:pointer;white-space:nowrap;">{{ bannerAction }}</span>
+            </div>
+            <div style="{{ dPmStyle }}">{{ dPmLine }}</div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;background:#F7F9FB;display:flex;flex-direction:column;">
+
+            <div style="{{ dBlocks.attributes.wrapStyle }}">
+              <div onClick="{{ dToggleSpecs }}" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;">{{ t.attributes }}</span>
+                <span style="font-size:11px;font-weight:700;color:#1A4639;">{{ dSpecsCaret }}</span>
+              </div>
+              <div style="{{ dSpecsSummaryStyle }}">{{ dNode.specsSummary }}</div>
+              <sc-if value="{{ dSpecsOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin-top:12px;">
+                  <sc-for list="{{ dNode.specs }}" as="s" hint-placeholder-count="4">
+                    <div style="display:flex;flex-direction:column;gap:2px;">
+                      <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">{{ s.label }}</span>
+                      <span style="font-size:13.5px;font-weight:600;color:#161616;">{{ s.value }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+
+            <div style="{{ dBlocks.health.wrapStyle }}">
+              <div style="display:flex;align-items:center;gap:11px;">
+                <div style="display:flex;align-items:baseline;gap:3px;">
+                  <span style="font-size:22px;font-weight:700;color:{{ dNode.healthNumColor }};line-height:1;font-variant-numeric:tabular-nums;">{{ dNode.health }}</span>
+                  <span style="font-size:11.5px;font-weight:600;color:#8D8D8D;">/100</span>
+                </div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
+                    <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">{{ t.health }}</span>
+                    <span style="{{ dNode.bandStyle }}">{{ dNode.band }}</span>
+                    <span onClick="{{ dToggleWhy }}" style="font-size:11.5px;font-weight:600;color:#1A4639;text-decoration:underline;cursor:pointer;">{{ t.why }}</span>
+                  </div>
+                  <div style="height:6px;border-radius:3px;background:#EAEDEF;margin-top:6px;overflow:hidden;">
+                    <div style="height:100%;width:{{ dNode.healthFill }};background:{{ dNode.healthFillColor }};border-radius:3px;"></div>
+                  </div>
+                </div>
+              </div>
+              <sc-if value="{{ dWhyOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:11.5px;color:#525252;margin-top:9px;line-height:1.55;background:#F7F9FB;border:1px solid #E1E3E5;border-radius:8px;padding:9px 11px;">{{ dNode.basis }}</div>
+              </sc-if>
+            </div>
+
+            <div style="{{ dBlocks.duty.wrapStyle }}">
+              <span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;">{{ t.duty }}</span>
+              <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;">
+                <sc-for list="{{ dNode.duty }}" as="dt" hint-placeholder-count="3">
+                  <div onClick="{{ dt.onClick }}" style="{{ dt.style }}">
+                    <span style="{{ dt.nameStyle }}">{{ dt.name }}</span>
+                    <span style="{{ dt.roleStyle }}">{{ dt.role }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="{{ dBlocks.rollup.wrapStyle }}">
+              <div style="display:flex;gap:8px;">
+                <sc-for list="{{ dNode.rollup }}" as="st" hint-placeholder-count="3">
+                  <div style="flex:1;background:#F7F9FB;border:1px solid #E1E3E5;border-radius:9px;padding:9px 10px;display:flex;flex-direction:column;gap:2px;">
+                    <span style="{{ st.numStyle }}">{{ st.num }}</span>
+                    <span style="font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#8D8D8D;line-height:1.3;">{{ st.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="{{ dNode.rollupMetaStyle }}">{{ dNode.rollupMeta }}</div>
+            </div>
+
+            <div style="{{ dBlocks.links.wrapStyle }}">
+              <span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;">{{ t.linked }}</span>
+              <div style="display:flex;flex-direction:column;gap:9px;margin-top:10px;">
+                <sc-for list="{{ dNode.links }}" as="lk" hint-placeholder-count="2">
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">{{ lk.dirLabel }}</span>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                      <sc-for list="{{ lk.nodes }}" as="ln" hint-placeholder-count="2">
+                        <div onClick="{{ ln.onClick }}" style="{{ ln.style }}">
+                          <span style="{{ ln.dotStyle }}"></span>{{ ln.name }}<span style="color:#8D8D8D;font-weight:700;">{{ ln.chev }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="{{ dNode.linksNoteStyle }}">{{ dNode.linksNote }}</div>
+            </div>
+
+            <div style="{{ dBlocks.sensors.wrapStyle }}">
+              <div onClick="{{ dToggleSensors }}" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;">{{ t.sensors }}</span>
+                  <span style="{{ dNode.sensorCountStyle }}">{{ dNode.sensorCount }}</span>
+                </div>
+                <span style="font-size:11px;font-weight:700;color:#1A4639;">{{ dSensorsCaret }}</span>
+              </div>
+              <sc-if value="{{ dSensorsOpen }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;margin-top:4px;">
+                  <sc-for list="{{ dNode.sensors }}" as="sn" hint-placeholder-count="4">
+                    <div style="{{ sn.rowStyle }}">
+                      <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+                        <span style="{{ sn.dotStyle }}"></span>
+                        <div style="display:flex;flex-direction:column;gap:1px;min-width:0;">
+                          <span style="font-size:13px;font-weight:600;color:#161616;">{{ sn.name }}</span>
+                          <span style="font-size:11px;color:#8D8D8D;">{{ sn.meta }}</span>
+                        </div>
+                      </div>
+                      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:1px;flex-shrink:0;">
+                        <span style="{{ sn.valueStyle }}">{{ sn.value }}</span>
+                        <span style="font-size:10.5px;font-weight:600;color:#8D8D8D;">{{ sn.range }}</span>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+
+            <div style="{{ dBlocks.record.wrapStyle }}">
+              <div style="display:flex;gap:3px;padding:0 16px;background:#fff;border-bottom:1px solid #E1E3E5;">
+                <sc-for list="{{ dTabs }}" as="tab" hint-placeholder-count="4">
+                  <div onClick="{{ tab.onClick }}" style="{{ tab.style }}">
+                    <span>{{ tab.label }}</span>
+                    <sc-if value="{{ tab.badge }}" hint-placeholder-val="{{ false }}">
+                      <span style="{{ tab.badgeStyle }}">{{ tab.count }}</span>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="padding:12px 16px 16px;display:flex;flex-direction:column;gap:8px;">
+                <div style="{{ dHorizonStyle }}">
+                  <sc-for list="{{ dHorizonTabs }}" as="h" hint-placeholder-count="4">
+                    <div onClick="{{ h.onClick }}" style="{{ h.style }}">{{ h.label }}</div>
+                  </sc-for>
+                </div>
+                <sc-for list="{{ dRows }}" as="row" hint-placeholder-count="4">
+                  <div style="{{ row.groupHeadStyle }}">{{ row.groupHead }}</div>
+                  <div onClick="{{ row.onClick }}" style="{{ row.wrapStyle }}">
+                    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+                      <div style="{{ row.titleStyle }}">{{ row.title }}</div>
+                      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">
+                        <span style="{{ row.chipStyle }}">{{ row.chip }}</span>
+                        <span style="{{ row.pmChipStyle }}">{{ row.pmChip }}</span>
+                      </div>
+                    </div>
+                    <div style="{{ row.metaStyle }}">{{ row.meta }}</div>
+                    <div style="{{ row.ownerStyle }}">{{ row.owner }}</div>
+                    <sc-if value="{{ row.showDetail }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:12.5px;color:#161616;line-height:1.55;margin-top:9px;padding-top:9px;border-top:1px solid #F0F0F0;">{{ row.detail }}</div>
+                    </sc-if>
+                    <sc-if value="{{ row.showGoto }}" hint-placeholder-val="{{ false }}">
+                      <div onClick="{{ row.onGoto }}" style="display:inline-block;margin-top:10px;font-size:12px;font-weight:700;color:#183650;background:#F1F5F9;border:1px solid #D6DEE5;border-radius:7px;padding:7px 12px;cursor:pointer;">{{ row.gotoLabel }}</div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+                <div style="{{ dEmptyStyle }}">{{ dEmptyText }}</div>
+                <div style="font-size:11.5px;color:#8D8D8D;padding:2px;line-height:1.5;">{{ dNote }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:13px 20px 18px;border-top:1px solid #E1E3E5;background:#fff;">
+            <sc-if value="{{ dCta.isButton }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ dCta.onClick }}" style="width:100%;border:none;border-radius:9px;padding:16px 18px;font-family:inherit;font-size:15.5px;font-weight:700;color:#fff;background:{{ ctaBg }};display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;text-align:left;">
+                <span>{{ dCta.label }}</span><span>→</span>
+              </button>
+            </sc-if>
+            <sc-if value="{{ dCta.isCalm }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ dCta.calmStyle }}">{{ dCta.label }}</div>
+            </sc-if>
+            <div style="font-size:11.5px;color:#8D8D8D;margin-top:8px;line-height:1.5;">{{ dCta.why }}</div>
+          </div>
+
+          <sc-if value="{{ dToast }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;left:20px;right:20px;bottom:96px;background:#183650;color:#fff;border-radius:9px;padding:12px 14px;font-size:12.5px;font-weight:600;line-height:1.5;box-shadow:0 10px 26px rgba(15,35,55,.3);z-index:6;">{{ dToastText }}</div>
+          </sc-if>
+
+          <sc-if value="{{ dMenuOpen }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ dCloseMenu }}" style="position:absolute;inset:0;z-index:4;"></div>
+            <div style="position:absolute;top:52px;right:16px;width:240px;background:#fff;border:1px solid #E1E3E5;border-radius:10px;box-shadow:0 14px 34px rgba(15,35,55,.22);padding:6px;display:flex;flex-direction:column;z-index:5;">
+              <sc-for list="{{ dMenu }}" as="item" hint-placeholder-count="4">
+                <div onClick="{{ item.onClick }}" style="{{ item.style }}">
+                  <span>{{ item.label }}</span>
+                  <span style="{{ item.reasonStyle }}">{{ item.reason }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </aside>
+        </sc-if>
+      </div>
+
+      <div style="max-width:1000px;font-size:12px;color:#8a8a8a;line-height:1.6;">
+        <strong style="color:#c8c8c8;">What v3 changes.</strong> Three tabs everywhere — Issues is unplanned, Tasks is planned with preventive carrying a PM chip and its cadence in words, History is the record. The horizon strip filters Tasks without navigating away; the next PM sits in the anchor unless it is already the CTA. Rolled-up lists cap at four from below with the rest one tap away, since a real plant has hundreds. The resolver skips claimed work: FS-1 shows Covered and offers no button. Group-coupled blowers get a duty strip. EQ-1's level reads "via LP-1" rather than double-counting the probe's own reading.
+      </div>
+    </div>
+
+    <div id="2b" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#141414;background:#3DA385;padding:3px 8px;border-radius:4px;">2b</span>
+        <span style="font-size:12px;font-weight:600;color:#aaa;">Mobile · 390 × 844</span>
+      </div>
+
+      <div style="width:390px;height:844px;background:#1c1c1e;border:3px solid #3a3a3c;border-radius:44px;overflow:hidden;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.6);">
+        <div style="position:absolute;inset:0;border-radius:41px;overflow:hidden;background:#EDF3F8;display:flex;flex-direction:column;">
+
+          <div style="background:#183650;color:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:space-between;padding:16px 20px 7px;font-size:11px;font-weight:700;flex-shrink:0;">
+            <span>9:41</span>
+            <span style="display:inline-flex;align-items:flex-end;gap:2px;height:9px;">
+              <span style="display:block;width:2.5px;height:3px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+              <span style="display:block;width:2.5px;height:5px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+              <span style="display:block;width:2.5px;height:7px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+              <span style="display:block;width:2.5px;height:9px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+            </span>
+          </div>
+
+          <div style="background:#183650;padding:4px 16px 12px;flex-shrink:0;">
+            <div onClick="{{ mUp }}" style="{{ mUpStyle }}">{{ mUpLabel }}</div>
+            <div style="display:flex;align-items:center;gap:7px;margin-top:9px;flex-wrap:wrap;">
+              <span style="font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.6);">{{ mNode.levelLabel }}</span>
+              <span style="{{ mNode.profileChipDarkStyle }}">{{ mNode.profileLabel }}</span>
+            </div>
+            <div style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;line-height:1.25;">{{ mNode.name }}</div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:12px 14px 20px;display:flex;flex-direction:column;gap:9px;">
+            <sc-for list="{{ mChildren }}" as="ch" hint-placeholder-count="5">
+              <div onClick="{{ ch.onClick }}" style="{{ ch.mStyle }}">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+                  <span style="font-size:14.5px;font-weight:700;color:#161616;line-height:1.3;">{{ ch.name }}</span>
+                  <span style="{{ ch.healthStyle }}">{{ ch.health }}</span>
+                </div>
+                <span style="{{ ch.typeStyle }}">{{ ch.typeLabel }}</span>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:9px;">
+                  <span style="{{ ch.dotStyle }}"></span>
+                  <span style="{{ ch.attnStyle }}">{{ ch.attn }}</span>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ mNothingMapped }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fff;border:1px dashed #C9CDD1;border-radius:11px;padding:16px 15px;">
+                <div style="font-size:14.5px;font-weight:700;color:#161616;">{{ t.noneMappedTitle }}</div>
+                <div style="font-size:12.5px;color:#525252;margin-top:6px;line-height:1.6;">{{ t.noneMappedBody }}</div>
+              </div>
+            </sc-if>
+            <div onClick="{{ mOpenDrawer }}" style="{{ mSelfCardStyle }}">
+              <span style="font-size:13.5px;font-weight:700;">{{ t.selfCard }}</span><span style="font-size:15px;">↑</span>
+            </div>
+          </div>
+
+          <sc-if value="{{ mDrawer }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;left:0;right:0;bottom:0;top:150px;background:#F7F9FB;border-radius:20px 20px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -8px 28px rgba(10,25,40,.32);">
+            <div style="width:38px;height:4px;border-radius:2px;background:#D0D0D0;margin:9px auto 0;flex-shrink:0;"></div>
+
+            <div style="background:#fff;padding:8px 16px 12px;border-bottom:1px solid #E1E3E5;flex-shrink:0;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <div style="display:flex;align-items:center;gap:7px;">
+                  <div style="display:flex;background:#F4F7FA;border:1px solid #E1E3E5;border-radius:8px;overflow:hidden;">
+                    <div onClick="{{ setEn }}" style="{{ mLangEnStyle }}">EN</div>
+                    <div onClick="{{ setHi }}" style="{{ mLangHiStyle }}">हिं</div>
+                  </div>
+                  <span style="{{ mNode.profileChipStyle }}">{{ mNode.profileLabel }}</span>
+                </div>
+                <div style="display:flex;gap:4px;">
+                  <div onClick="{{ mToggleMenu }}" style="width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#183650;background:#F4F7FA;cursor:pointer;flex-shrink:0;">⋯</div>
+                  <div onClick="{{ mCloseDrawer }}" style="width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#183650;background:#F4F7FA;cursor:pointer;flex-shrink:0;">✕</div>
+                </div>
+              </div>
+
+              <div style="font-size:19px;font-weight:700;color:#161616;margin-top:9px;line-height:1.25;">{{ mNode.name }}</div>
+              <div style="font-size:12.5px;color:#525252;margin-top:2px;">{{ mNode.place }}</div>
+
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:9px;gap:10px;">
+                <div style="display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:#161616;font-variant-numeric:tabular-nums;min-width:0;">
+                  <span style="{{ mNode.statusDotStyle }}"></span>{{ mNode.status }}
+                </div>
+                <span style="font-size:10.5px;font-weight:600;color:#8D8D8D;white-space:nowrap;">{{ mNode.updated }}</span>
+              </div>
+              <div style="{{ bannerStyle }}">
+                <span style="flex:1;line-height:1.5;">{{ bannerText }}</span>
+                <span onClick="{{ onRetry }}" style="font-weight:700;text-decoration:underline;cursor:pointer;white-space:nowrap;">{{ bannerAction }}</span>
+              </div>
+              <div style="{{ mPmStyle }}">{{ mPmLine }}</div>
+            </div>
+
+            <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;">
+
+              <div style="{{ mBlocks.attributes.wrapStyle }}">
+                <div onClick="{{ mToggleSpecs }}" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;min-height:44px;">
+                  <span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;">{{ t.attributes }}</span>
+                  <span style="font-size:11px;font-weight:700;color:#1A4639;">{{ mSpecsCaret }}</span>
+                </div>
+                <div style="{{ mSpecsSummaryStyle }}">{{ mNode.specsSummary }}</div>
+                <sc-if value="{{ mSpecsOpen }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+                    <sc-for list="{{ mNode.specs }}" as="s" hint-placeholder-count="4">
+                      <span style="font-size:11.5px;font-weight:600;color:#525252;background:#F4F7FA;border:1px solid #E1E3E5;border-radius:6px;padding:5px 9px;">{{ s.chip }}</span>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+
+              <div style="{{ mBlocks.health.wrapStyle }}">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="display:flex;align-items:baseline;gap:3px;">
+                    <span style="font-size:21px;font-weight:700;color:{{ mNode.healthNumColor }};line-height:1;font-variant-numeric:tabular-nums;">{{ mNode.health }}</span>
+                    <span style="font-size:11px;font-weight:600;color:#8D8D8D;">/100</span>
+                  </div>
+                  <div style="flex:1;">
+                    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                      <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">{{ t.health }}</span>
+                      <span style="{{ mNode.bandStyle }}">{{ mNode.band }}</span>
+                      <span onClick="{{ mToggleWhy }}" style="font-size:11.5px;font-weight:600;color:#1A4639;text-decoration:underline;cursor:pointer;">{{ t.why }}</span>
+                    </div>
+                    <div style="height:6px;border-radius:3px;background:#EAEDEF;margin-top:6px;overflow:hidden;">
+                      <div style="height:100%;width:{{ mNode.healthFill }};background:{{ mNode.healthFillColor }};border-radius:3px;"></div>
+                    </div>
+                  </div>
+                </div>
+                <sc-if value="{{ mWhyOpen }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:11.5px;color:#525252;margin-top:9px;line-height:1.55;background:#F7F9FB;border:1px solid #E1E3E5;border-radius:8px;padding:9px 11px;">{{ mNode.basis }}</div>
+                </sc-if>
+              </div>
+
+              <div style="{{ mBlocks.duty.wrapStyle }}">
+                <div onClick="{{ mToggleDuty }}" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;min-height:44px;">
+                  <span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;">{{ t.duty }}</span>
+                  <span style="font-size:11px;font-weight:700;color:#1A4639;">{{ mDutyCaret }}</span>
+                </div>
+                <div style="{{ mDutySummaryStyle }}">{{ mDutySummary }}</div>
+                <sc-if value="{{ mDutyOpen }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;">
+                    <sc-for list="{{ mNode.duty }}" as="dt" hint-placeholder-count="3">
+                      <div onClick="{{ dt.onClick }}" style="{{ dt.style }}">
+                        <span style="{{ dt.nameStyle }}">{{ dt.name }}</span>
+                        <span style="{{ dt.roleStyle }}">{{ dt.role }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+
+              <div style="{{ mBlocks.rollup.wrapStyle }}">
+                <div style="display:flex;gap:7px;">
+                  <sc-for list="{{ mNode.rollup }}" as="st" hint-placeholder-count="3">
+                    <div style="flex:1;background:#F7F9FB;border:1px solid #E1E3E5;border-radius:9px;padding:8px 9px;display:flex;flex-direction:column;gap:1px;">
+                      <span style="{{ st.numStyle }}">{{ st.num }}</span>
+                      <span style="font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#8D8D8D;line-height:1.3;">{{ st.label }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="{{ mNode.rollupMetaStyle }}">{{ mNode.rollupMeta }}</div>
+              </div>
+
+              <div style="{{ mBlocks.links.wrapStyle }}">
+                <div onClick="{{ mToggleLinks }}" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;min-height:44px;">
+                  <span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;">{{ t.linked }}</span>
+                  <span style="font-size:11px;font-weight:700;color:#1A4639;">{{ mLinksCaret }}</span>
+                </div>
+                <div style="{{ mLinksSummaryStyle }}">{{ mLinksSummary }}</div>
+                <sc-if value="{{ mLinksOpen }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:9px;margin-top:10px;">
+                    <sc-for list="{{ mNode.links }}" as="lk" hint-placeholder-count="2">
+                      <div style="display:flex;flex-direction:column;gap:6px;">
+                        <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">{{ lk.dirLabel }}</span>
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                          <sc-for list="{{ lk.nodes }}" as="ln" hint-placeholder-count="2">
+                            <div onClick="{{ ln.onClick }}" style="{{ ln.mStyle }}">
+                              <span style="{{ ln.dotStyle }}"></span>{{ ln.name }}<span style="color:#8D8D8D;font-weight:700;">{{ ln.chev }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="{{ mNode.linksNoteStyle }}">{{ mNode.linksNote }}</div>
+                </sc-if>
+              </div>
+
+              <div style="{{ mBlocks.sensors.wrapStyle }}">
+                <div onClick="{{ mToggleSensors }}" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;min-height:44px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;">{{ t.sensors }}</span>
+                    <span style="{{ mNode.sensorCountStyle }}">{{ mNode.sensorCount }}</span>
+                  </div>
+                  <span style="font-size:11px;font-weight:700;color:#1A4639;">{{ mSensorsCaret }}</span>
+                </div>
+                <div style="{{ mSensorSummaryStyle }}">{{ mSensorSummary }}</div>
+                <sc-if value="{{ mSensorsOpen }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;flex-direction:column;margin-top:4px;">
+                    <sc-for list="{{ mSensorRows }}" as="sn" hint-placeholder-count="3">
+                      <div style="{{ sn.mRowStyle }}">
+                        <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+                          <span style="{{ sn.dotStyle }}"></span>
+                          <div style="display:flex;flex-direction:column;gap:1px;min-width:0;">
+                            <span style="font-size:13px;font-weight:600;color:#161616;">{{ sn.name }}</span>
+                            <span style="font-size:11px;color:#8D8D8D;">{{ sn.meta }}</span>
+                          </div>
+                        </div>
+                        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:1px;flex-shrink:0;">
+                          <span style="{{ sn.valueStyle }}">{{ sn.value }}</span>
+                          <span style="font-size:10.5px;font-weight:600;color:#8D8D8D;">{{ sn.range }}</span>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div onClick="{{ mToggleSensorsAll }}" style="{{ mSensorMoreStyle }}">{{ mSensorMore }}</div>
+                </sc-if>
+              </div>
+
+              <div style="{{ mBlocks.record.wrapStyle }}">
+                <div style="display:flex;gap:3px;padding:0 12px;background:#fff;border-bottom:1px solid #E1E3E5;">
+                  <sc-for list="{{ mTabs }}" as="tab" hint-placeholder-count="4">
+                    <div onClick="{{ tab.onClick }}" style="{{ tab.style }}">
+                      <span>{{ tab.label }}</span>
+                      <sc-if value="{{ tab.badge }}" hint-placeholder-val="{{ false }}">
+                        <span style="{{ tab.badgeStyle }}">{{ tab.count }}</span>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="padding:11px 14px 14px;display:flex;flex-direction:column;gap:8px;">
+                  <div style="{{ mHorizonStyle }}">
+                    <sc-for list="{{ mHorizonTabs }}" as="h" hint-placeholder-count="4">
+                      <div onClick="{{ h.onClick }}" style="{{ h.style }}">{{ h.label }}</div>
+                    </sc-for>
+                  </div>
+                  <sc-for list="{{ mRows }}" as="row" hint-placeholder-count="4">
+                    <div style="{{ row.groupHeadStyle }}">{{ row.groupHead }}</div>
+                    <div onClick="{{ row.onClick }}" style="{{ row.wrapStyle }}">
+                      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+                        <div style="{{ row.titleStyle }}">{{ row.title }}</div>
+                        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">
+                          <span style="{{ row.chipStyle }}">{{ row.chip }}</span>
+                          <span style="{{ row.pmChipStyle }}">{{ row.pmChip }}</span>
+                        </div>
+                      </div>
+                      <div style="{{ row.metaStyle }}">{{ row.meta }}</div>
+                      <div style="{{ row.ownerStyle }}">{{ row.owner }}</div>
+                      <sc-if value="{{ row.showDetail }}" hint-placeholder-val="{{ false }}">
+                        <div style="font-size:12.5px;color:#161616;line-height:1.55;margin-top:9px;padding-top:9px;border-top:1px solid #F0F0F0;">{{ row.detail }}</div>
+                      </sc-if>
+                      <sc-if value="{{ row.showGoto }}" hint-placeholder-val="{{ false }}">
+                        <div onClick="{{ row.onGoto }}" style="display:inline-block;margin-top:10px;font-size:12.5px;font-weight:700;color:#183650;background:#F1F5F9;border:1px solid #D6DEE5;border-radius:7px;padding:10px 14px;cursor:pointer;">{{ row.gotoLabel }}</div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                  <div style="{{ mEmptyStyle }}">{{ mEmptyText }}</div>
+                  <div style="font-size:11.5px;color:#8D8D8D;padding:2px;line-height:1.5;">{{ mNote }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:11px 14px 18px;border-top:1px solid #E1E3E5;background:#fff;flex-shrink:0;">
+              <sc-if value="{{ mCta.isButton }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ mCta.onClick }}" style="width:100%;border:none;border-radius:9px;padding:16px;font-family:inherit;font-size:15.5px;font-weight:700;color:#fff;background:{{ ctaBg }};display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;">
+                  <span>{{ mCta.labelShort }}</span><span>→</span>
+                </button>
+              </sc-if>
+              <sc-if value="{{ mCta.isCalm }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ mCta.calmStyle }}">{{ mCta.label }}</div>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ mToast }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;left:14px;right:14px;bottom:92px;background:#183650;color:#fff;border-radius:9px;padding:12px 13px;font-size:12.5px;font-weight:600;line-height:1.5;box-shadow:0 10px 26px rgba(15,35,55,.34);z-index:6;">{{ mToastText }}</div>
+            </sc-if>
+
+            <sc-if value="{{ mMenuOpen }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ mCloseMenu }}" style="position:absolute;inset:0;z-index:4;"></div>
+              <div style="position:absolute;top:56px;right:14px;width:234px;background:#fff;border:1px solid #E1E3E5;border-radius:10px;box-shadow:0 14px 34px rgba(15,35,55,.24);padding:6px;display:flex;flex-direction:column;z-index:5;">
+                <sc-for list="{{ mMenu }}" as="item" hint-placeholder-count="4">
+                  <div onClick="{{ item.onClick }}" style="{{ item.styleM }}">
+                    <span>{{ item.label }}</span>
+                    <span style="{{ item.reasonStyle }}">{{ item.reason }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="max-width:390px;font-size:12px;color:#8a8a8a;line-height:1.6;">
+        <strong style="color:#c8c8c8;">Mobile read.</strong> Progressive disclosure throughout: the sheet shows only what changes minute to minute — name, status, health, the next PM, the work queue and the CTA. Attributes, linked equipment and duty group are collapsed behind one-line summaries; sensors show the three that matter most, sorted worst-first, with a header line saying how many need attention. Everything opens in place, nothing navigates away. Desktop keeps all blocks expanded — it has the room.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:2000,&quot;height&quot;:1200},&quot;ctaAccent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;navy&quot;,&quot;teal&quot;],&quot;default&quot;:&quot;navy&quot;,&quot;tsType&quot;:&quot;'navy' | 'teal'&quot;,&quot;section&quot;:&quot;Card composition&quot;}}">
+const L = {
+  en: {
+    openCard: 'Open card', health: 'Health', why: 'Why?',
+    attributes: 'Attributes', sensors: 'Sensors', linked: 'Linked equipment',
+    sensorsAttention: 'need attention', sensorsAllNormal: 'all normal',
+    sensorsMore: ' more sensors', sensorsFewer: 'Show fewer sensors',
+    linkedSummary: 'upstream & downstream',
+    upstream: 'Upstream — feeds this', downstream: 'Downstream — fed by this',
+    specsShow: 'Make, model, installed', specsHide: 'Hide details',
+    tabs: { issues: 'Issues', tasks: 'Tasks', history: 'History' },
+    tabsShort: { issues: 'Issues', tasks: 'Tasks', history: 'History' },
+    horizon: ['All', 'Today', 'Tomorrow', 'This week'],
+    horizonEmpty: 'Nothing in this window. Switch to All to see the whole queue.',
+    pm: 'Preventive', nextPm: 'Next PM', noPmSchedule: 'No preventive schedule on this asset',
+    covered: 'Covered', coveredBy: ' is on it', coveredCta: 'Covered — nothing for you to start',
+    coveredWhy: 'The only open item here is in someone else’s hands. Taking it over needs a supervisor.',
+    duty: 'Duty group', dutyLead: 'lead', dutyRunning: 'running', dutyStandby: 'standby', dutyNew: 'new',
+    offlineBanner: 'No live data for 14 minutes — gateway not reachable. Showing last known values.',
+    retry: 'Retry', paused: 'Paused', lastKnown: 'last 09:12',
+    pausedBasis: 'Held at the 09:12 value. The score needs live readings, so it stops updating rather than drifting on stale data.',
+    loadFailTitle: 'Couldn’t load open issues',
+    loadFailBody: 'Showing what is cached on this device. Anything opened in the last 14 minutes may be missing.',
+    healthShown: 'Health: shown', healthGated: 'Health: gated (B-04)',
+    liveOn: 'Live data', liveOff: 'No live data',
+    partTagsOn: 'Part tags on', partTagsOff: 'Part tags off',
+    showMore: ' more from below', showLess: 'Show fewer',
+    via: 'via ',
+    noHealthYet: 'Not enough data',
+    noHealthBasis: 'A health score needs about 30 days of running. Tracking started 10 Sep 2026, so this fills in around 10 Oct.',
+    plant: 'Plant', process: 'Unit process', unit: 'Unit', equipment: 'Equipment',
+    filedHere: 'Filed here', fromBelow: 'From below',
+    goTo: 'Open ', up: 'Back to ', selfCard: 'Open this card',
+    units: 'units', equip: 'equipment', openIssues: 'open issues', tasksDue: 'tasks due', pmDue: 'of them preventive',
+    notes: {
+      issues: 'Unplanned work. Open items first, then what has been resolved.',
+      tasks: 'Planned work, preventive included. Overdue and due first, then the last 30 days.',
+      history: 'Events for this level and everything under it.'
+    },
+    empty: {
+      issues: 'Nothing open, and nothing resolved in the last 90 days at this level or below.',
+      tasks: 'No task due here or anywhere below this level, planned or unplanned.',
+      history: 'Nothing recorded yet.'
+    },
+    calm: '✓ All normal — nothing needs you',
+    calmWhy: 'No open issue, no task due, no PM within 30 days, anywhere below this level.',
+    ctaWhy: 'Worst item anywhere below this level. ',
+    ctaHere: 'Most pressing of what is filed here.',
+    menu: [
+      { label: 'Report an issue here' },
+      { label: 'Assign a task' },
+      { label: 'Tell supervisor' },
+      { label: 'Mark maintenance mode', off: 'Phase 2 — needs alert suppression and the safety co-sign' },
+      { label: 'Bring back online', off: 'Phase 2 — pairs with maintenance mode' },
+      { label: 'Open group control', off: 'Goal 21 — no control producer this quarter' },
+      { label: 'Export this level' },
+      { label: 'Manuals & drawings' }
+    ],
+    toastSupervisor: 'Supervisor notified with this card attached.',
+    toastDisabled: 'Not available yet — ',
+    noneMappedTitle: 'No equipment mapped to this unit yet',
+    noneMappedBody: 'This basin is instrumented at process level, so its readings arrive there. Map the diffuser grid and DO probe to see them, and their issues, here.',
+    mapEquipment: 'Map equipment',
+    renderNote: 'asset render placeholder — drop OEM art here',
+    noSensors: 'No sensors mapped to this asset.',
+    noLinks: 'Nothing linked yet. Links let an issue here explain a reading two assets away.',
+    linkedInferred: 'Flow path from the plant schematic. Tap any asset to open its card.',
+    noPm: 'Condition-based inspection only — no preventive schedule for this type.',
+    stale: 'stale',
+    toastIssue: 'Issue filed here. It now rolls up to every level above.',
+    toastTask: 'Task assigned for today’s shift.',
+    toastExport: 'Export queued — CSV of this level and everything below.',
+    toastDocs: 'No manuals attached at this level yet.',
+    toastMap: 'Equipment mapping opens in the asset register.',
+    newIssue: ['Reported by operator — needs assessment', 'Filed just now · unclaimed'],
+    newTask: ['Operator round — recorded from card', 'Due today · unassigned'],
+    newIssueDetail: 'Filed from this card, so it is owned by this level rather than by a machine below it.',
+    newTaskDetail: 'Assigned from this card. Shows on the shift list and rolls up to the process.'
+  },
+  hi: {
+    openCard: 'कार्ड खोलें', health: 'स्वास्थ्य', why: 'क्यों?',
+    attributes: 'विशेषताएँ', sensors: 'सेंसर', linked: 'जुड़े उपकरण',
+    sensorsAttention: 'ध्यान चाहिए', sensorsAllNormal: 'सब सामान्य',
+    sensorsMore: ' और सेंसर', sensorsFewer: 'कम सेंसर दिखाएँ',
+    linkedSummary: 'अपस्ट्रीम और डाउनस्ट्रीम',
+    upstream: 'अपस्ट्रीम — इसमें आता है', downstream: 'डाउनस्ट्रीम — इससे जाता है',
+    specsShow: 'मेक, मॉडल, इंस्टॉल', specsHide: 'विवरण छिपाएँ',
+    tabs: { issues: 'इशू', tasks: 'कार्य', history: 'इतिहास' },
+    tabsShort: { issues: 'इशू', tasks: 'कार्य', history: 'इतिहास' },
+    horizon: ['सब', 'आज', 'कल', 'इस हफ़्ते'],
+    horizonEmpty: 'इस अवधि में कुछ नहीं। पूरी सूची देखने के लिए “सब” चुनें।',
+    pm: 'निवारक', nextPm: 'अगला PM', noPmSchedule: 'इस उपकरण पर कोई निवारक शेड्यूल नहीं',
+    covered: 'किसी ने लिया', coveredBy: ' देख रहे हैं', coveredCta: 'किसी ने लिया — आपके लिए कुछ नहीं',
+    coveredWhy: 'यहाँ खुला एकमात्र काम किसी और के पास है। लेने के लिए सुपरवाइज़र की ज़रूरत है।',
+    duty: 'ड्यूटी ग्रुप', dutyLead: 'लीड', dutyRunning: 'चालू', dutyStandby: 'स्टैंडबाय', dutyNew: 'नया',
+    offlineBanner: '14 मिनट से लाइव डेटा नहीं — गेटवे नहीं मिल रहा। आख़िरी ज्ञात वैल्यू दिख रही हैं।',
+    retry: 'फिर कोशिश करें', paused: 'रुका हुआ', lastKnown: 'आख़िरी 09:12',
+    pausedBasis: '09:12 की वैल्यू पर रुका है। लाइव रीडिंग के बिना स्कोर अपडेट नहीं होता।',
+    loadFailTitle: 'खुले इशू लोड नहीं हुए',
+    loadFailBody: 'इस फ़ोन में सेव जानकारी दिख रही है। पिछले 14 मिनट में खुला इशू छूट सकता है।',
+    healthShown: 'स्वास्थ्य: दिख रहा', healthGated: 'स्वास्थ्य: रोका (B-04)',
+    liveOn: 'लाइव डेटा', liveOff: 'लाइव डेटा नहीं',
+    partTagsOn: 'पार्ट टैग चालू', partTagsOff: 'पार्ट टैग बंद',
+    showMore: ' और नीचे से', showLess: 'कम दिखाएँ',
+    via: 'स्रोत ',
+    noHealthYet: 'डेटा कम है',
+    noHealthBasis: 'स्वास्थ्य स्कोर के लिए लगभग 30 दिन का डेटा चाहिए। ट्रैकिंग 10 सितंबर 2026 से शुरू — यह 10 अक्टूबर के आसपास दिखेगा।',
+    plant: 'प्लांट', process: 'यूनिट प्रोसेस', unit: 'यूनिट', equipment: 'उपकरण',
+    filedHere: 'इस स्तर पर', fromBelow: 'नीचे से',
+    goTo: 'खोलें ', up: 'वापस ', selfCard: 'इसका कार्ड खोलें',
+    units: 'यूनिट', equip: 'उपकरण', openIssues: 'खुले इशू', tasksDue: 'कार्य देय', pmDue: 'उनमें निवारक',
+    notes: {
+      issues: 'अनियोजित काम। खुले पहले, फिर हल हुए।',
+      tasks: 'नियोजित काम, निवारक भी। छूटे और देय पहले, फिर पिछले 30 दिन।',
+      history: 'इस स्तर और इसके नीचे की घटनाएँ।'
+    },
+    empty: {
+      issues: 'इस स्तर या नीचे कुछ खुला नहीं, 90 दिनों में कुछ हल भी नहीं हुआ।',
+      tasks: 'यहाँ या नीचे कोई कार्य देय नहीं — नियोजित या अनियोजित।',
+      history: 'अभी कुछ दर्ज नहीं।'
+    },
+    calm: '✓ सब सामान्य — कोई कार्रवाई नहीं',
+    calmWhy: 'इस स्तर के नीचे कोई खुला इशू नहीं, कोई कार्य देय नहीं, 30 दिन में कोई PM नहीं।',
+    ctaWhy: 'इस स्तर के नीचे सबसे ज़रूरी काम। ',
+    ctaHere: 'यहाँ दर्ज कामों में सबसे ज़रूरी।',
+    menu: [
+      { label: 'यहाँ इशू दर्ज करें' },
+      { label: 'कार्य सौंपें' },
+      { label: 'सुपरवाइज़र को बताएँ' },
+      { label: 'मेंटेनेंस मोड लगाएँ', off: 'फ़ेज़ 2 — अलर्ट रोकना और सुरक्षा को-साइन बाक़ी' },
+      { label: 'वापस ऑनलाइन करें', off: 'फ़ेज़ 2 — मेंटेनेंस मोड के साथ आएगा' },
+      { label: 'ग्रुप कंट्रोल खोलें', off: 'गोल 21 — इस क्वार्टर कंट्रोल नहीं' },
+      { label: 'यह स्तर एक्सपोर्ट करें' },
+      { label: 'मैनुअल और ड्रॉइंग' }
+    ],
+    toastSupervisor: 'सुपरवाइज़र को यह कार्ड भेज दिया गया।',
+    toastDisabled: 'अभी उपलब्ध नहीं — ',
+    noneMappedTitle: 'इस यूनिट पर कोई उपकरण मैप नहीं',
+    noneMappedBody: 'इस बेसिन के सेंसर प्रोसेस स्तर पर लगे हैं, इसलिए रीडिंग वहाँ आती है। डिफ़्यूज़र ग्रिड और DO प्रोब मैप करें तो वे और उनके इशू यहाँ दिखेंगे।',
+    mapEquipment: 'उपकरण मैप करें',
+    renderNote: 'चित्र प्लेसहोल्डर — OEM आर्ट यहाँ डालें',
+    noSensors: 'इस उपकरण पर कोई सेंसर मैप नहीं।',
+    noLinks: 'अभी कुछ जुड़ा नहीं। लिंक से यहाँ का इशू दो उपकरण दूर की रीडिंग समझा सकता है।',
+    linkedInferred: 'प्लांट स्कीमैटिक से प्रवाह पथ। किसी भी उपकरण पर टैप करके उसका कार्ड खोलें।',
+    noPm: 'सिर्फ़ स्थिति-आधारित जाँच — इस प्रकार के लिए कोई निवारक शेड्यूल नहीं।',
+    stale: 'पुराना',
+    toastIssue: 'इशू यहाँ दर्ज हुआ। यह ऊपर हर स्तर पर दिखेगा।',
+    toastTask: 'आज की शिफ़्ट के लिए कार्य सौंपा गया।',
+    toastExport: 'एक्सपोर्ट कतार में — इस स्तर और नीचे का CSV।',
+    toastDocs: 'इस स्तर पर कोई मैनुअल नहीं लगा है।',
+    toastMap: 'उपकरण मैपिंग एसेट रजिस्टर में खुलेगी।',
+    newIssue: ['ऑपरेटर ने बताया — जाँच बाक़ी', 'अभी दर्ज · किसी ने नहीं लिया'],
+    newTask: ['ऑपरेटर राउंड — कार्ड से दर्ज', 'आज देय · किसी को नहीं सौंपा'],
+    newIssueDetail: 'इसी कार्ड से दर्ज, इसलिए यह नीचे की किसी मशीन का नहीं, इस स्तर का है।',
+    newTaskDetail: 'इसी कार्ड से सौंपा गया। शिफ़्ट सूची में दिखेगा और प्रोसेस तक जाएगा।'
+  }
+};
+
+const TABS = ['issues', 'tasks', 'history'];
+
+const PROFILES = {
+  rotating: {
+    label: ['Rotating machine', 'घूमने वाली मशीन'],
+    anchor: ['attributes', 'health', 'duty', 'links', 'sensors'],
+    sensorsOpen: false, art: 'blower'
+  },
+  vessel: {
+    label: ['Passive vessel', 'निष्क्रिय टैंक'],
+    anchor: ['links', 'sensors'],
+    sensorsOpen: true, art: 'tank'
+  },
+  instrument: {
+    label: ['Instrument', 'यंत्र'],
+    anchor: ['attributes', 'health', 'sensors'],
+    sensorsOpen: true, art: 'probe'
+  },
+  fixed: {
+    label: ['Fixed plant', 'स्थिर संरचना'],
+    anchor: ['attributes', 'health', 'links', 'sensors'],
+    sensorsOpen: false, art: 'screen'
+  },
+  group: { label: ['', ''], anchor: ['rollup'], art: null }
+};
+
+const BELOW_CAP = 4;
+
+const CHIP = {
+  major: '#DA1E28|#FDECEC|#F7C8C8', minor: '#B75000|#FFF0E4|#FBD3B4',
+  due: '#8A6100|#FFF6DB|#F1DFA6', overdue: '#DA1E28|#FDECEC|#F7C8C8',
+  open: '#1A4639|#E5F6F1|rgba(61,163,133,.45)',
+  resolved: '#0E6027|#E9F5ED|#CDE7D8', done: '#525252|#F1F3F4|#E1E3E5',
+  covered: '#0F62FE|#EDF3FF|#C7D9FB', pm: '#5A3E9B|#F2EDFB|#DDD0F2'
+};
+
+function S(name, hName, value, range, state, meta, hMeta, via) {
+  return { n: [name, hName], v: value, r: range, s: state || 'ok', m: [meta || '', hMeta || meta || ''], via: via || '' };
+}
+
+const N = {
+  KAN: { type: 'plant', n: ['Kanpur STP', 'कानपुर STP'], st: ['5 unit processes · 62 MLD · inlet 58.4 MLD', '5 यूनिट प्रोसेस · 62 MLD · इनलेट 58.4 MLD'], up: 'updated 4s ago|4से पहले',
+    kids: ['PRE', 'PRI', 'SEC', 'TER', 'SLD'],
+    items: { issues: [], tasks: [], maint: [], history: [
+      { t: ['Daily compliance report generated', 'दैनिक अनुपालन रिपोर्ट बनी'], m: ['Today 07:00', 'आज 07:00'] } ] } },
+
+  PRE: { type: 'process', n: ['Preliminary Treatment', 'प्रारंभिक ट्रीटमेंट'], st: ['3 units · flow 58.4 MLD', '3 यूनिट · प्रवाह 58.4 MLD'], up: 'updated 9s ago|9से पहले',
+    kids: ['SCR', 'GRT', 'EQU'],
+    items: { issues: [], tasks: [], maint: [], history: [
+      { t: ['Screenings disposal logged · 1.2 m³', 'स्क्रीनिंग निपटान दर्ज · 1.2 m³'], m: ['Today 08:20', 'आज 08:20'] } ] } },
+
+  SCR: { type: 'unit', n: ['Screen chamber', 'स्क्रीन चैंबर'], st: ['2 equipment · both in line', '2 उपकरण · दोनों चालू'], up: 'updated 12s ago|12से पहले',
+    kids: ['CS1', 'FS1'], items: { issues: [], tasks: [], maint: [], history: [] } },
+  CS1: { type: 'equipment', profile: 'fixed', n: ['Coarse screen CS-1', 'कोर्स स्क्रीन CS-1'], st: ['Running · auto rake', 'चल रहा है · ऑटो रेक'], up: 'updated 6s ago|6से पहले',
+    health: 84, band: ['Good', 'अच्छा'], basis: ['Steady rake current, no jam events in 60 days.', '60 दिनों में रेक करंट स्थिर, कोई जाम नहीं।'],
+    specs: [['Make', 'मेक', 'Voltas'], ['Model', 'मॉडल', 'CBS-1200'], ['Installed', 'लगाया', '02 Feb 2023'], ['Bar spacing', 'बार स्पेसिंग', '25 mm']],
+    links: { down: ['FS1'] },
+    sensors: [S('Rake motor current', 'रेक मोटर करंट', '3.4 A', '2.8–4.5 A', 'ok'), S('Upstream level', 'अपस्ट्रीम लेवल', '410 mm', 'norm 380', 'ok')],
+    items: { issues: [], tasks: [], maint: [
+      { c: ['Done', 'पूरा'], k: 'done', t: ['Rake chain lubrication', 'रेक चेन लुब्रिकेशन'], m: ['09 Aug · Suresh · 25 min', '09 अग · सुरेश · 25 मि'], d: ['Monthly PM. Chain wear within limit.', 'मासिक PM। चेन घिसाव सीमा के अंदर।'] } ], history: [] } },
+  FS1: { type: 'equipment', profile: 'fixed', n: ['Fine screen FS-1', 'फ़ाइन स्क्रीन FS-1'], st: ['Running · high differential', 'चल रहा है · डिफ़रेंशियल ज़्यादा'], up: 'updated 5s ago|5से पहले',
+    health: 61, band: ['Watch', 'निगरानी'], basis: ['Down 9 points in 30 days on rising upstream level and rake run-time.', '30 दिनों में 9 अंक गिरा — अपस्ट्रीम लेवल और रेक रन-टाइम बढ़ा।'],
+    specs: [['Make', 'मेक', 'Voltas'], ['Model', 'मॉडल', 'FBS-600'], ['Installed', 'लगाया', '02 Feb 2023'], ['Bar spacing', 'बार स्पेसिंग', '6 mm']],
+    links: { up: ['CS1'], down: ['GRC'] },
+    sensors: [S('Differential level', 'डिफ़रेंशियल लेवल', '210 mm', 'limit 150', 'warn'), S('Rake cycles', 'रेक चक्र', '15 /h', 'norm 5 /h', 'warn'), S('Motor current', 'मोटर करंट', '4.1 A', '2.8–4.5 A', 'ok')],
+    items: { issues: [
+      { c: ['Minor', 'छोटा'], k: 'minor', pri: 2, claim: ['Suresh', 'सुरेश'], sla: ['5 h 40 m left', '5 घं 40 मि बचे'], t: ['Upstream level 210 mm above normal', 'अपस्ट्रीम लेवल सामान्य से 210 mm ऊपर'], m: ['Opened 05:40 today · claimed 05:52', 'आज 05:40 खुला · 05:52 पर लिया'], d: ['Rake cycling every 4 minutes against a 12-minute norm. Screenings load is up after last night’s rain.', 'रेक हर 4 मिनट चल रहा है, सामान्य 12 मिनट। कल रात की बारिश के बाद स्क्रीनिंग लोड बढ़ा।'] } ],
+      tasks: [], maint: [], history: [
+      { t: ['Issue opened · upstream level high', 'इशू खुला · अपस्ट्रीम लेवल ज़्यादा'], m: ['Today 05:40', 'आज 05:40'] } ] } },
+
+  GRT: { type: 'unit', n: ['Grit chamber', 'ग्रिट चैंबर'], st: ['1 equipment · in line', '1 उपकरण · चालू'], up: 'updated 20s ago|20से पहले',
+    kids: ['GRC'], items: { issues: [], tasks: [], maint: [], history: [] } },
+  GRC: { type: 'equipment', profile: 'rotating', n: ['Grit classifier GC-1', 'ग्रिट क्लासिफ़ायर GC-1'], st: ['Running', 'चल रहा है'], up: 'updated 8s ago|8से पहले',
+    health: 79, band: ['Good', 'अच्छा'], basis: ['No anomalies in 90 days. Last service on schedule.', '90 दिनों में कुछ असामान्य नहीं। पिछली सर्विस समय पर।'],
+    specs: [['Make', 'मेक', 'Hydrotech'], ['Model', 'मॉडल', 'GC-300'], ['Installed', 'लगाया', '02 Feb 2023'], ['Rating', 'रेटिंग', '1.5 kW']],
+    links: { up: ['FS1'], down: ['EQ1'] },
+    sensors: [S('Screw motor current', 'स्क्रू मोटर करंट', '2.2 A', '1.6–3.0 A', 'ok'), S('Grit removal rate', 'ग्रिट निष्कासन', '0.6 m³/d', 'norm 0.5', 'ok')],
+    items: { issues: [], tasks: [], maint: [], history: [] } },
+
+  EQU: { type: 'unit', n: ['Equalization', 'इक्वलाइज़ेशन'], st: ['2 equipment · tank + level probe', '2 उपकरण · टैंक + लेवल प्रोब'], up: 'updated 7s ago|7से पहले',
+    kids: ['EQ1', 'LP1'], items: { issues: [], tasks: [], maint: [], history: [] } },
+  EQ1: { type: 'equipment', profile: 'vessel', n: ['Equalization tank EQ-1', 'इक्वलाइज़ेशन टैंक EQ-1'], st: ['68% full · 8,160 m³ of 12,000', '68% भरा · 12,000 में 8,160 m³'], up: 'updated 7s ago|7से पहले',
+    specs: [['Capacity', 'क्षमता', '12,000 m³'], ['Material', 'सामग्री', 'RCC, epoxy lined'], ['Commissioned', 'चालू हुआ', '02 Feb 2023'], ['Tag', 'टैग', 'EQ-1']],
+    links: { up: ['GRC'], down: ['SP1', 'AB1'] },
+    sensors: [
+      S('Level', 'लेवल', '68 %', 'alarm 90 %', 'ok', '', '', 'LP-1'),
+      S('Inflow', 'इनफ़्लो', '2,430 m³/h', 'design 2,600', 'ok'),
+      S('pH', 'pH', '7.2', '6.5–8.5', 'ok'),
+      S('Temperature', 'तापमान', '28 °C', '—', 'stale', 'last 09:04', 'आख़िरी 09:04')
+    ],
+    items: { issues: [], tasks: [
+      { c: ['Due today', 'आज देय'], k: 'due', pri: 3, t: ['Surface scum inspection', 'सतह पर झाग की जाँच'], m: ['Due today 12:00 · Suresh, shift B', 'आज 12:00 तक · सुरेश, शिफ़्ट B'], d: ['Visual round. Scum layer noted at 8 cm on 26 Aug — flag if it passes 15 cm.', 'दृश्य जाँच। 26 अगस्त को झाग 8 cm था — 15 cm पार करे तो बताएँ।'] } ],
+      maint: [
+      { c: ['Due in 26 days', '26 दिन में'], k: 'due', pri: 4, cad: ['every 12 months', 'हर 12 महीने'], t: ['Annual desludging & liner inspection', 'वार्षिक डीस्लजिंग और लाइनर जाँच'], m: ['Around 26 Sep · tank must be taken offline', 'लगभग 26 सितंबर · टैंक बंद करना होगा'], d: ['Calendar-based, not run-hours — a vessel has no run-hours. Coordinate with the bypass line before draining.', 'कैलेंडर आधारित, रन-आवर नहीं — टैंक में रन-आवर नहीं होते। खाली करने से पहले बायपास लाइन तय करें।'] },
+      { c: ['Done', 'पूरा'], k: 'done', t: ['Liner patch repair — north wall', 'लाइनर पैच मरम्मत — उत्तरी दीवार'], m: ['21 Sep 2025 · vendor · 2 days', '21 सित 2025 · वेंडर · 2 दिन'], d: ['Epoxy patch over a 0.6 m² delamination. Holding at last inspection.', '0.6 m² डीलैमिनेशन पर एपॉक्सी पैच। पिछली जाँच में ठीक था।'] } ],
+      history: [
+      { t: ['Level peaked 84% during rain event', 'बारिश में लेवल 84% तक पहुँचा'], m: ['Today 04:10', 'आज 04:10'] },
+      { t: ['Temperature sensor stopped reporting', 'तापमान सेंसर ने डेटा भेजना बंद किया'], m: ['Today 09:04', 'आज 09:04'] } ] } },
+  LP1: { type: 'equipment', profile: 'instrument', n: ['Level probe LP-1', 'लेवल प्रोब LP-1'], st: ['Reading 68%', 'रीडिंग 68%'], up: 'updated 7s ago|7से पहले',
+    health: 88, band: ['Good', 'अच्छा'], basis: ['Calibrated 12 days ago, drift within 0.4%.', '12 दिन पहले कैलिब्रेट, ड्रिफ़्ट 0.4% के अंदर।'],
+    specs: [['Make', 'मेक', 'Endress+Hauser'], ['Model', 'मॉडल', 'FMR20'], ['Installed', 'लगाया', '02 Feb 2023'], ['Type', 'प्रकार', 'Radar, non-contact']],
+    links: { down: ['EQ1'] },
+    sensors: [S('Level', 'लेवल', '68 %', 'alarm 90 %', 'ok'), S('Signal strength', 'सिग्नल क्षमता', '92 %', '>70 %', 'ok')],
+    items: { issues: [], tasks: [], maint: [], history: [] } },
+
+  PRI: { type: 'process', n: ['Primary Treatment', 'प्राथमिक ट्रीटमेंट'], st: ['1 unit · TSS removal 58%', '1 यूनिट · TSS निष्कासन 58%'], up: 'updated 11s ago|11से पहले',
+    kids: ['PC1'],
+    items: { issues: [], tasks: [
+      { c: ['Due today', 'आज देय'], k: 'due', pri: 3, t: ['Sludge blanket depth reading — all clarifiers', 'स्लज ब्लैंकेट गहराई रीडिंग — सभी क्लैरिफ़ायर'], m: ['Due today 14:00 · Suresh, shift B', 'आज 14:00 तक · सुरेश, शिफ़्ट B'], d: ['Process-level round, not tied to one machine. Last reading 0.9 m on 24 Aug.', 'प्रोसेस स्तर का राउंड, किसी एक मशीन से जुड़ा नहीं। पिछली रीडिंग 24 अगस्त को 0.9 m।'] } ],
+      maint: [], history: [
+      { t: ['Task completed · sludge blanket reading', 'कार्य पूरा · स्लज ब्लैंकेट रीडिंग'], m: ['24 Aug 14:10', '24 अग 14:10'] } ] } },
+  PC1: { type: 'unit', n: ['Primary clarifier 1', 'प्राइमरी क्लैरिफ़ायर 1'], st: ['3 equipment · in service', '3 उपकरण · सेवा में'], up: 'updated 15s ago|15से पहले',
+    kids: ['SCM', 'SP1', 'SHT'], items: { issues: [], tasks: [], maint: [], history: [] } },
+  SCM: { type: 'equipment', profile: 'rotating', n: ['Scraper drive SD-1', 'स्क्रैपर ड्राइव SD-1'], st: ['Running · 0.9 rpm', 'चल रहा है · 0.9 rpm'], up: 'updated 7s ago|7से पहले',
+    health: 88, band: ['Good', 'अच्छा'], basis: ['Torque steady within 8% of baseline for 90 days.', '90 दिनों से टॉर्क बेसलाइन के 8% के अंदर।'],
+    specs: [['Make', 'मेक', 'Voltas'], ['Model', 'मॉडल', 'SD-24'], ['Installed', 'लगाया', '18 Feb 2023'], ['Rating', 'रेटिंग', '1.1 kW']],
+    links: { down: ['SP1'] },
+    sensors: [S('Drive torque', 'ड्राइव टॉर्क', '61 %', 'trip 85 %', 'ok'), S('Rotation', 'घूर्णन', '0.9 rpm', '0.8–1.1', 'ok')],
+    items: { issues: [], tasks: [], maint: [], history: [] } },
+  SP1: { type: 'equipment', profile: 'rotating', n: ['Sludge pump SP-1', 'स्लज पंप SP-1'], st: ['Stopped · duty on SP-2', 'बंद · ड्यूटी SP-2 पर'], up: 'updated 10s ago|10से पहले',
+    health: 74, band: ['Fair', 'ठीक-ठाक'], basis: ['Down 4 points on rising seal-water consumption since June.', 'जून से सील-वॉटर खपत बढ़ने पर 4 अंक गिरा।'],
+    specs: [['Make', 'मेक', 'Kirloskar'], ['Model', 'मॉडल', 'DB-65'], ['Installed', 'लगाया', '18 Feb 2023'], ['Rating', 'रेटिंग', '7.5 kW']],
+    links: { up: ['SCM'], down: ['SHT'] },
+    sensors: [
+      S('Discharge pressure', 'डिस्चार्ज दबाव', '0.0 bar', 'run 1.8 bar', 'off', 'stopped', 'बंद'),
+      S('Motor current', 'मोटर करंट', '0.0 A', '9–14 A', 'off', 'stopped', 'बंद'),
+      S('Seal water flow', 'सील वॉटर प्रवाह', '0.7 L/min', 'norm 0.4', 'warn')
+    ],
+    items: { issues: [], tasks: [], maint: [
+      { c: ['Done', 'पूरा'], k: 'done', t: ['Mechanical seal replacement', 'मैकेनिकल सील बदली'], m: ['14 Jul · Devid · 1 h 30 m', '14 जुलाई · देविड · 1 घं 30 मि'], d: ['Seal and sleeve replaced. Seal-water flow back to 0.4 L/min at the time.', 'सील और स्लीव बदली। तब सील-वॉटर प्रवाह 0.4 L/min पर आ गया था।'] } ],
+      history: [] } },
+  SHT: { type: 'equipment', profile: 'vessel', n: ['Sludge holding tank SHT-1', 'स्लज होल्डिंग टैंक SHT-1'], st: ['41% full · 1,230 m³ of 3,000', '41% भरा · 3,000 में 1,230 m³'], up: 'updated 25s ago|25से पहले',
+    specs: [['Capacity', 'क्षमता', '3,000 m³'], ['Material', 'सामग्री', 'RCC'], ['Commissioned', 'चालू हुआ', '18 Feb 2023'], ['Tag', 'टैग', 'SHT-1']],
+    links: { up: ['SP1'], down: ['CF1'] },
+    sensors: [S('Level', 'लेवल', '41 %', 'alarm 85 %', 'ok'), S('Sludge density', 'स्लज घनत्व', '3.1 % DS', '2.5–4.0', 'ok')],
+    items: { issues: [], tasks: [], maint: [], history: [
+      { t: ['Batch drawn to centrifuge · 180 m³', 'सेंट्रीफ़्यूज को बैच भेजा · 180 m³'], m: ['Today 05:30', 'आज 05:30'] } ] } },
+
+  SEC: { type: 'process', n: ['Secondary Treatment', 'सेकंडरी ट्रीटमेंट'], st: ['3 units · MLSS 3,240 mg/L · SVI 118', '3 यूनिट · MLSS 3,240 mg/L · SVI 118'], up: 'updated 4s ago|4से पहले',
+    kids: ['AB1', 'AB2', 'BLG'],
+    items: { issues: [
+      { c: ['Major', 'बड़ा'], k: 'major', pri: 1, sla: ['1 h 05 m left', '1 घं 05 मि बचे'], t: ['DO below target across both aeration basins', 'दोनों एरेशन बेसिन में DO लक्ष्य से नीचे'], m: ['Opened 06:20 today by alert · unclaimed', 'आज 06:20 पर खुला · किसी ने नहीं लिया'], d: ['Basin 1 at 1.4 mg/L, basin 2 at 1.6, against a 2.0 target for 90 minutes. Filed against the process because it spans both basins and the blower group.', 'बेसिन 1 में 1.4 mg/L, बेसिन 2 में 1.6, लक्ष्य 2.0 — 90 मिनट से। दोनों बेसिन और ब्लोअर ग्रुप से जुड़ा है, इसलिए प्रोसेस पर दर्ज।'] } ],
+      tasks: [], maint: [], history: [
+      { t: ['Issue opened · DO below target', 'इशू खुला · DO लक्ष्य से नीचे'], m: ['Today 06:20', 'आज 06:20'] },
+      { t: ['MLSS sample logged · 3,240 mg/L', 'MLSS सैंपल दर्ज · 3,240 mg/L'], m: ['Today 06:00', 'आज 06:00'] } ] } },
+  AB1: { type: 'unit', n: ['Aeration basin 1', 'एरेशन बेसिन 1'], st: ['DO 1.4 mg/L · below target', 'DO 1.4 mg/L · लक्ष्य से नीचे'], up: 'updated 5s ago|5से पहले',
+    kids: ['DIF1', 'DO1'],
+    items: { issues: [], tasks: [], maint: [], history: [
+      { t: ['DO dipped below 1.5 mg/L', 'DO 1.5 mg/L से नीचे गिरा'], m: ['Today 06:18', 'आज 06:18'] } ] } },
+  DIF1: { type: 'equipment', profile: 'fixed', n: ['Diffuser grid DG-1', 'डिफ़्यूज़र ग्रिड DG-1'], st: ['In service · ΔP 0.31 bar', 'सेवा में · ΔP 0.31 bar'], up: 'updated 5s ago|5से पहले',
+    health: 58, band: ['Watch', 'निगरानी'], basis: ['Down 11 points in 60 days. Backpressure climbing — typical of membrane fouling.', '60 दिनों में 11 अंक गिरा। बैकप्रेशर बढ़ रहा है — मेम्ब्रेन फ़ाउलिंग का संकेत।'],
+    specs: [['Make', 'मेक', 'Xylem'], ['Model', 'मॉडल', 'Sanitaire 9"'], ['Installed', 'लगाया', '14 Mar 2023'], ['Count', 'संख्या', '640 discs']],
+    links: { up: ['BL2', 'BL1'] },
+    sensors: [S('Backpressure', 'बैकप्रेशर', '0.31 bar', 'new 0.22', 'warn'), S('Air flow', 'हवा का प्रवाह', '1,840 m³/h', '1,700–2,100', 'ok')],
+    items: { issues: [], tasks: [], maint: [
+      { c: ['Due in 9 days', '9 दिन में'], k: 'due', pri: 4, cad: ['every 6 months', 'हर 6 महीने'], t: ['Diffuser membrane inspection & acid clean', 'डिफ़्यूज़र मेम्ब्रेन जाँच और एसिड क्लीन'], m: ['Around 04 Sep · needs basin 1 offline', 'लगभग 04 सितंबर · बेसिन 1 बंद करना होगा'], d: ['Backpressure 0.31 bar against 0.22 when new. Plan with the aeration changeover so DO is not lost.', 'बैकप्रेशर 0.31 bar, नया होने पर 0.22 था। DO न गिरे इसलिए एरेशन चेंजओवर के साथ योजना बनाएँ।'] } ],
+      history: [] } },
+  DO1: { type: 'equipment', profile: 'instrument', n: ['DO probe DO-1', 'DO प्रोब DO-1'], st: ['Reading 1.4 mg/L', 'रीडिंग 1.4 mg/L'], up: 'updated 5s ago|5से पहले',
+    health: 66, band: ['Watch', 'निगरानी'], basis: ['Calibration drift widening. 47 days since last calibration against a 30-day cycle.', 'कैलिब्रेशन ड्रिफ़्ट बढ़ रहा है। पिछले कैलिब्रेशन से 47 दिन, चक्र 30 दिन का है।'],
+    specs: [['Make', 'मेक', 'Hach'], ['Model', 'मॉडल', 'LDO sc'], ['Installed', 'लगाया', '14 Mar 2023'], ['Type', 'प्रकार', 'Luminescent DO']],
+    links: { down: ['AB1'] },
+    sensors: [S('Dissolved oxygen', 'घुली ऑक्सीजन', '1.4 mg/L', 'target 2.0', 'warn'), S('Temperature', 'तापमान', '29 °C', '—', 'ok'), S('Days since calibration', 'कैलिब्रेशन से दिन', '47 d', 'cycle 30 d', 'warn')],
+    items: { issues: [], tasks: [
+      { c: ['Overdue', 'छूटा'], k: 'overdue', pri: 2, t: ['Monthly DO probe calibration', 'मासिक DO प्रोब कैलिब्रेशन'], m: ['Was due 09 Aug · 17 days overdue · unassigned', '09 अगस्त को देय था · 17 दिन देरी · किसी को नहीं सौंपा'], d: ['An uncalibrated probe is why the DO reading may be understating actual oxygen. Do this before chasing the basin issue.', 'बिना कैलिब्रेशन प्रोब के कारण DO रीडिंग असल से कम दिख सकती है। बेसिन इशू देखने से पहले यह करें।'] } ],
+      maint: [], history: [] } },
+  AB2: { type: 'unit', n: ['Aeration basin 2', 'एरेशन बेसिन 2'], st: ['DO 1.6 mg/L · below target', 'DO 1.6 mg/L · लक्ष्य से नीचे'], up: 'updated 5s ago|5से पहले',
+    kids: [], items: { issues: [], tasks: [], maint: [], history: [
+      { t: ['Diffuser cleaning completed', 'डिफ़्यूज़र सफ़ाई पूरी'], m: ['12 Jul', '12 जुल'] } ] } },
+  BLG: { type: 'unit', n: ['Blower group IU-G3', 'ब्लोअर ग्रुप IU-G3'], st: ['3 blowers · 2 running, 1 standby', '3 ब्लोअर · 2 चालू, 1 स्टैंडबाय'], up: 'updated 4s ago|4से पहले',
+    kids: ['BL1', 'BL2', 'BL3', 'BL4'],
+    items: { issues: [], tasks: [
+      { c: ['Due today', 'आज देय'], k: 'due', pri: 3, t: ['Duty changeover log — rotate lead blower', 'ड्यूटी चेंजओवर लॉग — लीड ब्लोअर बदलें'], m: ['Due today 22:00 · Ramesh, shift B', 'आज 22:00 तक · रमेश, शिफ़्ट B'], d: ['Group-level task: BL-1 has been lead for 14 days. Rotating keeps run-hours even across the three.', 'ग्रुप स्तर का कार्य: BL-1 14 दिन से लीड है। बदलने से तीनों के रन-आवर बराबर रहते हैं।'] } ],
+      maint: [], history: [
+      { t: ['Lead blower changed · BL-3 → BL-1', 'लीड ब्लोअर बदला · BL-3 → BL-1'], m: ['12 Aug 22:10', '12 अग 22:10'] } ] } },
+  BL1: { type: 'equipment', profile: 'rotating', duty: 'lead', n: ['Aeration Blower BL-1', 'एरेशन ब्लोअर BL-1'], st: ['Running · lead · 46 Hz', 'चल रहा है · लीड · 46 Hz'], up: 'updated 4s ago|4से पहले',
+    health: 81, band: ['Good', 'अच्छा'], basis: ['Stable current and bearing temperature over 90 days.', '90 दिनों से करंट और बेयरिंग तापमान स्थिर।'],
+    specs: [['Make', 'मेक', 'Kaeser'], ['Model', 'मॉडल', 'EB 291 C'], ['Installed', 'लगाया', '14 Mar 2023'], ['Rating', 'रेटिंग', '22 kW']],
+    links: { down: ['DIF1'] },
+    sensors: [S('VFD frequency', 'VFD फ़्रीक्वेंसी', '46 Hz', '35–50 Hz', 'ok'), S('Motor current', 'मोटर करंट', '9.1 A', '6–12 A', 'ok'), S('Discharge pressure', 'डिस्चार्ज दबाव', '0.57 bar', 'norm 0.55', 'ok')],
+    items: { issues: [], tasks: [], maint: [], history: [] } },
+  BL2: { type: 'equipment', profile: 'rotating', duty: 'running', n: ['Aeration Blower BL-2', 'एरेशन ब्लोअर BL-2'], st: ['Running · 42 Hz · 8.2 A', 'चल रहा है · 42 Hz · 8.2 A'], up: 'updated 4s ago|4से पहले',
+    health: 72, band: ['Fair', 'ठीक-ठाक'], basis: ['Down 6 points in 30 days on motor-current trend and days since the last bearing service, against this blower’s own last 90 days. Confidence: medium.', '30 दिनों में 6 अंक गिरा — मोटर करंट का रुझान और पिछली बेयरिंग सर्विस से बीते दिन, इसी ब्लोअर के पिछले 90 दिनों के मुक़ाबले। भरोसा: मध्यम।'],
+    specs: [['Make', 'मेक', 'Kaeser'], ['Model', 'मॉडल', 'EB 291 C'], ['Installed', 'लगाया', '14 Mar 2023'], ['Rating', 'रेटिंग', '22 kW']],
+    links: { down: ['DIF1'] },
+    sensors: [
+      S('Discharge pressure', 'डिस्चार्ज दबाव', '0.72 bar', 'norm 0.55', 'warn'),
+      S('Motor current', 'मोटर करंट', '8.2 A', '6–12 A', 'ok'),
+      S('VFD frequency', 'VFD फ़्रीक्वेंसी', '42 Hz', '35–50 Hz', 'ok'),
+      S('Bearing temperature', 'बेयरिंग तापमान', '68 °C', 'limit 78 °C', 'stale', 'last 09:12', 'आख़िरी 09:12'),
+      S('Air filter ΔP', 'एयर फ़िल्टर ΔP', '0.18 bar', 'limit 0.25', 'ok')
+    ],
+    items: { issues: [
+      { c: ['Major', 'बड़ा'], k: 'major', pri: 1, sla: ['2 h 14 m left', '2 घं 14 मि बचे'], t: ['Discharge pressure high — 0.72 bar against 0.55 normal', 'डिस्चार्ज दबाव ज़्यादा — 0.72 bar (सामान्य 0.55)'], m: ['Opened 06:12 today by alert · unclaimed · 2 h 14 m to SLA', 'आज 06:12 पर खुला · किसी ने नहीं लिया · 2 घं 14 मि बचे'], d: ['Pressure above 0.65 bar for 12 minutes. First checks: air-filter ΔP, then belt tension. The diffuser grid downstream is also fouling — check both.', '12 मिनट तक दबाव 0.65 bar से ऊपर। पहले जाँचें: एयर फ़िल्टर ΔP, फिर बेल्ट टेंशन। डाउनस्ट्रीम डिफ़्यूज़र ग्रिड भी जाम हो रहा है — दोनों देखें।'] },
+      { c: ['Resolved', 'हल हुआ'], k: 'resolved', t: ['Motor current spike to 11.4 A', 'मोटर करंट 11.4 A तक बढ़ा'], m: ['12 Jul · closed by Ramesh in 3 h 40 m', '12 जुलाई · रमेश · 3 घं 40 मि'], d: ['Root cause: clogged air filter. No recurrence since.', 'मूल कारण: एयर फ़िल्टर जाम। दोबारा नहीं हुआ।'] } ],
+      tasks: [
+      { c: ['Due 16:00', '16:00 तक'], k: 'due', pri: 3, t: ['Weekly vibration & bearing-temperature check', 'साप्ताहिक वाइब्रेशन और बेयरिंग तापमान जाँच'], m: ['Due today 16:00 · Ramesh, shift B · not started', 'आज 16:00 तक · रमेश, शिफ़्ट B · शुरू नहीं'], d: ['4 steps, about 8 minutes. Last reading 2.1 mm/s on 13 Aug.', '4 चरण, लगभग 8 मिनट। पिछली रीडिंग 13 अगस्त को 2.1 mm/s।'] },
+      { c: ['Done', 'पूरा'], k: 'done', t: ['Air-filter ΔP reading', 'एयर फ़िल्टर ΔP रीडिंग'], m: ['18 Aug 09:20 · Ramesh · 6 min', '18 अग 09:20 · रमेश · 6 मि'], d: ['ΔP 0.18 bar. Within limit.', 'ΔP 0.18 bar। सीमा के अंदर।'] } ],
+      maint: [
+      { c: ['Due in 14 days', '14 दिन में'], k: 'due', pri: 4, cad: ['every 500 run-hours', 'हर 500 रन-आवर'], t: ['Bearing greasing & belt tension — 500-hour PM', 'बेयरिंग ग्रीसिंग और बेल्ट टेंशन — 500 घंटे PM'], m: ['Around 12 Sep · Ramesh', 'लगभग 12 सितंबर · रमेश'], d: ['Kit: 2 grease cartridges, 1 V-belt set. Previous one done 11 Apr.', 'किट: 2 ग्रीस कार्ट्रिज, 1 V-बेल्ट सेट। पिछला 11 अप्रैल को।'] },
+      { c: ['Done', 'पूरा'], k: 'done', t: ['Belt replacement', 'बेल्ट बदली'], m: ['02 May · Devid · 55 min', '02 मई · देविड · 55 मि'], d: ['Belt set replaced, tension set to 0.9 kN.', 'बेल्ट सेट बदला, टेंशन 0.9 kN।'] },
+      { c: ['Done', 'पूरा'], k: 'done', t: ['Annual overhaul — AMC visit', 'वार्षिक ओवरहॉल — AMC विज़िट'], m: ['16 Jan · Kaeser engineer', '16 जनवरी · Kaeser इंजीनियर'], d: ['Impeller clearance reset, filter-housing gasket replaced. Report AMC-1123.', 'इम्पेलर क्लीयरेंस सेट, गैसकेट बदला। रिपोर्ट AMC-1123।'] } ],
+      history: [
+      { t: ['Issue opened · discharge pressure high', 'इशू खुला · डिस्चार्ज दबाव ज़्यादा'], m: ['Today 06:12', 'आज 06:12'] },
+      { t: ['Bearing temperature sensor went stale', 'बेयरिंग तापमान सेंसर पुराना हुआ'], m: ['Today 09:12', 'आज 09:12'] },
+      { t: ['Task completed · air-filter ΔP reading', 'कार्य पूरा · एयर फ़िल्टर ΔP'], m: ['18 Aug 09:20', '18 अग 09:20'] },
+      { t: ['Root cause recorded · clogged air filter', 'मूल कारण दर्ज · एयर फ़िल्टर जाम'], m: ['12 Jul 14:10', '12 जुल 14:10'] } ] } },
+  BL3: { type: 'equipment', profile: 'rotating', duty: 'standby', n: ['Aeration Blower BL-3', 'एरेशन ब्लोअर BL-3'], st: ['Standby · ready', 'स्टैंडबाय · तैयार'], up: 'updated 4s ago|4से पहले',
+    health: 77, basis: ['Low run-hours. Weekly no-load test passing.', 'रन-आवर कम। साप्ताहिक नो-लोड टेस्ट पास।'],
+    specs: [['Make', 'मेक', 'Kaeser'], ['Model', 'मॉडल', 'EB 291 C'], ['Installed', 'लगाया', '14 Mar 2023'], ['Rating', 'रेटिंग', '22 kW']],
+    links: { down: ['DIF1'] },
+    sensors: [S('VFD frequency', 'VFD फ़्रीक्वेंसी', '0 Hz', '35–50 Hz', 'off', 'standby', 'स्टैंडबाय'), S('Motor current', 'मोटर करंट', '0.0 A', '6–12 A', 'off', 'standby', 'स्टैंडबाय')],
+    items: { issues: [], tasks: [], maint: [], history: [] } },
+  BL4: { type: 'equipment', profile: 'rotating', duty: 'new', n: ['Aeration Blower BL-4', 'एरेशन ब्लोअर BL-4'], st: ['Running · 40 Hz · 7.6 A', 'चल रहा है · 40 Hz · 7.6 A'], up: 'updated 6s ago|6से पहले',
+    specs: [['Make', 'मेक', 'Kaeser'], ['Model', 'मॉडल', 'EB 291 C'], ['Installed', 'लगाया', '10 Sep 2026'], ['Rating', 'रेटिंग', '22 kW']],
+    links: { down: ['DIF1'] },
+    sensors: [S('VFD frequency', 'VFD फ़्रीक्वेंसी', '40 Hz', '35–50 Hz', 'ok'), S('Motor current', 'मोटर करंट', '7.6 A', '6–12 A', 'ok'), S('Discharge pressure', 'डिस्चार्ज दबाव', '0.54 bar', 'norm 0.55', 'ok')],
+    items: { issues: [], tasks: [], maint: [], history: [
+      { t: ['Tracking started · BL-4 commissioned', 'ट्रैकिंग शुरू · BL-4 चालू हुआ'], m: ['10 Sep 2026 10:30', '10 सित 2026 10:30'] } ] } },
+
+  TER: { type: 'process', n: ['Tertiary Treatment', 'तृतीयक ट्रीटमेंट'], st: ['1 unit · residual Cl₂ 0.4 mg/L', '1 यूनिट · अवशिष्ट Cl₂ 0.4 mg/L'], up: 'updated 8s ago|8से पहले',
+    kids: ['CHL'], items: { issues: [], tasks: [], maint: [], history: [] } },
+  CHL: { type: 'unit', n: ['Chlorination', 'क्लोरीनेशन'], st: ['3 equipment · 1 pump running', '3 उपकरण · 1 पंप चालू'], up: 'updated 8s ago|8से पहले',
+    kids: ['DP1', 'DP2', 'CCT'], items: { issues: [], tasks: [], maint: [], history: [] } },
+  DP1: { type: 'equipment', profile: 'rotating', n: ['Dosing pump DP-1', 'डोज़िंग पंप DP-1'], st: ['Running · 38 L/h', 'चल रहा है · 38 L/h'], up: 'updated 8s ago|8से पहले',
+    health: 69, band: ['Fair', 'ठीक-ठाक'], basis: ['Stroke consistency slipping over 45 days.', '45 दिनों में स्ट्रोक की एकरूपता घट रही है।'],
+    specs: [['Make', 'मेक', 'ProMinent'], ['Model', 'मॉडल', 'gamma/ X'], ['Installed', 'लगाया', '06 Apr 2024'], ['Rating', 'रेटिंग', '0.37 kW']],
+    links: { down: ['CCT'] },
+    sensors: [S('Dose rate', 'डोज़ दर', '38 L/h', '30–45 L/h', 'ok'), S('Stroke frequency', 'स्ट्रोक फ़्रीक्वेंसी', '112 /min', '90–130', 'ok'), S('Suction pressure', 'सक्शन दबाव', '−0.18 bar', '>−0.25', 'ok')],
+    items: { issues: [], tasks: [], maint: [
+      { c: ['Due in 21 days', '21 दिन में'], k: 'due', pri: 4, cad: ['every 6 months', 'हर 6 महीने'], t: ['Diaphragm & valve kit replacement', 'डायाफ़्राम और वाल्व किट बदली'], m: ['Around 16 Sep · kit in store', 'लगभग 16 सितंबर · किट स्टोर में'], d: ['6-monthly PM. Previous kit fitted 16 Mar.', 'छह-मासिक PM। पिछली किट 16 मार्च को लगी।'] } ], history: [] } },
+  DP2: { type: 'equipment', profile: 'rotating', n: ['Dosing pump DP-2', 'डोज़िंग पंप DP-2'], st: ['Standby', 'स्टैंडबाय'], up: 'updated 8s ago|8से पहले',
+    health: 83, band: ['Good', 'अच्छा'], basis: ['Low run-hours, no faults since commissioning.', 'रन-आवर कम, चालू होने से कोई ख़राबी नहीं।'],
+    specs: [['Make', 'मेक', 'ProMinent'], ['Model', 'मॉडल', 'gamma/ X'], ['Installed', 'लगाया', '06 Apr 2024'], ['Rating', 'रेटिंग', '0.37 kW']],
+    links: { down: ['CCT'] },
+    sensors: [S('Dose rate', 'डोज़ दर', '0 L/h', '30–45 L/h', 'off', 'standby', 'स्टैंडबाय')],
+    items: { issues: [], tasks: [], maint: [], history: [] } },
+  CCT: { type: 'equipment', profile: 'vessel', n: ['Chlorine contact tank CT-1', 'क्लोरीन कॉन्टैक्ट टैंक CT-1'], st: ['In service · 31 min contact time', 'सेवा में · 31 मिनट कॉन्टैक्ट समय'], up: 'updated 8s ago|8से पहले',
+    specs: [['Capacity', 'क्षमता', '1,600 m³'], ['Material', 'सामग्री', 'RCC'], ['Commissioned', 'चालू हुआ', '06 Apr 2024'], ['Tag', 'टैग', 'CT-1']],
+    links: { up: ['DP1', 'DP2'] },
+    sensors: [
+      S('Residual chlorine', 'अवशिष्ट क्लोरीन', '0.4 mg/L', '0.2–0.5', 'ok'),
+      S('Contact time', 'कॉन्टैक्ट समय', '31 min', 'min 30', 'ok'),
+      S('Outlet flow', 'आउटलेट प्रवाह', '2,380 m³/h', 'design 2,600', 'ok')
+    ],
+    items: { issues: [], tasks: [], maint: [], history: [
+      { t: ['Residual dipped to 0.18 mg/L for 12 min', 'अवशिष्ट 12 मिनट के लिए 0.18 mg/L तक गिरा'], m: ['22 Aug 19:40', '22 अग 19:40'] } ] } },
+
+  SLD: { type: 'process', n: ['Sludge Handling', 'स्लज हैंडलिंग'], st: ['1 unit · cake 18% DS', '1 यूनिट · केक 18% DS'], up: 'updated 30s ago|30से पहले',
+    kids: ['CFH'], items: { issues: [], tasks: [], maint: [], history: [] } },
+  CFH: { type: 'unit', n: ['Centrifuge house', 'सेंट्रीफ़्यूज हाउस'], st: ['1 equipment · idle since 06:00', '1 उपकरण · 06:00 से बंद'], up: 'updated 30s ago|30से पहले',
+    kids: ['CF1'], items: { issues: [], tasks: [], maint: [], history: [] } },
+  CF1: { type: 'equipment', profile: 'rotating', n: ['Centrifuge CF-1', 'सेंट्रीफ़्यूज CF-1'], st: ['Idle · next batch 14:00', 'बंद · अगला बैच 14:00'], up: 'updated 30s ago|30से पहले',
+    health: 64, band: ['Watch', 'निगरानी'], basis: ['Vibration trending up over 30 days on the bowl bearing.', '30 दिनों में बाउल बेयरिंग का वाइब्रेशन बढ़ रहा है।'],
+    specs: [['Make', 'मेक', 'Alfa Laval'], ['Model', 'मॉडल', 'ALDEC 30'], ['Installed', 'लगाया', '20 Nov 2022'], ['Rating', 'रेटिंग', '45 kW']],
+    links: { up: ['SHT'] },
+    sensors: [
+      S('Bowl vibration', 'बाउल वाइब्रेशन', '4.1 mm/s', 'limit 4.5', 'warn'),
+      S('Bowl speed', 'बाउल गति', '0 rpm', '3,200 rpm', 'off', 'idle', 'बंद'),
+      S('Cake dryness', 'केक सूखापन', '18 % DS', 'target 18', 'ok', 'last batch', 'पिछला बैच')
+    ],
+    items: { issues: [], tasks: [], maint: [
+      { c: ['Due in 5 days', '5 दिन में'], k: 'due', pri: 4, cad: ['every 3 months', 'हर 3 महीने'], t: ['Bowl bearing vibration survey', 'बाउल बेयरिंग वाइब्रेशन सर्वे'], m: ['Around 31 Aug · vendor visit booked', 'लगभग 31 अगस्त · वेंडर विज़िट तय'], d: ['Vibration 4.1 mm/s against a 4.5 limit. Vendor to confirm bearing condition before it trips.', 'वाइब्रेशन 4.1 mm/s, सीमा 4.5। ट्रिप होने से पहले वेंडर बेयरिंग की स्थिति देखेगा।'] } ],
+      history: [
+      { t: ['Batch completed · 4.2 t cake', 'बैच पूरा · 4.2 t केक'], m: ['Today 06:00', 'आज 06:00'] } ] } }
+};
+
+const ART = {
+  blower: {
+    w: 560, h: 340,
+    parts: [
+      { n: ['Air filter', 'एयर फ़िल्टर'], pos: 'left:24px;top:182px;' },
+      { n: ['Belt', 'बेल्ट'], pos: 'left:252px;top:252px;' },
+      { n: ['Impeller', 'इम्पेलर'], pos: 'left:352px;top:248px;' }
+    ],
+    shapes: [
+      'left:60px;top:268px;width:430px;height:16px;background:#B8C4CD;border-radius:3px;',
+      'left:84px;top:172px;width:176px;height:96px;border-radius:12px;background:linear-gradient(160deg,#E5EDF2,#C3CFD9);border:2px solid #8FA2B0;',
+      'left:260px;top:196px;width:44px;height:50px;background:#CFD8DC;border:2px solid #8FA2B0;border-radius:5px;',
+      'left:304px;top:128px;width:164px;height:164px;border-radius:50%;background:linear-gradient(150deg,#FFFFFF,#DDE7EE);border:3px solid #8FA2B0;',
+      'left:358px;top:182px;width:56px;height:56px;border-radius:50%;background:#CFDAE2;border:2px solid #8FA2B0;',
+      'left:370px;top:74px;width:34px;height:58px;background:#9FB0BE;border-radius:4px;',
+      'left:370px;top:74px;width:142px;height:30px;background:#9FB0BE;border-radius:4px;',
+      'left:26px;top:120px;width:70px;height:58px;background:#EEF4F8;border:2px dashed #8FA2B0;border-radius:6px;'
+    ],
+    tags: [
+      { v: '42 Hz', l: 'VFD', pos: 'left:0;top:150px;' },
+      { v: '8.2 A', l: '', pos: 'left:106px;top:128px;' },
+      { v: '0.72 bar', l: '', pos: 'left:418px;top:38px;', warn: true },
+      { v: '68 °C', l: 'stale 09:12', pos: 'left:150px;top:288px;', stale: true }
+    ]
+  },
+  tank: {
+    w: 520, h: 340,
+    shapes: [
+      'left:110px;top:56px;width:300px;height:240px;border-radius:10px;background:linear-gradient(180deg,#F2F7FB 0%,#F2F7FB 32%,#CFE3EF 32%,#A9CCE0 100%);border:3px solid #8FA2B0;',
+      'left:110px;top:132px;width:300px;height:5px;background:rgba(24,54,80,.28);',
+      'left:96px;top:290px;width:328px;height:14px;background:#B8C4CD;border-radius:3px;',
+      'left:40px;top:96px;width:70px;height:18px;background:#9FB0BE;border-radius:3px;',
+      'left:410px;top:250px;width:74px;height:18px;background:#9FB0BE;border-radius:3px;',
+      'left:236px;top:26px;width:48px;height:30px;background:#CFD8DC;border:2px solid #8FA2B0;border-radius:5px 5px 0 0;'
+    ],
+    tags: [
+      { v: '68 %', l: 'level', pos: 'left:150px;top:150px;' },
+      { v: '2,430 m³/h', l: 'in', pos: 'left:0;top:60px;' },
+      { v: '7.2', l: 'pH', pos: 'left:330px;top:196px;' },
+      { v: '28 °C', l: 'stale 09:04', pos: 'left:300px;top:300px;', stale: true }
+    ]
+  },
+  probe: {
+    w: 420, h: 340,
+    shapes: [
+      'left:120px;top:40px;width:180px;height:44px;border-radius:8px;background:linear-gradient(160deg,#E5EDF2,#C3CFD9);border:2px solid #8FA2B0;',
+      'left:196px;top:84px;width:28px;height:150px;background:#9FB0BE;border-radius:3px;',
+      'left:182px;top:234px;width:56px;height:64px;border-radius:6px 6px 14px 14px;background:#CFDAE2;border:2px solid #8FA2B0;',
+      'left:60px;top:196px;width:300px;height:6px;background:rgba(24,54,80,.22);',
+      'left:60px;top:202px;width:300px;height:118px;background:rgba(169,204,224,.5);border-radius:0 0 8px 8px;'
+    ],
+    tags: [
+      { v: '1.4 mg/L', l: 'DO', pos: 'left:236px;top:250px;', warn: true },
+      { v: '29 °C', l: '', pos: 'left:0;top:230px;' },
+      { v: '47 d', l: 'since cal', pos: 'left:0;top:44px;', warn: true }
+    ]
+  },
+  screen: {
+    w: 520, h: 340,
+    shapes: [
+      'left:80px;top:60px;width:360px;height:220px;border-radius:8px;background:#F2F7FB;border:3px solid #8FA2B0;',
+      'left:140px;top:60px;width:6px;height:220px;background:#9FB0BE;',
+      'left:190px;top:60px;width:6px;height:220px;background:#9FB0BE;',
+      'left:240px;top:60px;width:6px;height:220px;background:#9FB0BE;',
+      'left:290px;top:60px;width:6px;height:220px;background:#9FB0BE;',
+      'left:340px;top:60px;width:6px;height:220px;background:#9FB0BE;',
+      'left:80px;top:150px;width:360px;height:5px;background:rgba(24,54,80,.26);',
+      'left:66px;top:280px;width:388px;height:14px;background:#B8C4CD;border-radius:3px;'
+    ],
+    tags: [
+      { v: '210 mm', l: 'ΔLevel', pos: 'left:0;top:110px;', warn: true },
+      { v: '15 /h', l: 'rake', pos: 'left:352px;top:30px;', warn: true },
+      { v: '4.1 A', l: '', pos: 'left:352px;top:290px;' }
+    ]
+  }
+};
+
+function chipStyle(kind) {
+  const c = (CHIP[kind] || CHIP.done).split('|');
+  return 'font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:' + c[0] +
+    ';background:' + c[1] + ';border:1px solid ' + c[2] + ';border-radius:20px;padding:3px 9px;white-space:nowrap;';
+}
+
+const SENSOR_TONE = {
+  ok: { dot: '#198038', value: '#161616' },
+  warn: { dot: '#FF832B', value: '#B75000' },
+  stale: { dot: '#C9CDD1', value: '#8D8D8D' },
+  off: { dot: '#C9CDD1', value: '#8D8D8D' }
+};
+
+class Component extends DCLogic {
+  state = {
+    lang: 'en',
+    dPath: ['KAN'], mPath: ['KAN'],
+    dTab: 0, mTab: 0, dExp: '', mExp: '',
+    dDrawer: true, mDrawer: false,
+    dSpecs: false, mSpecs: false, dWhy: false, mWhy: false,
+    dSensors: null, mSensors: null,
+    dMenu: false, mMenu: false,
+    dHorizon: 0, mHorizon: 0, dShowAll: false, mShowAll: false,
+    mLinks: false, mDuty: false, mSensorsAll: false,
+    offline: false, healthGated: false, showParts: true,
+    extra: [], dToast: '', mToast: ''
+  };
+
+  set(p) { this.setState(p); }
+
+  componentDidMount() {
+    this._esc = e => {
+      if (e.key !== 'Escape') return;
+      const s = this.state;
+      if (s.dMenu || s.mMenu) this.set({ dMenu: false, mMenu: false });
+      else this.set({ dDrawer: false, mDrawer: false });
+    };
+    window.addEventListener('keydown', this._esc);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._esc);
+    clearTimeout(this._dT); clearTimeout(this._mT);
+  }
+
+  toast(side, text) {
+    const k = side === 'd' ? 'dToast' : 'mToast';
+    this.set({ [k]: text });
+    const timer = side === 'd' ? '_dT' : '_mT';
+    clearTimeout(this[timer]);
+    this[timer] = setTimeout(() => this.set({ [k]: '' }), 3200);
+  }
+
+  profileOf(id) {
+    const n = N[id];
+    return PROFILES[n.type === 'equipment' ? (n.profile || 'rotating') : 'group'];
+  }
+
+  pathTo(id) {
+    const walk = (cur, trail) => {
+      const t = trail.concat([cur]);
+      if (cur === id) return t;
+      for (const k of (N[cur].kids || [])) { const r = walk(k, t); if (r) return r; }
+      return null;
+    };
+    return walk('KAN', []) || ['KAN'];
+  }
+
+  descendants(id) {
+    const out = [];
+    const walk = c => (N[c].kids || []).forEach(k => { out.push(k); walk(k); });
+    walk(id);
+    return out;
+  }
+
+  extrasFor(id, key) {
+    return this.state.extra.filter(x => x.node === id && x.key === key).map(x => x.item);
+  }
+
+  collect(id, key) {
+    const src = nid => {
+      const it = N[nid].items;
+      let list = (it[key] || []).concat(this.extrasFor(nid, key));
+      if (key === 'tasks') {
+        const prev = (it.maint || []).concat(this.extrasFor(nid, 'maint')).map(x => Object.assign({}, x, { prev: true }));
+        list = list.concat(prev);
+      }
+      return list;
+    };
+    const own = src(id).map(it => ({ it, owner: null }));
+    const below = [];
+    this.descendants(id).forEach(d => { src(d).forEach(it => below.push({ it, owner: d })); });
+    const rank = x => (x.it.claim ? 5.5 : 0) + (x.it.pri || 9);
+    own.sort((a, b) => rank(a) - rank(b));
+    below.sort((a, b) => rank(a) - rank(b));
+    return own.concat(below);
+  }
+
+  horizonOf(it) {
+    const c = (it.c && it.c[0]) || '';
+    if (/done/i.test(c)) return 'done';
+    if (/overdue/i.test(c)) return 'past';
+    if (/today|\d\d:\d\d/.test(c)) return 'today';
+    const m = c.match(/in (\d+) day/i);
+    if (m) { const d = +m[1]; return d <= 1 ? 'tomorrow' : (d <= 7 ? 'week' : 'later'); }
+    return 'later';
+  }
+
+  inHorizon(it, idx) {
+    if (idx === 0) return true;
+    const h = this.horizonOf(it);
+    if (h === 'done') return false;
+    if (idx === 1) return h === 'past' || h === 'today';
+    if (idx === 2) return h === 'tomorrow';
+    return h === 'past' || h === 'today' || h === 'tomorrow' || h === 'week';
+  }
+
+  nextPm(id) {
+    const rows = this.collect(id, 'tasks')
+      .filter(r => r.it.prev && r.it.pri && this.horizonOf(r.it) !== 'done');
+    if (!rows.length) return null;
+    const order = { past: 0, today: 1, tomorrow: 2, week: 3, later: 4 };
+    rows.sort((a, b) => order[this.horizonOf(a.it)] - order[this.horizonOf(b.it)]);
+    return rows[0];
+  }
+
+  bandOf(h, lang, paused) {
+    if (paused) return { t: L[lang].paused, c: '#525252', bg: '#F1F3F4' };
+    if (h >= 78) return { t: lang === 'en' ? 'Good' : 'अच्छा', c: '#0E6027', bg: '#E9F5ED' };
+    if (h >= 68) return { t: lang === 'en' ? 'Fair' : 'ठीक-ठाक', c: '#8A6100', bg: '#FFF6DB' };
+    return { t: lang === 'en' ? 'Watch' : 'निगरानी', c: '#B75000', bg: '#FFF0E4' };
+  }
+
+  counts(id) {
+    const open = k => this.collect(id, k).filter(r => r.it.pri);
+    const iss = open('issues'), tsk = open('tasks');
+    const sla = iss.filter(r => r.it.sla && !r.it.claim)[0];
+    return {
+      issues: iss.length, tasks: tsk.length,
+      covered: iss.filter(r => r.it.claim).length,
+      sla: sla ? sla.it.sla : null,
+      pm: tsk.filter(r => r.it.prev).length
+    };
+  }
+
+  tabKeys() { return TABS; }
+
+  worst(id) {
+    const off = this.state.offline;
+    let best = null, covered = null;
+    const keys = off ? ['tasks', 'issues'] : ['issues', 'tasks'];
+    keys.forEach((k, ki) => {
+      this.collect(id, k).forEach(r => {
+        if (!r.it.pri) return;
+        if (r.it.claim) { if (!covered) covered = { it: r.it, owner: r.owner, key: k }; return; }
+        if (off && k === 'issues') return;
+        const score = ki * 10 + r.it.pri;
+        if (!best || score < best.score) best = { it: r.it, owner: r.owner, key: k, score };
+      });
+    });
+    return best || (covered ? { covered: true, it: covered.it, owner: covered.owner, key: covered.key } : null);
+  }
+
+  attnLine(id, lang) {
+    const c = this.counts(id);
+    const w = lang === 'en'
+      ? [['issue', 'issues'], ['task due', 'tasks due']]
+      : [['इशू', 'इशू'], ['कार्य देय', 'कार्य देय']];
+    const parts = [];
+    if (c.issues) parts.push(c.issues + ' ' + (c.issues === 1 ? w[0][0] : w[0][1]));
+    if (c.tasks) parts.push(c.tasks + ' ' + (c.tasks === 1 ? w[1][0] : w[1][1]));
+    if (!parts.length) return { text: lang === 'en' ? 'Nothing pending' : 'कुछ बाक़ी नहीं', tone: 'ok' };
+    const worst = this.worst(id);
+    if (!worst || worst.covered) return { text: parts.join(' · '), tone: 'covered' };
+    return { text: parts.join(' · '), tone: worst.it.pri === 1 ? 'bad' : (worst.it.pri === 2 ? 'warn' : 'due') };
+  }
+
+  buildNode(id, go) {
+    const lang = this.state.lang, li = lang === 'en' ? 0 : 1;
+    const off = this.state.offline;
+    const n = N[id], prof = this.profileOf(id);
+    const isEq = n.type === 'equipment';
+    const c = this.counts(id);
+    const eqCount = this.descendants(id).filter(d => N[d].type === 'equipment').length;
+    const unitCount = this.descendants(id).filter(d => N[d].type === 'unit').length;
+    const path = this.pathTo(id);
+    const place = path.slice(0, -1).map(p => N[p].n[li]).join(' › ');
+    const tone = { plant: '#183650', process: '#1A4639', unit: '#8A6100', equipment: '#525252' }[n.type];
+    const sensors = n.sensors || [];
+
+    const dirs = [];
+    if (n.links && n.links.up && n.links.up.length) dirs.push({ dir: 'up', ids: n.links.up });
+    if (n.links && n.links.down && n.links.down.length) dirs.push({ dir: 'down', ids: n.links.down });
+
+    return {
+      id, name: n.n[li],
+      place: place || (lang === 'en' ? 'Plant root' : 'प्लांट रूट'),
+      status: n.st[li], updated: n.up.split('|')[li],
+      levelLabel: L[lang][n.type],
+      levelChipStyle: 'font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:' + tone +
+        ';background:#F4F7FA;border:1px solid #E1E3E5;border-radius:20px;padding:3px 9px;white-space:nowrap;',
+      profileLabel: isEq ? prof.label[li] : '',
+      profileChipStyle: isEq
+        ? 'font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.45);border-radius:20px;padding:3px 9px;white-space:nowrap;'
+        : 'display:none;',
+      profileChipDarkStyle: isEq
+        ? 'font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#BFEBDC;background:rgba(61,163,133,.22);border-radius:20px;padding:3px 8px;white-space:nowrap;'
+        : 'display:none;',
+      statusDotStyle: 'width:9px;height:9px;border-radius:50%;flex-shrink:0;background:' +
+        (/Stopped|Idle|Standby|बंद|स्टैंडबाय/.test(n.st[0] + n.st[1]) ? '#8D8D8D' : '#198038') + ';',
+      isEquipment: isEq,
+      health: isEq && n.health ? String(n.health) : '—',
+      band: isEq ? (n.health ? this.bandOf(n.health, lang, off).t : L[lang].noHealthYet) : '',
+      healthFill: isEq && n.health && !off ? n.health + '%' : (isEq && n.health ? n.health + '%' : '0%'),
+      healthFillColor: off ? '#C9CDD1' : 'linear-gradient(90deg,#3DA385,#F1C21B)',
+      healthNumColor: n.health ? '#161616' : '#8D8D8D',
+      bandStyle: isEq
+        ? 'font-size:11.5px;font-weight:700;color:' + (n.health ? this.bandOf(n.health, lang, off).c : '#525252') +
+          ';background:' + (n.health ? this.bandOf(n.health, lang, off).bg : '#F1F3F4') + ';border-radius:4px;padding:1px 6px;'
+        : 'display:none;',
+      basis: isEq ? (off ? L[lang].pausedBasis : (n.health && n.basis ? n.basis[li] : L[lang].noHealthBasis)) : '',
+      specs: (n.specs || []).map(sp => ({ label: sp[li], value: sp[2], chip: sp[2] })),
+      specsSummary: (n.specs || []).slice(0, 2).map(sp => sp[2]).join(' · '),
+      composition: isEq
+        ? (sensors.length + ' ' + (lang === 'en' ? 'sensors mapped' : 'सेंसर मैप') + ' · ' + prof.label[li])
+        : (eqCount === 0 && unitCount === 0
+            ? (lang === 'en' ? 'Nothing mapped yet' : 'अभी कुछ मैप नहीं')
+            : (unitCount ? unitCount + ' ' + L[lang].units + ' · ' : '') + eqCount + ' ' + L[lang].equip),
+      sensors: sensors.map(sn => {
+        const st = off ? 'stale' : sn.s;
+        const tn = SENSOR_TONE[st] || SENSOR_TONE.ok;
+        const row = 'display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #F0F0F0;';
+        const bits = [];
+        if (off) bits.push(L[lang].lastKnown);
+        else if (sn.m[li]) bits.push(sn.m[li]);
+        if (sn.via) bits.push(L[lang].via + sn.via);
+        return {
+          name: sn.n[li], value: sn.v, range: sn.r,
+          meta: bits.join(' · '),
+          dotStyle: 'width:8px;height:8px;border-radius:50%;flex-shrink:0;background:' + tn.dot + ';',
+          valueStyle: 'font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;color:' + tn.value + ';',
+          rowStyle: row + 'padding:10px 0;',
+          mRowStyle: row + 'padding:12px 0;',
+          sev: (st === 'warn' ? 0 : (st === 'stale' ? 1 : (st === 'off' ? 3 : 2)))
+        };
+      }),
+      sensorCount: String(sensors.length),
+      sensorCountStyle: sensors.length
+        ? 'font-size:11px;font-weight:700;color:#525252;background:#F1F3F4;border-radius:9px;min-width:17px;text-align:center;padding:1px 6px;'
+        : 'display:none;',
+      links: dirs.map(d => ({
+        dirLabel: d.dir === 'up' ? L[lang].upstream : L[lang].downstream,
+        nodes: d.ids.map(lid => {
+          const ln = N[lid], la = this.attnLine(lid, lang);
+          const dot = { bad: '#DA1E28', warn: '#B75000', due: '#8A6100', covered: '#0F62FE', ok: '#198038' }[la.tone];
+          const base = 'display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:#161616;background:#F7F9FB;border:1px solid #D6DEE5;border-radius:8px;cursor:pointer;';
+          return {
+            name: ln.n[li], chev: '›',
+            dotStyle: 'width:7px;height:7px;border-radius:50%;flex-shrink:0;background:' + dot + ';',
+            style: base + 'padding:8px 11px;min-height:36px;',
+            mStyle: base + 'padding:11px 13px;min-height:44px;',
+            onClick: () => go(lid)
+          };
+        })
+      })),
+      linksNote: dirs.length ? L[lang].linkedInferred : L[lang].noLinks,
+      linksNoteStyle: 'font-size:11.5px;color:#8D8D8D;margin-top:10px;line-height:1.5;',
+      linksCount: dirs.reduce((a, d) => a + d.ids.length, 0),
+      duty: (() => {
+        const parent = path.length > 1 ? path[path.length - 2] : null;
+        if (!parent) return [];
+        const peers = (N[parent].kids || []).filter(k => N[k].duty);
+        if (peers.length < 2) return [];
+        return peers.map(k => {
+          const dn = N[k], role = L[lang]['duty' + dn.duty.charAt(0).toUpperCase() + dn.duty.slice(1)] || dn.duty;
+          const me = k === id;
+          return {
+            name: dn.n[li].replace(/^.*\s/, ''), role,
+            style: 'display:inline-flex;flex-direction:column;gap:2px;padding:8px 11px;border-radius:8px;cursor:pointer;min-height:44px;justify-content:center;border:' +
+              (me ? '2px solid #183650' : '1px solid #D6DEE5') + ';background:' + (me ? '#fff' : '#F7F9FB') + ';',
+            nameStyle: 'font-size:12.5px;font-weight:700;color:#161616;',
+            roleStyle: 'font-size:10.5px;font-weight:600;color:' + (dn.duty === 'standby' ? '#8D8D8D' : '#1A4639') + ';',
+            onClick: () => go(k)
+          };
+        });
+      })(),
+      rollup: [
+        { num: String(c.issues), label: L[lang].openIssues, tone: c.issues ? 'bad' : 'ok' },
+        { num: String(c.tasks), label: L[lang].tasksDue, tone: c.tasks ? 'due' : 'ok' },
+        { num: String(c.pm), label: L[lang].pmDue, tone: c.pm ? 'due' : 'ok' }
+      ].map(st => ({
+        num: st.num, label: st.label,
+        numStyle: 'font-size:21px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;color:' +
+          (st.tone === 'bad' ? '#DA1E28' : (st.tone === 'due' ? '#8A6100' : '#8D8D8D')) + ';'
+      })),
+      rollupMeta: (() => {
+        const bits = [];
+        if (c.sla) bits.push((lang === 'en' ? 'Worst SLA: ' : 'सबसे कम SLA: ') + c.sla[li]);
+        if (c.covered) bits.push(c.covered + ' ' + L[lang].covered.toLowerCase());
+        return bits.join(' · ');
+      })(),
+      rollupMetaStyle: 'font-size:11.5px;font-weight:600;color:#525252;margin-top:9px;'
+    };
+  }
+
+  buildBlocks(id, side) {
+    const prof = this.profileOf(id);
+    const n = N[id];
+    const isEq = n.type === 'equipment';
+    const path = this.pathTo(id);
+    const parent = path.length > 1 ? path[path.length - 2] : null;
+    const dutyPeers = parent ? (N[parent].kids || []).filter(k => N[k].duty).length : 0;
+    const present = {};
+    prof.anchor.forEach((b, i) => { present[b] = i; });
+    if (isEq && !n.specs) delete present.attributes;
+    if (this.state.healthGated) delete present.health;
+    if (isEq && !(n.sensors || []).length) delete present.sensors;
+    if (dutyPeers < 2) delete present.duty;
+    const pad = side === 'd' ? '13px 20px' : '12px 16px';
+    const mk = key => (key in present)
+      ? 'order:' + present[key] + ';background:#fff;border-bottom:1px solid #E1E3E5;padding:' + pad + ';'
+      : 'display:none;';
+    return {
+      attributes: { wrapStyle: mk('attributes') },
+      health: { wrapStyle: mk('health') },
+      duty: { wrapStyle: mk('duty') },
+      links: { wrapStyle: mk('links') },
+      sensors: { wrapStyle: mk('sensors') },
+      rollup: { wrapStyle: mk('rollup') },
+      record: { wrapStyle: 'order:9;display:flex;flex-direction:column;background:#F7F9FB;' }
+    };
+  }
+
+  buildChildren(id, go) {
+    const lang = this.state.lang, li = lang === 'en' ? 0 : 1;
+    return (N[id].kids || []).map(k => {
+      const n = N[k], a = this.attnLine(k, lang), prof = this.profileOf(k);
+      const dot = { bad: '#DA1E28', warn: '#B75000', due: '#8A6100', covered: '#0F62FE', ok: '#198038' }[a.tone];
+      const box = 'background:#fff;border:' + (a.tone === 'bad' ? '1.5px solid #F0A9A9' : '1px solid #E1E3E5') +
+        ';border-radius:11px;display:flex;flex-direction:column;cursor:pointer;padding:14px 15px;';
+      const isEq = n.type === 'equipment';
+      return {
+        name: n.n[li],
+        sub: isEq ? n.st[li] : (this.descendants(k).filter(d => N[d].type === 'equipment').length + ' ' + L[lang].equip),
+        typeLabel: isEq ? prof.label[li] : '',
+        typeStyle: isEq
+          ? 'font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border-radius:4px;padding:2px 7px;margin-top:8px;align-self:flex-start;'
+          : 'display:none;',
+        health: isEq && n.health ? String(n.health) : '',
+        healthStyle: isEq && n.health
+          ? 'font-size:12.5px;font-weight:700;color:' + (n.health >= 78 ? '#0E6027' : (n.health >= 68 ? '#8A6100' : '#B75000')) +
+            ';background:#F7F9FB;border:1px solid #E1E3E5;border-radius:6px;padding:2px 7px;white-space:nowrap;'
+          : 'display:none;',
+        attn: a.text,
+        attnStyle: 'font-size:12px;font-weight:600;color:' + (a.tone === 'ok' ? '#8D8D8D' : '#161616') + ';',
+        dotStyle: 'width:8px;height:8px;border-radius:50%;flex-shrink:0;background:' + dot + ';',
+        style: box, mStyle: box + 'min-height:44px;',
+        onClick: () => go(k)
+      };
+    });
+  }
+
+  buildTabs(id, activeIdx, mobile, onPick) {
+    const lang = this.state.lang;
+    const labels = mobile ? L[lang].tabsShort : L[lang].tabs;
+    const c = this.counts(id);
+    const nums = { issues: c.issues, tasks: c.tasks, history: 0 };
+    const colors = { issues: '#DA1E28', tasks: '#183650', history: '' };
+    return TABS.map((key, i) => ({
+      label: labels[key], count: String(nums[key]), badge: nums[key] > 0,
+      badgeStyle: 'font-size:10px;font-weight:700;color:#fff;background:' + colors[key] +
+        ';border-radius:9px;min-width:16px;text-align:center;padding:1px 5px;',
+      style: 'flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:5px;min-height:' +
+        (mobile ? '44px' : '38px') + ';padding:' + (mobile ? '12px 4px' : '10px 6px') +
+        ';font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;overflow:hidden;' +
+        (activeIdx === i ? 'color:#183650;border-bottom:3px solid #3DA385;' : 'color:#8D8D8D;border-bottom:3px solid transparent;'),
+      onClick: () => onPick(i)
+    }));
+  }
+
+  buildRows(id, tabIdx, expanded, mobile, onExp, onGo, horizonIdx, showAll, onShowAll) {
+    const lang = this.state.lang, li = lang === 'en' ? 0 : 1;
+    const key = TABS[Math.min(tabIdx, TABS.length - 1)];
+    let rows = this.collect(id, key);
+    if (key === 'tasks') rows = rows.filter(r => this.inHorizon(r.it, horizonIdx));
+    const belowTotal = rows.filter(r => r.owner).length;
+    let hidden = 0;
+    if (!showAll && belowTotal > BELOW_CAP) {
+      const here = rows.filter(r => !r.owner);
+      const below = rows.filter(r => r.owner);
+      hidden = belowTotal - BELOW_CAP;
+      rows = here.concat(below.slice(0, BELOW_CAP));
+    }
+    const out = [];
+    if (this.state.offline && key === 'issues') {
+      out.push({
+        groupHead: '', groupHeadStyle: 'display:none;',
+        title: L[lang].loadFailTitle,
+        titleStyle: 'font-size:14px;font-weight:700;color:#161616;line-height:1.4;',
+        chip: '', chipStyle: 'display:none;', pmChip: '', pmChipStyle: 'display:none;',
+        meta: L[lang].loadFailBody,
+        metaStyle: 'font-size:12.5px;color:#525252;margin-top:6px;line-height:1.55;',
+        owner: '', ownerStyle: 'display:none;',
+        showDetail: false, detail: '',
+        showGoto: true, gotoLabel: L[lang].retry, onGoto: () => this.retry(),
+        wrapStyle: 'background:#fff;border:1px dashed #C9CDD1;border-radius:10px;padding:' + (mobile ? '14px' : '13px 14px') + ';cursor:default;',
+        onClick: () => {}
+      });
+    }
+    let lastGroup = null;
+    rows.forEach((r, i) => {
+      const it = r.it, rowKey = key + i;
+      const open = expanded === rowKey && !!it.d;
+      const group = r.owner ? 'below' : 'here';
+      const showHead = group !== lastGroup && rows.some(x => !!x.owner);
+      if (showHead) lastGroup = group;
+      const ownerNode = r.owner ? N[r.owner] : null;
+      const isHistory = key === 'history';
+      const bits = [it.m[li]];
+      if (it.cad) bits.push(L[lang].pm + ' · ' + it.cad[li]);
+      if (it.claim) bits.push(it.claim[li] + L[lang].coveredBy);
+      const second = it.claim ? L[lang].covered : (it.prev ? L[lang].pm : '');
+      out.push({
+        groupHead: showHead ? (group === 'here' ? L[lang].filedHere : L[lang].fromBelow) : '',
+        groupHeadStyle: showHead
+          ? 'font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;padding:6px 2px 0;'
+          : 'display:none;',
+        title: it.t[li],
+        titleStyle: 'font-size:' + (isHistory ? '13px' : '14px') + ';font-weight:600;color:#161616;line-height:1.4;',
+        chip: it.c ? it.c[li] : '',
+        chipStyle: it.c ? chipStyle(it.k) : 'display:none;',
+        pmChip: second,
+        pmChipStyle: second ? chipStyle(it.claim ? 'covered' : 'pm') : 'display:none;',
+        meta: bits.filter(Boolean).join(' · '),
+        metaStyle: 'font-size:12px;color:#525252;margin-top:' + (isHistory ? '3px' : '5px') + ';line-height:1.5;',
+        owner: ownerNode ? L[lang][ownerNode.type] + ' · ' + ownerNode.n[li] : '',
+        ownerStyle: ownerNode
+          ? 'font-size:11px;font-weight:600;color:#1A4639;background:#F1F7F5;border-radius:5px;padding:3px 7px;margin-top:7px;display:inline-block;'
+          : 'display:none;',
+        showDetail: open, detail: it.d ? it.d[li] : '',
+        showGoto: open && !!r.owner,
+        gotoLabel: ownerNode ? L[lang].goTo + ownerNode.n[li] : '',
+        onGoto: () => onGo(r.owner),
+        wrapStyle: 'background:#fff;border:' + (it.pri === 1 && !it.claim ? '1.5px solid #183650' : '1px solid #E1E3E5') +
+          ';border-radius:10px;padding:' + (mobile ? '13px' : '12px 13px') + ';cursor:' + (it.d ? 'pointer' : 'default') + ';' +
+          (it.claim ? 'opacity:.82;' : ''),
+        onClick: () => { if (it.d) onExp(open ? '' : rowKey); }
+      });
+    });
+    if (hidden > 0 || (showAll && belowTotal > BELOW_CAP)) {
+      out.push({
+        groupHead: '', groupHeadStyle: 'display:none;',
+        title: hidden > 0 ? ('+' + hidden + L[lang].showMore) : L[lang].showLess,
+        titleStyle: 'font-size:13px;font-weight:700;color:#183650;line-height:1.4;',
+        chip: '', chipStyle: 'display:none;', pmChip: '', pmChipStyle: 'display:none;',
+        meta: '', metaStyle: 'display:none;', owner: '', ownerStyle: 'display:none;',
+        showDetail: false, detail: '', showGoto: false, gotoLabel: '', onGoto: () => {},
+        wrapStyle: 'background:#F1F5F9;border:1px solid #D6DEE5;border-radius:10px;padding:' +
+          (mobile ? '14px' : '12px 13px') + ';cursor:pointer;text-align:center;',
+        onClick: () => onShowAll(hidden > 0)
+      });
+    }
+    return out;
+  }
+
+  buildCta(id, onGo) {
+    const lang = this.state.lang, li = lang === 'en' ? 0 : 1;
+    const w = this.worst(id);
+    const isEq = N[id].type === 'equipment';
+    const eqCount = this.descendants(id).filter(d => N[d].type === 'equipment').length;
+    if (!w) {
+      const why = isEq ? L[lang].calmWhy
+        : (lang === 'en' ? 'Nothing open across ' + eqCount + ' assets below this level.'
+                         : 'इस स्तर के नीचे ' + eqCount + ' उपकरणों में कुछ खुला नहीं।');
+      return { isButton: false, isCalm: true, label: L[lang].calm, labelShort: L[lang].calm, why,
+        calmStyle: 'display:flex;align-items:center;gap:8px;padding:14px 16px;background:#F1F8F4;border:1px solid #CDE7D8;border-radius:9px;font-size:14px;font-weight:600;color:#0E6027;',
+        onClick: () => {} };
+    }
+    if (w.covered) {
+      const who = w.it.claim[li];
+      return {
+        isButton: false, isCalm: true,
+        label: L[lang].coveredCta, labelShort: L[lang].coveredCta,
+        why: who + L[lang].coveredBy + '. ' + L[lang].coveredWhy,
+        calmStyle: 'display:flex;align-items:center;gap:8px;padding:14px 16px;background:#EDF3FF;border:1px solid #C7D9FB;border-radius:9px;font-size:14px;font-weight:600;color:#0F4CC0;',
+        onClick: () => {}
+      };
+    }
+    const ownerNode = w.owner ? N[w.owner] : N[id];
+    const verb = lang === 'en'
+      ? (w.key === 'issues' ? 'Start working — ' : (w.it.prev ? 'Plan PM — ' : 'Start task — '))
+      : (w.key === 'issues' ? 'काम शुरू करें — ' : (w.it.prev ? 'PM की योजना — ' : 'कार्य शुरू करें — '));
+    const short = w.it.t[li].split(' — ')[0];
+    let why = w.owner
+      ? L[lang].ctaWhy + (lang === 'en' ? 'It sits on ' : 'यह ') + ownerNode.n[li] + (lang === 'en' ? '.' : ' पर है।')
+      : L[lang].ctaHere;
+    if (this.state.offline) {
+      why = (lang === 'en'
+        ? 'Issues need live readings, so the card falls back to planned work. '
+        : 'इशू के लिए लाइव रीडिंग चाहिए, इसलिए कार्ड नियोजित काम पर आ गया। ') + why;
+    }
+    return {
+      isButton: true, isCalm: false,
+      label: verb + short, labelShort: verb + short, why,
+      ctaId: w.it.t[0],
+      onClick: () => { if (w.owner) onGo(w.owner); }
+    };
+  }
+
+  menuFor(side, nodeId) {
+    const lang = this.state.lang, t = L[lang];
+    const add = (key, item, tabKey) => {
+      const extra = this.state.extra.concat([{ node: nodeId, key, item }]);
+      const idx = Math.max(0, TABS.indexOf(tabKey));
+      if (side === 'd') this.set({ extra, dTab: idx, dExp: '', dMenu: false, dHorizon: 0 });
+      else this.set({ extra, mTab: idx, mExp: '', mMenu: false, mHorizon: 0 });
+    };
+    const acts = [
+      () => {
+        add('issues', {
+          c: [lang === 'en' ? 'Minor' : 'छोटा', lang === 'en' ? 'Minor' : 'छोटा'], k: 'minor', pri: 2,
+          t: [t.newIssue[0], t.newIssue[0]], m: [t.newIssue[1], t.newIssue[1]],
+          d: [t.newIssueDetail, t.newIssueDetail]
+        }, 'issues');
+        this.toast(side, t.toastIssue);
+      },
+      () => {
+        add('tasks', {
+          c: [lang === 'en' ? 'Due today' : 'आज देय', lang === 'en' ? 'Due today' : 'आज देय'], k: 'due', pri: 3,
+          t: [t.newTask[0], t.newTask[0]], m: [t.newTask[1], t.newTask[1]],
+          d: [t.newTaskDetail, t.newTaskDetail]
+        }, 'tasks');
+        this.toast(side, t.toastTask);
+      },
+      () => { this.set(side === 'd' ? { dMenu: false } : { mMenu: false }); this.toast(side, t.toastSupervisor); },
+      null, null, null,
+      () => { this.set(side === 'd' ? { dMenu: false } : { mMenu: false }); this.toast(side, t.toastExport); },
+      () => { this.set(side === 'd' ? { dMenu: false } : { mMenu: false }); this.toast(side, t.toastDocs); }
+    ];
+    return t.menu.map((item, i) => {
+      const off = !!item.off;
+      const base = 'font-weight:600;padding:10px 11px;border-radius:7px;cursor:' + (off ? 'not-allowed' : 'pointer') +
+        ';color:' + (off ? '#A8A8A8' : '#161616') + ';display:flex;flex-direction:column;gap:2px;';
+      return {
+        label: item.label,
+        reason: off ? item.off : '',
+        reasonStyle: off ? 'font-size:10.5px;font-weight:600;color:#A8A8A8;line-height:1.4;' : 'display:none;',
+        style: base + 'font-size:13px;',
+        styleM: base + 'font-size:13.5px;padding:12px 11px;',
+        onClick: off
+          ? () => { this.set(side === 'd' ? { dMenu: false } : { mMenu: false }); this.toast(side, t.toastDisabled + item.off); }
+          : acts[i]
+      };
+    });
+  }
+
+  retry() {
+    this.set({ offline: false, dToast: '', mToast: '' });
+    this.toast('d', this.state.lang === 'en' ? 'Gateway reachable again — live values restored.' : 'गेटवे फिर मिल गया — लाइव वैल्यू वापस।');
+  }
+
+  buildArt(id) {
+    const prof = this.profileOf(id);
+    const spec = ART[prof.art] || ART.blower;
+    const off = this.state.offline;
+    const lang = this.state.lang, li = lang === 'en' ? 0 : 1;
+    const parts = (this.state.showParts && spec.parts) ? spec.parts : [];
+    return {
+      wrapStyle: 'position:relative;width:' + spec.w + 'px;height:' + spec.h + 'px;opacity:' + (off ? '.62' : '1') + ';',
+      shapes: spec.shapes.map(s => ({ style: 'position:absolute;' + s })),
+      parts: parts.map(pt => ({
+        label: pt.n[li],
+        style: 'position:absolute;' + pt.pos +
+          'font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.5);border-radius:3px;padding:2px 6px;white-space:nowrap;'
+      })),
+      tags: spec.tags.map(g => {
+        const stale = off || g.stale;
+        return {
+          value: g.v, label: off ? L[lang].lastKnown : g.l, dot: stale ? '◌' : '●',
+          style: 'position:absolute;' + g.pos + 'display:flex;align-items:center;gap:5px;background:' +
+            (stale ? '#F4F4F4' : '#fff') + ';border:1px solid ' + (g.warn && !off ? '#FFCFCF' : '#E1E3E5') +
+            ';border-radius:14px;padding:5px 10px;font-size:12.5px;font-weight:700;color:' +
+            (stale ? '#8D8D8D' : '#161616') + ';box-shadow:0 2px 6px rgba(20,40,60,.1);white-space:nowrap;',
+          dotStyle: 'font-size:9px;color:' + (stale ? '#8D8D8D' : (g.warn ? '#FF832B' : '#198038')) + ';'
+        };
+      })
+    };
+  }
+
+  buildHorizon(side, activeIdx, onPick) {
+    const lang = this.state.lang;
+    return L[lang].horizon.map((label, i) => ({
+      label,
+      style: 'flex:1 1 0;min-width:0;text-align:center;min-height:36px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border-radius:7px;cursor:pointer;padding:8px 6px;white-space:nowrap;' +
+        (activeIdx === i ? 'background:#183650;color:#fff;' : 'background:#fff;color:#525252;border:1px solid #E1E3E5;'),
+      onClick: () => onPick(i)
+    }));
+  }
+
+  renderVals() {
+    const s = this.state, p = this.props, lang = s.lang, li = lang === 'en' ? 0 : 1;
+    const t = L[lang];
+    const dId = s.dPath[s.dPath.length - 1];
+    const mId = s.mPath[s.mPath.length - 1];
+
+    const goD = id => this.set({ dPath: this.pathTo(id), dTab: 0, dExp: '', dDrawer: true, dMenu: false, dSpecs: false, dWhy: false, dSensors: null, dHorizon: 0, dShowAll: false });
+    const goM = id => this.set({ mPath: this.pathTo(id), mTab: 0, mExp: '', mDrawer: true, mMenu: false, mSpecs: false, mWhy: false, mSensors: null, mHorizon: 0, mShowAll: false, mLinks: false, mDuty: false, mSensorsAll: false });
+
+    const dNode = this.buildNode(dId, goD);
+    const mNode = this.buildNode(mId, goM);
+    const dProf = this.profileOf(dId), mProf = this.profileOf(mId);
+
+    const dSensorsOpen = s.dSensors === null ? !!dProf.sensorsOpen : s.dSensors;
+    const mSensorsOpen = s.mSensors === null ? !!mProf.sensorsOpen : s.mSensors;
+
+    const dTabIdx = Math.min(s.dTab, TABS.length - 1), mTabIdx = Math.min(s.mTab, TABS.length - 1);
+    const dKey = TABS[dTabIdx], mKey = TABS[mTabIdx];
+
+    const dRows = this.buildRows(dId, dTabIdx, s.dExp, false, e => this.set({ dExp: e }), goD, s.dHorizon, s.dShowAll, more => this.set({ dShowAll: more }));
+    const mRows = this.buildRows(mId, mTabIdx, s.mExp, true, e => this.set({ mExp: e }), goM, s.mHorizon, s.mShowAll, more => this.set({ mShowAll: more }));
+    const mParent = s.mPath.length > 1 ? s.mPath[s.mPath.length - 2] : null;
+
+    const dCta = this.buildCta(dId, goD);
+    const mCta = this.buildCta(mId, goM);
+    const dPm = this.nextPm(dId), mPm = this.nextPm(mId);
+    const pmLine = (pm, cta) => {
+      if (!pm) return null;
+      if (cta.ctaId && pm.it.t[0] === cta.ctaId) return null;
+      return L[lang].nextPm + ' · ' + pm.it.t[li].split(' — ')[0] + ' · ' + pm.it.c[li];
+    };
+    const dPmLine = pmLine(dPm, dCta), mPmLine = pmLine(mPm, mCta);
+
+    const mAllSensors = mNode.sensors.slice().sort((a, b) => a.sev - b.sev);
+    const mSensorTotal = mAllSensors.length;
+    const mSensorAlert = mAllSensors.filter(x => x.sev <= 1).length;
+    const mSensorRows = s.mSensorsAll ? mAllSensors : mAllSensors.slice(0, 3);
+    const mSensorHidden = mSensorTotal - mSensorRows.length;
+    const mDutySummary = (() => {
+      const me = mNode.duty.filter(d => /2px solid/.test(d.style))[0];
+      if (!mNode.duty.length) return '';
+      return (me ? me.name + ' · ' + me.role + ' · ' : '') + mNode.duty.length + ' ' + (lang === 'en' ? 'in group' : 'ग्रुप में');
+    })();
+
+    const jumpTargets = [
+      ['KAN', lang === 'en' ? 'Plant' : 'प्लांट'],
+      ['SEC', lang === 'en' ? 'Process' : 'प्रोसेस'],
+      ['BLG', lang === 'en' ? 'Unit' : 'यूनिट'],
+      ['BL2', lang === 'en' ? 'Blower' : 'ब्लोअर'],
+      ['FS1', lang === 'en' ? 'Covered · FS-1' : 'लिया हुआ · FS-1'],
+      ['BL4', lang === 'en' ? 'New · BL-4' : 'नया · BL-4'],
+      ['EQ1', lang === 'en' ? 'Tank' : 'टैंक'],
+      ['DO1', lang === 'en' ? 'Probe' : 'प्रोब'],
+      ['SHT', lang === 'en' ? 'Tank · no PM' : 'टैंक · PM नहीं']
+    ];
+
+    const controls = [
+      { on: !s.offline, onLabel: t.liveOn, offLabel: t.liveOff, act: () => this.set({ offline: !s.offline }) },
+      { on: !s.healthGated, onLabel: t.healthShown, offLabel: t.healthGated, act: () => this.set({ healthGated: !s.healthGated }) },
+      { on: s.showParts, onLabel: t.partTagsOn, offLabel: t.partTagsOff, act: () => this.set({ showParts: !s.showParts }) }
+    ];
+
+    return {
+      t, ctaBg: p.ctaAccent === 'teal' ? '#1A4639' : '#183650',
+
+      jumps: jumpTargets.map(([id, label]) => ({
+        label,
+        style: 'font-size:11.5px;font-weight:700;padding:6px 11px;border-radius:20px;cursor:pointer;' +
+          (dId === id ? 'color:#141414;background:#e8e8e8;' : 'color:#9a9a9a;background:#1f1f1f;border:1px solid #333;'),
+        onClick: () => { goD(id); goM(id); }
+      })),
+
+      controls: controls.map(c => ({
+        label: c.on ? c.onLabel : c.offLabel,
+        style: 'font-size:11.5px;font-weight:700;padding:6px 11px;border-radius:20px;cursor:pointer;' +
+          (c.on ? 'color:#141414;background:#e8e8e8;' : 'color:#f0b429;background:#2a2207;border:1px solid #5c4a10;'),
+        onClick: c.act
+      })),
+
+      dNode, mNode,
+      dBlocks: this.buildBlocks(dId, 'd'),
+      mBlocks: this.buildBlocks(mId, 'm'),
+      dArt: this.buildArt(dId),
+      dHasChildren: (N[dId].kids || []).length > 0,
+      dIsEquipment: dNode.isEquipment,
+      dNothingMapped: !dNode.isEquipment && (N[dId].kids || []).length === 0,
+      mNothingMapped: !mNode.isEquipment && (N[mId].kids || []).length === 0,
+      dMapEquipment: () => this.toast('d', t.toastMap),
+
+      dCrumbs: s.dPath.map((id, i) => ({
+        label: N[id].n[li],
+        style: 'font-size:12.5px;font-weight:' + (i === s.dPath.length - 1 ? '700' : '600') +
+          ';color:' + (i === s.dPath.length - 1 ? '#161616' : '#525252') + ';cursor:pointer;padding:3px 2px;',
+        sepStyle: i === s.dPath.length - 1 ? 'display:none;' : 'color:#B9C2C9;font-size:12px;',
+        onClick: () => goD(id)
+      })),
+
+      dChildren: this.buildChildren(dId, goD),
+      mChildren: this.buildChildren(mId, goM),
+
+      dTabs: this.buildTabs(dId, dTabIdx, false, i => this.set({ dTab: i, dExp: '', dShowAll: false })),
+      mTabs: this.buildTabs(mId, mTabIdx, true, i => this.set({ mTab: i, mExp: '', mShowAll: false })),
+      dRows, mRows,
+      dHorizonShow: dKey === 'tasks',
+      mHorizonShow: mKey === 'tasks',
+      dHorizonStyle: dKey === 'tasks' ? 'display:flex;gap:5px;padding:10px 16px 2px;' : 'display:none;',
+      mHorizonStyle: mKey === 'tasks' ? 'display:flex;gap:5px;padding:10px 14px 2px;' : 'display:none;',
+      dHorizonTabs: this.buildHorizon('d', s.dHorizon, i => this.set({ dHorizon: i, dExp: '', dShowAll: false })),
+      mHorizonTabs: this.buildHorizon('m', s.mHorizon, i => this.set({ mHorizon: i, mExp: '', mShowAll: false })),
+      dNote: t.notes[dKey], mNote: t.notes[mKey],
+      dEmptyText: dRows.length ? '' : (dKey === 'tasks' && s.dHorizon > 0 ? t.horizonEmpty : t.empty[dKey]),
+      dEmptyStyle: dRows.length ? 'display:none;'
+        : 'background:#fff;border:1px dashed #C9CDD1;border-radius:10px;padding:16px 15px;font-size:13px;color:#525252;line-height:1.55;',
+      mEmptyText: mRows.length ? '' : (mKey === 'tasks' && s.mHorizon > 0 ? t.horizonEmpty : t.empty[mKey]),
+      mEmptyStyle: mRows.length ? 'display:none;'
+        : 'background:#fff;border:1px dashed #C9CDD1;border-radius:10px;padding:16px 15px;font-size:13px;color:#525252;line-height:1.55;',
+
+      dCta, mCta,
+      dPmLine: dPmLine || '', mPmLine: mPmLine || '',
+      dPmStyle: dPmLine ? 'font-size:12px;font-weight:600;color:#5A3E9B;background:#F6F2FC;border:1px solid #E4DAF5;border-radius:7px;padding:8px 11px;margin-top:10px;line-height:1.45;' : 'display:none;',
+      mPmStyle: mPmLine ? 'font-size:12px;font-weight:600;color:#5A3E9B;background:#F6F2FC;border:1px solid #E4DAF5;border-radius:7px;padding:9px 11px;margin-top:10px;line-height:1.45;' : 'display:none;',
+      bannerShow: s.offline,
+      bannerText: t.offlineBanner, bannerAction: t.retry,
+      bannerStyle: s.offline
+        ? 'display:flex;align-items:flex-start;gap:10px;margin-top:11px;padding:10px 12px;background:#FFF8EC;border:1px solid #F3DDB6;border-radius:8px;font-size:12px;color:#6B4C00;'
+        : 'display:none;',
+      onRetry: () => this.retry(),
+
+      dDrawer: s.dDrawer, mDrawer: s.mDrawer,
+      dOpenDrawer: () => this.set({ dDrawer: true }),
+      dCloseDrawer: () => this.set({ dDrawer: false, dMenu: false }),
+      mOpenDrawer: () => this.set({ mDrawer: true }),
+      mCloseDrawer: () => this.set({ mDrawer: false, mMenu: false }),
+      dReopenStyle: s.dDrawer ? 'display:none;'
+        : 'font-size:12px;font-weight:700;color:#fff;background:#183650;border-radius:7px;padding:8px 14px;cursor:pointer;',
+      mSelfCardStyle: s.mDrawer ? 'display:none;'
+        : 'margin-top:4px;background:#183650;color:#fff;border-radius:11px;padding:15px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;',
+
+      mUp: () => { if (mParent) goM(mParent); },
+      mUpLabel: mParent ? t.up + N[mParent].n[li] : (lang === 'en' ? 'Plant overview' : 'प्लांट सारांश'),
+      mUpStyle: mParent
+        ? 'display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.9);background:rgba(255,255,255,.12);border-radius:7px;padding:8px 12px;min-height:36px;cursor:pointer;'
+        : 'font-size:11.5px;font-weight:600;color:rgba(255,255,255,.6);padding:4px 0;',
+
+      setEn: () => this.set({ lang: 'en' }), setHi: () => this.set({ lang: 'hi' }),
+      langEnStyle: 'font-size:12px;font-weight:700;padding:7px 12px;cursor:pointer;' + (lang === 'en' ? 'background:#183650;color:#fff;' : 'color:#525252;'),
+      langHiStyle: 'font-size:12px;font-weight:700;padding:7px 12px;cursor:pointer;' + (lang === 'hi' ? 'background:#183650;color:#fff;' : 'color:#525252;'),
+      mLangEnStyle: 'display:flex;align-items:center;justify-content:center;min-height:44px;min-width:46px;font-size:12.5px;font-weight:700;cursor:pointer;' + (lang === 'en' ? 'background:#183650;color:#fff;' : 'color:#525252;'),
+      mLangHiStyle: 'display:flex;align-items:center;justify-content:center;min-height:44px;min-width:46px;font-size:12.5px;font-weight:700;cursor:pointer;' + (lang === 'hi' ? 'background:#183650;color:#fff;' : 'color:#525252;'),
+
+      dSpecsOpen: s.dSpecs, mSpecsOpen: s.mSpecs,
+      dSpecsCaret: s.dSpecs ? '▲' : '▼', mSpecsCaret: s.mSpecs ? '▲' : '▼',
+      dSpecsSummaryStyle: s.dSpecs ? 'display:none;' : 'font-size:13.5px;font-weight:600;color:#161616;margin-top:6px;',
+      mSpecsSummaryStyle: s.mSpecs ? 'display:none;' : 'font-size:13.5px;font-weight:600;color:#161616;margin-top:5px;',
+      dToggleSpecs: () => this.set({ dSpecs: !s.dSpecs }), mToggleSpecs: () => this.set({ mSpecs: !s.mSpecs }),
+
+      dSensorsOpen, mSensorsOpen,
+      dSensorsCaret: dSensorsOpen ? '▲' : '▼', mSensorsCaret: mSensorsOpen ? '▲' : '▼',
+      dToggleSensors: () => this.set({ dSensors: !dSensorsOpen }),
+      mToggleSensors: () => this.set({ mSensors: !mSensorsOpen }),
+
+      mSensorRows: mSensorRows.map(sn => ({
+        name: sn.name, value: sn.value, range: sn.range, meta: sn.meta,
+        dotStyle: sn.dotStyle, valueStyle: sn.valueStyle, mRowStyle: sn.mRowStyle
+      })),
+      mSensorMore: mSensorHidden > 0 ? ('+' + mSensorHidden + t.sensorsMore) : t.sensorsFewer,
+      mSensorMoreStyle: (mSensorHidden > 0 || (s.mSensorsAll && mSensorTotal > 3))
+        ? 'display:flex;align-items:center;justify-content:center;min-height:44px;margin-top:8px;font-size:12.5px;font-weight:700;color:#183650;background:#F1F5F9;border:1px solid #D6DEE5;border-radius:8px;cursor:pointer;'
+        : 'display:none;',
+      mToggleSensorsAll: () => this.set({ mSensorsAll: !s.mSensorsAll }),
+      mSensorSummary: mSensorAlert
+        ? (mSensorAlert + ' ' + t.sensorsAttention)
+        : (mSensorTotal ? t.sensorsAllNormal : ''),
+      mSensorSummaryStyle: 'font-size:12.5px;font-weight:600;color:' + (mSensorAlert ? '#B75000' : '#8D8D8D') + ';margin-top:5px;',
+
+      mLinksOpen: s.mLinks,
+      mLinksCaret: s.mLinks ? '▲' : '▼',
+      mLinksSummary: mNode.linksCount ? (mNode.linksCount + ' · ' + t.linkedSummary) : t.noLinks,
+      mLinksSummaryStyle: s.mLinks ? 'display:none;' : 'font-size:12.5px;font-weight:600;color:#525252;margin-top:5px;',
+      mToggleLinks: () => this.set({ mLinks: !s.mLinks }),
+
+      mDutyOpen: s.mDuty,
+      mDutyCaret: s.mDuty ? '▲' : '▼',
+      mDutySummary: mDutySummary,
+      mDutySummaryStyle: s.mDuty ? 'display:none;' : 'font-size:12.5px;font-weight:600;color:#525252;margin-top:5px;',
+      mToggleDuty: () => this.set({ mDuty: !s.mDuty }),
+
+      dWhyOpen: s.dWhy, mWhyOpen: s.mWhy,
+      dToggleWhy: () => this.set({ dWhy: !s.dWhy }), mToggleWhy: () => this.set({ mWhy: !s.mWhy }),
+
+      dMenuOpen: s.dMenu, mMenuOpen: s.mMenu,
+      dToggleMenu: () => this.set({ dMenu: !s.dMenu }), dCloseMenu: () => this.set({ dMenu: false }),
+      mToggleMenu: () => this.set({ mMenu: !s.mMenu }), mCloseMenu: () => this.set({ mMenu: false }),
+      dMenu: this.menuFor('d', dId), mMenu: this.menuFor('m', mId),
+      dToast: !!s.dToast, dToastText: s.dToast,
+      mToast: !!s.mToast, mToastText: s.mToast
+    };
+  }
+}
+</script>
+</body>
+</html>

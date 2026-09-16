@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#141414;font-family:'IBM Plex Sans','Noto Sans Devanagari',sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:#1A4639;}
+  a:hover{color:#3DA385;}
+</style>
+</helmet>
+
+<section style="padding:48px 56px 96px;display:flex;flex-direction:column;gap:28px;">
+
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+    <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#3DA385;padding:4px 10px;border-radius:20px;">Turn 1 · Equipment Card</span>
+    <h1 style="font-size:20px;font-weight:700;color:#f2f2f2;margin:0;">Aeration Blower BL-2 — AR-2 Rotating Machine</h1>
+    <p style="font-size:12.5px;color:#8a8a8a;margin:0;max-width:720px;line-height:1.55;">One card, two projections. Desktop: equipment render on the left, card as a right-hand drawer. Mobile: the same card as a bottom drawer over the plant view. Identity · issues · tasks · preventive maintenance · one CTA · close.</p>
+  </div>
+
+  <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+
+    <div id="1a" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#141414;background:#3DA385;padding:3px 8px;border-radius:4px;">1a</span>
+        <span style="font-size:12px;font-weight:600;color:#aaa;">Desktop · 1440 × 900 · equipment view + side drawer</span>
+      </div>
+
+      <div style="width:1440px;height:900px;background:#F2F7FB;border:1px solid #2e2e2e;border-radius:10px;overflow:hidden;display:flex;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.55);">
+
+        <div style="flex:1;display:flex;flex-direction:column;background:linear-gradient(165deg,#F6FAFD,#E7EFF5);">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #E1E3E5;background:rgba(255,255,255,.7);">
+            <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#525252;font-weight:600;">
+              <span>Kanpur STP</span><span style="color:#B9C2C9;">/</span>
+              <span>Secondary Treatment</span><span style="color:#B9C2C9;">/</span>
+              <span>Aeration</span><span style="color:#B9C2C9;">/</span>
+              <span style="color:#161616;">Blower group IU-G3</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.45);border-radius:20px;padding:4px 10px;">3 blowers · BL-2 selected</span>
+            </div>
+          </div>
+
+          <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:24px;">
+            <div style="position:relative;width:600px;height:400px;">
+              <div style="position:absolute;left:70px;top:322px;width:450px;height:18px;background:#B8C4CD;border-radius:3px;"></div>
+              <div style="position:absolute;left:96px;top:212px;width:186px;height:110px;border-radius:12px;background:linear-gradient(160deg,#E5EDF2,#C3CFD9);border:2px solid #8FA2B0;"></div>
+              <div style="position:absolute;left:282px;top:238px;width:46px;height:58px;background:#CFD8DC;border:2px solid #8FA2B0;border-radius:5px;"></div>
+              <div style="position:absolute;left:328px;top:160px;width:186px;height:186px;border-radius:50%;background:linear-gradient(150deg,#FFFFFF,#DDE7EE);border:3px solid #8FA2B0;"></div>
+              <div style="position:absolute;left:389px;top:221px;width:64px;height:64px;border-radius:50%;background:#CFDAE2;border:2px solid #8FA2B0;"></div>
+              <div style="position:absolute;left:404px;top:96px;width:38px;height:70px;background:#9FB0BE;border-radius:4px;"></div>
+              <div style="position:absolute;left:404px;top:96px;width:158px;height:34px;background:#9FB0BE;border-radius:4px;"></div>
+              <div style="position:absolute;left:34px;top:150px;width:78px;height:68px;background:#EEF4F8;border:2px dashed #8FA2B0;border-radius:6px;"></div>
+
+              <div style="display:{{ partTagDisplay }};position:absolute;left:40px;top:224px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.5);border-radius:3px;padding:2px 6px;">Air filter</div>
+              <div style="display:{{ partTagDisplay }};position:absolute;left:274px;top:304px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.5);border-radius:3px;padding:2px 6px;">Belt</div>
+              <div style="display:{{ partTagDisplay }};position:absolute;left:392px;top:296px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.5);border-radius:3px;padding:2px 6px;">Impeller</div>
+              <div style="display:{{ partTagDisplay }};position:absolute;left:112px;top:330px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.5);border-radius:3px;padding:2px 6px;">Oil</div>
+
+              <div style="position:absolute;left:0;top:196px;display:flex;align-items:center;gap:5px;background:#fff;border:1px solid #E1E3E5;border-radius:14px;padding:5px 10px;font-size:12.5px;font-weight:700;color:#161616;box-shadow:0 2px 6px rgba(20,40,60,.1);">
+                <span style="color:#198038;font-size:9px;">●</span>42 Hz<span style="font-size:10px;font-weight:600;color:#8D8D8D;">VFD</span>
+              </div>
+              <div style="position:absolute;left:120px;top:170px;display:flex;align-items:center;gap:5px;background:#fff;border:1px solid #E1E3E5;border-radius:14px;padding:5px 10px;font-size:12.5px;font-weight:700;color:#161616;box-shadow:0 2px 6px rgba(20,40,60,.1);">
+                <span style="color:#198038;font-size:9px;">●</span>8.2 A<span style="font-size:10px;font-weight:600;color:#8D8D8D;">Current</span>
+              </div>
+              <div style="position:absolute;left:492px;top:52px;display:flex;align-items:center;gap:5px;background:#fff;border:1px solid #FFCFCF;border-radius:14px;padding:5px 10px;font-size:12.5px;font-weight:700;color:#161616;box-shadow:0 2px 6px rgba(20,40,60,.1);">
+                <span style="color:#FF832B;font-size:9px;">▲</span>0.72 bar<span style="font-size:10px;font-weight:600;color:#8D8D8D;">Discharge</span>
+              </div>
+              <div style="position:absolute;left:474px;top:262px;display:flex;align-items:center;gap:5px;background:#fff;border:1px solid #E1E3E5;border-radius:14px;padding:5px 10px;font-size:12.5px;font-weight:700;color:#161616;box-shadow:0 2px 6px rgba(20,40,60,.1);">
+                <span style="color:#198038;font-size:9px;">●</span>1.9 mg/L<span style="font-size:10px;font-weight:600;color:#8D8D8D;">DO down</span>
+              </div>
+              <div style="position:absolute;left:150px;top:352px;display:flex;align-items:center;gap:5px;background:#F4F4F4;border:1px solid #E1E3E5;border-radius:14px;padding:5px 10px;font-size:12.5px;font-weight:700;color:#8D8D8D;">
+                <span style="font-size:9px;">◌</span>68 °C<span style="font-size:10px;font-weight:600;">Motor temp · stale 3 m</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:14px 24px 20px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8D8D8D;">asset render placeholder — blower cutaway, drop OEM art here</span>
+            <div style="display:flex;gap:8px;">
+              <span style="font-size:11.5px;font-weight:600;color:#525252;background:#fff;border:1px solid #E1E3E5;border-radius:6px;padding:6px 10px;">BL-1 · lead</span>
+              <span style="font-size:11.5px;font-weight:700;color:#161616;background:#fff;border:2px solid #183650;border-radius:6px;padding:5px 9px;">BL-2 · running</span>
+              <span style="font-size:11.5px;font-weight:600;color:#525252;background:#fff;border:1px solid #E1E3E5;border-radius:6px;padding:6px 10px;">BL-3 · standby</span>
+            </div>
+          </div>
+        </div>
+
+        <aside style="width:452px;flex-shrink:0;background:#fff;border-left:1px solid #E1E3E5;box-shadow:-14px 0 34px rgba(15,35,55,.12);display:flex;flex-direction:column;">
+
+          <div style="padding:14px 20px 16px;border-bottom:1px solid #E1E3E5;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+              <div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;padding-top:8px;">Equipment</div>
+              <div style="display:flex;gap:4px;">
+                <div style="width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#183650;background:#F4F7FA;">⋯</div>
+                <div style="width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#183650;background:#F4F7FA;">✕</div>
+              </div>
+            </div>
+            <div style="font-size:21px;font-weight:700;color:#161616;line-height:1.25;margin-top:2px;">Aeration Blower BL-2</div>
+            <div style="font-size:13px;color:#525252;margin-top:3px;">एरेशन ब्लोअर BL-2 · Secondary Treatment › Aeration</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;">
+              <div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#161616;font-variant-numeric:tabular-nums;">
+                <span style="width:9px;height:9px;border-radius:50%;background:#198038;"></span>Running · 42 Hz · 8.2 A
+              </div>
+              <span style="font-size:11px;font-weight:600;color:#8D8D8D;">updated 4s ago</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-top:14px;padding-top:14px;border-top:1px solid #F0F0F0;">
+              <div style="display:flex;flex-direction:column;gap:2px;">
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">Make</span>
+                <span style="font-size:13.5px;font-weight:600;color:#161616;">Kaeser</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:2px;">
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">Model</span>
+                <span style="font-size:13.5px;font-weight:600;color:#161616;">EB 291 C · 22 kW</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:2px;">
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">Installed</span>
+                <span style="font-size:13.5px;font-weight:600;color:#161616;">14 Mar 2023 · 3 y 5 m</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:2px;">
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">Run hours</span>
+                <span style="font-size:13.5px;font-weight:600;color:#161616;">18,240 h</span>
+              </div>
+            </div>
+            <div style="display:{{ healthDisplay }};margin-top:14px;background:#FBFCFD;border:1px solid #E1E3E5;border-radius:9px;padding:12px 13px;">
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+                <div style="display:flex;align-items:baseline;gap:4px;">
+                  <span style="font-size:30px;font-weight:700;color:#161616;line-height:1;font-variant-numeric:tabular-nums;">72</span>
+                  <span style="font-size:13px;font-weight:600;color:#8D8D8D;">/100</span>
+                  <span style="font-size:12.5px;font-weight:700;color:#8A6100;background:#FFF6DB;border-radius:4px;padding:2px 7px;margin-left:6px;">Fair</span>
+                </div>
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">Health score</span>
+              </div>
+              <div style="height:7px;border-radius:4px;background:#EAEDEF;margin-top:10px;overflow:hidden;">
+                <div style="height:100%;width:72%;background:linear-gradient(90deg,#3DA385,#F1C21B);border-radius:4px;"></div>
+              </div>
+              <div style="font-size:11.5px;color:#525252;margin-top:8px;line-height:1.5;">Down 6 pts in 30 days. Basis: motor-current trend + run-hours since last bearing service, vs this blower's last 90 days. <span style="font-weight:600;color:#8D8D8D;">Confidence: medium</span></div>
+            </div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:14px 20px;display:flex;flex-direction:column;gap:11px;background:#F7F9FB;">
+
+            <div style="background:#fff;border:1px solid #E1E3E5;border-radius:10px;padding:13px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8D8D8D;">Open issue · 1</span>
+                <span style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#DA1E28;background:#FDECEC;border:1px solid #F7C8C8;border-radius:20px;padding:3px 9px;">Major</span>
+              </div>
+              <div style="font-size:14.5px;font-weight:600;color:#161616;line-height:1.4;">Discharge pressure high — 0.72 bar against 0.55 normal</div>
+              <div style="font-size:12px;color:#525252;margin-top:5px;">Opened 06:12 today by alert · unclaimed · SLA 8 h, 2 h 14 m left</div>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:9px;padding-top:9px;border-top:1px solid #F0F0F0;">
+                <span style="font-size:12px;color:#525252;">3 issues resolved in the last 90 days</span>
+                <a href="#1a" style="font-size:12px;font-weight:600;color:#1A4639;text-decoration:underline;">Issue history →</a>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid #E1E3E5;border-radius:10px;padding:13px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8D8D8D;">Open task · 1</span>
+                <span style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.45);border-radius:20px;padding:3px 9px;">Normal</span>
+              </div>
+              <div style="font-size:14.5px;font-weight:600;color:#161616;line-height:1.4;">Weekly vibration &amp; bearing-temperature check</div>
+              <div style="font-size:12px;color:#525252;margin-top:5px;">Due today 16:00 · Ramesh (shift B) · not started</div>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:9px;padding-top:9px;border-top:1px solid #F0F0F0;">
+                <span style="font-size:12px;color:#525252;">6 tasks completed in 30 days</span>
+                <a href="#1a" style="font-size:12px;font-weight:600;color:#1A4639;text-decoration:underline;">Task history →</a>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid #E1E3E5;border-radius:10px;padding:13px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8D8D8D;">Preventive maintenance</span>
+                <span style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8A6100;background:#FFF6DB;border:1px solid #F1DFA6;border-radius:20px;padding:3px 9px;">Due in 340 h</span>
+              </div>
+              <div style="font-size:14.5px;font-weight:600;color:#161616;line-height:1.4;">Bearing greasing &amp; belt tension — 500-hour PM</div>
+              <div style="font-size:12px;color:#525252;margin-top:5px;">Run-hours based · reaches 18,580 h around 12 Sep</div>
+              <div style="display:flex;flex-direction:column;gap:7px;margin-top:10px;padding-top:10px;border-top:1px solid #F0F0F0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:12.5px;">
+                  <span style="color:#161616;">Belt replacement</span><span style="color:#8D8D8D;">02 May · Devid</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:12.5px;">
+                  <span style="color:#161616;">Bearing greasing · 500 h PM</span><span style="color:#8D8D8D;">11 Apr · Ramesh</span>
+                </div>
+                <a href="#1a" style="font-size:12px;font-weight:600;color:#1A4639;text-decoration:underline;">Full service history →</a>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid #E1E3E5;border-radius:10px;padding:13px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8D8D8D;">Equipment history</span>
+                <a href="#1a" style="font-size:11.5px;font-weight:600;color:#1A4639;text-decoration:underline;">See all →</a>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12.5px;">
+                  <span style="color:#161616;">Issue opened · discharge pressure high</span><span style="color:#8D8D8D;white-space:nowrap;">Today 06:12</span>
+                </div>
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12.5px;">
+                  <span style="color:#161616;">Back online after cleaning</span><span style="color:#8D8D8D;white-space:nowrap;">18 Aug</span>
+                </div>
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12.5px;">
+                  <span style="color:#161616;">Root cause recorded · clogged air filter</span><span style="color:#8D8D8D;white-space:nowrap;">12 Jul</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:14px 20px 18px;border-top:1px solid #E1E3E5;background:#fff;">
+            <button style="width:100%;border:none;border-radius:9px;padding:16px 18px;font-family:inherit;font-size:15.5px;font-weight:700;color:#fff;background:{{ ctaBg }};display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;">
+              <span>Start working — discharge pressure high</span><span>→</span>
+            </button>
+            <div style="font-size:11.5px;color:#8D8D8D;margin-top:9px;line-height:1.5;">Most pressing of 3 candidates: Major issue outranks the 16:00 task and the PM due in 340 h. Report, manuals, maintenance mode and control live in ⋯.</div>
+          </div>
+        </aside>
+      </div>
+
+      <div style="max-width:1000px;font-size:12px;color:#8a8a8a;line-height:1.6;">
+        <strong style="color:#c8c8c8;">Desktop read.</strong> The render carries the live truth (tagged readings, part labels, stale indicator) so the drawer never repeats readings — it carries identity, the three attention rows, and history. Close (✕) and overflow (⋯) sit together at the top of the drawer; the plant stays visible behind it, so closing returns you to where you were. Duty/standby peers sit under the render, not in the card.
+      </div>
+    </div>
+
+    <div id="1b" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#141414;background:#3DA385;padding:3px 8px;border-radius:4px;">1b</span>
+        <span style="font-size:12px;font-weight:600;color:#aaa;">Mobile · 390 × 844 · bottom drawer</span>
+      </div>
+
+      <div style="width:390px;height:844px;background:#1c1c1e;border:3px solid #3a3a3c;border-radius:44px;overflow:hidden;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.6);">
+        <div style="position:absolute;inset:0;border-radius:41px;overflow:hidden;background:#F2F7FB;display:flex;flex-direction:column;">
+
+          <div style="background:#183650;color:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:space-between;padding:16px 20px 7px;font-size:11px;font-weight:700;flex-shrink:0;">
+            <span>9:41</span>
+            <span style="display:inline-flex;align-items:flex-end;gap:2px;height:9px;">
+              <span style="display:block;width:2.5px;height:3px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+              <span style="display:block;width:2.5px;height:5px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+              <span style="display:block;width:2.5px;height:7px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+              <span style="display:block;width:2.5px;height:9px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+            </span>
+          </div>
+
+          <div style="height:120px;background:linear-gradient(165deg,#E7EFF5,#D7E3EC);padding:12px 16px;flex-shrink:0;">
+            <div style="font-size:11.5px;font-weight:600;color:#525252;">Aeration · IU-G3 · plant view</div>
+          </div>
+
+          <div style="position:absolute;left:0;right:0;top:150px;bottom:0;background:rgba(12,22,33,.5);"></div>
+
+          <div style="position:absolute;left:0;right:0;bottom:0;top:174px;background:#F7F9FB;border-radius:20px 20px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -8px 28px rgba(10,25,40,.28);">
+            <div style="width:38px;height:4px;border-radius:2px;background:#D0D0D0;margin:9px auto 0;flex-shrink:0;"></div>
+
+            <div style="background:#fff;padding:8px 16px 14px;border-bottom:1px solid #E1E3E5;flex-shrink:0;">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+                <div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8D8D8D;padding-top:9px;">Equipment</div>
+                <div style="display:flex;gap:4px;">
+                  <div style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#183650;background:#F4F7FA;">⋯</div>
+                  <div style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#183650;background:#F4F7FA;">✕</div>
+                </div>
+              </div>
+
+              <div style="position:relative;height:126px;margin-top:2px;background:linear-gradient(160deg,#EEF4F8,#DCE7EF);border-radius:10px;overflow:hidden;">
+                <div style="position:absolute;left:30px;top:96px;width:250px;height:11px;background:#B8C4CD;border-radius:2px;"></div>
+                <div style="position:absolute;left:44px;top:56px;width:96px;height:42px;border-radius:7px;background:linear-gradient(160deg,#E5EDF2,#C3CFD9);border:2px solid #8FA2B0;"></div>
+                <div style="position:absolute;left:150px;top:34px;width:82px;height:82px;border-radius:50%;background:linear-gradient(150deg,#FFFFFF,#DDE7EE);border:2.5px solid #8FA2B0;"></div>
+                <div style="position:absolute;left:178px;top:62px;width:28px;height:28px;border-radius:50%;background:#CFDAE2;border:2px solid #8FA2B0;"></div>
+                <div style="position:absolute;left:184px;top:6px;width:18px;height:32px;background:#9FB0BE;border-radius:3px;"></div>
+                <div style="position:absolute;left:8px;top:10px;display:flex;align-items:center;gap:4px;background:#fff;border:1px solid #E1E3E5;border-radius:13px;padding:3px 8px;font-size:11.5px;font-weight:700;color:#161616;">
+                  <span style="color:#198038;font-size:8px;">●</span>42 Hz
+                </div>
+                <div style="position:absolute;right:8px;top:34px;display:flex;align-items:center;gap:4px;background:#fff;border:1px solid #FFCFCF;border-radius:13px;padding:3px 8px;font-size:11.5px;font-weight:700;color:#161616;">
+                  <span style="color:#FF832B;font-size:8px;">▲</span>0.72 bar
+                </div>
+                <div style="position:absolute;right:8px;bottom:8px;display:flex;align-items:center;gap:4px;background:rgba(24,54,80,.85);border-radius:13px;padding:3px 8px;font-size:11px;font-weight:700;color:#fff;">+3 more</div>
+                <div style="display:{{ partTagDisplay }};position:absolute;left:150px;bottom:6px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.5);border-radius:3px;padding:1px 5px;">Impeller</div>
+              </div>
+
+              <div style="font-size:18.5px;font-weight:700;color:#161616;margin-top:11px;line-height:1.25;">एरेशन ब्लोअर BL-2</div>
+              <div style="font-size:12.5px;color:#525252;margin-top:2px;">Aeration Blower BL-2 · सेकंडरी › एरेशन</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                <div style="display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:#161616;font-variant-numeric:tabular-nums;">
+                  <span style="width:9px;height:9px;border-radius:50%;background:#198038;"></span>चल रहा है · 42 Hz · 8.2 A
+                </div>
+                <span style="font-size:10.5px;font-weight:600;color:#8D8D8D;">4से पहले</span>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;">
+                <span style="font-size:11.5px;font-weight:600;color:#525252;background:#F4F7FA;border:1px solid #E1E3E5;border-radius:6px;padding:4px 8px;">Kaeser EB 291 C</span>
+                <span style="font-size:11.5px;font-weight:600;color:#525252;background:#F4F7FA;border:1px solid #E1E3E5;border-radius:6px;padding:4px 8px;">22 kW</span>
+                <span style="font-size:11.5px;font-weight:600;color:#525252;background:#F4F7FA;border:1px solid #E1E3E5;border-radius:6px;padding:4px 8px;">लगाया 14 मार्च 2023</span>
+                <span style="font-size:11.5px;font-weight:600;color:#525252;background:#F4F7FA;border:1px solid #E1E3E5;border-radius:6px;padding:4px 8px;">18,240 घंटे</span>
+              </div>
+              <div style="display:{{ healthRowDisplay }};align-items:center;gap:11px;margin-top:11px;background:#FBFCFD;border:1px solid #E1E3E5;border-radius:9px;padding:10px 12px;">
+                <div style="display:flex;align-items:baseline;gap:3px;">
+                  <span style="font-size:24px;font-weight:700;color:#161616;line-height:1;font-variant-numeric:tabular-nums;">72</span>
+                  <span style="font-size:11.5px;font-weight:600;color:#8D8D8D;">/100</span>
+                </div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">स्वास्थ्य</span>
+                    <span style="font-size:11.5px;font-weight:700;color:#8A6100;background:#FFF6DB;border-radius:4px;padding:1px 6px;">ठीक-ठाक</span>
+                    <span style="font-size:11px;color:#8D8D8D;">−6 (30 दिन)</span>
+                  </div>
+                  <div style="height:6px;border-radius:3px;background:#EAEDEF;margin-top:6px;overflow:hidden;">
+                    <div style="height:100%;width:72%;background:linear-gradient(90deg,#3DA385,#F1C21B);border-radius:3px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="flex:1;overflow-y:auto;padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px;">
+
+              <div style="background:#fff;border:1px solid #E1E3E5;border-radius:10px;padding:12px 13px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <span style="font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8D8D8D;">खुला इशू · 1</span>
+                  <span style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#DA1E28;background:#FDECEC;border:1px solid #F7C8C8;border-radius:20px;padding:3px 9px;">बड़ा</span>
+                </div>
+                <div style="font-size:14.5px;font-weight:600;color:#161616;line-height:1.4;">डिस्चार्ज दबाव ज़्यादा — 0.72 bar (सामान्य 0.55)</div>
+                <div style="font-size:12px;color:#525252;margin-top:5px;">06:12 पर खुला · किसी ने नहीं लिया · 2 घं 14 मि बचे</div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:9px;padding-top:9px;border-top:1px solid #F0F0F0;">
+                  <span style="font-size:12px;color:#525252;">90 दिनों में 3 हल हुए</span>
+                  <a href="#1b" style="font-size:12px;font-weight:600;color:#1A4639;text-decoration:underline;">इतिहास →</a>
+                </div>
+              </div>
+
+              <div style="background:#fff;border:1px solid #E1E3E5;border-radius:10px;padding:12px 13px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <span style="font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8D8D8D;">खुला कार्य · 1</span>
+                  <span style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.45);border-radius:20px;padding:3px 9px;">सामान्य</span>
+                </div>
+                <div style="font-size:14.5px;font-weight:600;color:#161616;line-height:1.4;">साप्ताहिक वाइब्रेशन और बेयरिंग तापमान जाँच</div>
+                <div style="font-size:12px;color:#525252;margin-top:5px;">आज 16:00 तक · रमेश (शिफ़्ट B) · शुरू नहीं</div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:9px;padding-top:9px;border-top:1px solid #F0F0F0;">
+                  <span style="font-size:12px;color:#525252;">30 दिनों में 6 पूरे</span>
+                  <a href="#1b" style="font-size:12px;font-weight:600;color:#1A4639;text-decoration:underline;">इतिहास →</a>
+                </div>
+              </div>
+
+              <div style="background:#fff;border:1px solid #E1E3E5;border-radius:10px;padding:12px 13px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <span style="font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8D8D8D;">निवारक मेंटेनेंस</span>
+                  <span style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8A6100;background:#FFF6DB;border:1px solid #F1DFA6;border-radius:20px;padding:3px 9px;">340 घं में</span>
+                </div>
+                <div style="font-size:14.5px;font-weight:600;color:#161616;line-height:1.4;">बेयरिंग ग्रीसिंग और बेल्ट टेंशन — 500 घंटे PM</div>
+                <div style="font-size:12px;color:#525252;margin-top:5px;">रन-आवर आधारित · लगभग 12 सितंबर</div>
+                <div style="display:flex;flex-direction:column;gap:7px;margin-top:10px;padding-top:10px;border-top:1px solid #F0F0F0;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:12.5px;">
+                    <span style="color:#161616;">बेल्ट बदली</span><span style="color:#8D8D8D;">02 मई · देविड</span>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:12.5px;">
+                    <span style="color:#161616;">बेयरिंग ग्रीसिंग · 500 घं</span><span style="color:#8D8D8D;">11 अप्रैल · रमेश</span>
+                  </div>
+                  <a href="#1b" style="font-size:12px;font-weight:600;color:#1A4639;text-decoration:underline;">पूरा सर्विस इतिहास →</a>
+                </div>
+              </div>
+
+              <div style="background:#fff;border:1px solid #E1E3E5;border-radius:10px;padding:12px 13px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <span style="font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8D8D8D;">उपकरण इतिहास</span>
+                  <a href="#1b" style="font-size:11.5px;font-weight:600;color:#1A4639;text-decoration:underline;">सब देखें →</a>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12.5px;">
+                    <span style="color:#161616;">इशू खुला · डिस्चार्ज दबाव</span><span style="color:#8D8D8D;white-space:nowrap;">आज 06:12</span>
+                  </div>
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12.5px;">
+                    <span style="color:#161616;">सफ़ाई के बाद ऑनलाइन</span><span style="color:#8D8D8D;white-space:nowrap;">18 अग</span>
+                  </div>
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12.5px;">
+                    <span style="color:#161616;">मूल कारण · एयर फ़िल्टर जाम</span><span style="color:#8D8D8D;white-space:nowrap;">12 जुल</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:11px 16px 18px;border-top:1px solid #E1E3E5;background:#fff;flex-shrink:0;">
+              <button style="width:100%;border:none;border-radius:9px;padding:16px;font-family:inherit;font-size:16px;font-weight:700;color:#fff;background:{{ ctaBg }};display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;">
+                <span>काम शुरू करें — डिस्चार्ज दबाव</span><span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="max-width:390px;font-size:12px;color:#8a8a8a;line-height:1.6;">
+        <strong style="color:#c8c8c8;">Mobile read.</strong> Same card, drawer instead of a full route — the plant stays behind the sheet, ✕ and ⋯ sit in the sheet header at thumb-safe 44 px. Hindi primary, English secondary. Specs collapse to chips; the render keeps two tags plus "+3 more". The CTA is pinned and never scrolls away.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showHealthScore&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Card composition&quot;},&quot;showPartTags&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Card composition&quot;},&quot;ctaAccent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;navy&quot;,&quot;teal&quot;],&quot;default&quot;:&quot;navy&quot;,&quot;tsType&quot;:&quot;'navy' | 'teal'&quot;,&quot;section&quot;:&quot;Card composition&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    return {
+      healthDisplay: p.showHealthScore === false ? 'none' : 'block',
+      healthRowDisplay: p.showHealthScore === false ? 'none' : 'flex',
+      partTagDisplay: p.showPartTags === false ? 'none' : 'block',
+      ctaBg: p.ctaAccent === 'teal' ? '#1A4639' : '#183650'
+    };
+  }
+}
+</script>
+</body>
+</html>

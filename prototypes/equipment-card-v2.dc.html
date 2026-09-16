@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#141414;font-family:'IBM Plex Sans','Noto Sans Devanagari',sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:#1A4639;}
+  a:hover{color:#3DA385;}
+</style>
+</helmet>
+
+<section style="padding:48px 56px 96px;display:flex;flex-direction:column;gap:26px;">
+
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#141414;background:#3DA385;padding:4px 10px;border-radius:20px;">Turn 2 · interactive</span>
+      <h1 style="font-size:20px;font-weight:700;color:#f2f2f2;margin:0;">Aeration Blower BL-2 — one thing at a time</h1>
+      <p style="font-size:12.5px;color:#8a8a8a;margin:0;max-width:700px;line-height:1.55;">Four stacked cards became one list with four tabs. Specs and the health basis fold away until asked for. Tabs, rows, language, ⋯ and ✕ all work.</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6f6f6f;">state</span>
+      <div style="display:flex;gap:6px;">
+        <sc-for list="{{ scenarios }}" as="sc" hint-placeholder-count="3">
+          <div onClick="{{ sc.onClick }}" style="{{ sc.style }}">{{ sc.label }}</div>
+        </sc-for>
+      </div>
+      <span style="font-size:11.5px;color:#7a7a7a;">{{ scenarioNote }}</span>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+
+    <div id="2a" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#141414;background:#3DA385;padding:3px 8px;border-radius:4px;">2a</span>
+        <span style="font-size:12px;font-weight:600;color:#aaa;">Desktop · 1440 × 900 · equipment view + side drawer</span>
+      </div>
+
+      <div style="width:1440px;height:900px;background:#F2F7FB;border:1px solid #2e2e2e;border-radius:10px;overflow:hidden;display:flex;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.55);">
+
+        <div style="flex:1;display:flex;flex-direction:column;background:linear-gradient(165deg,#F6FAFD,#E7EFF5);">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #E1E3E5;background:rgba(255,255,255,.7);">
+            <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#525252;font-weight:600;">
+              <span>Kanpur STP</span><span style="color:#B9C2C9;">/</span>
+              <span>Secondary Treatment</span><span style="color:#B9C2C9;">/</span>
+              <span>Aeration</span><span style="color:#B9C2C9;">/</span>
+              <span style="color:#161616;">Blower group IU-G3</span>
+            </div>
+            <div onClick="{{ openD }}" style="{{ dReopenStyle }}">{{ t.reopen }}</div>
+          </div>
+
+          <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:24px;">
+            <div style="position:relative;width:600px;height:400px;opacity:{{ graphicOpacity }};">
+              <div style="position:absolute;left:70px;top:322px;width:450px;height:18px;background:#B8C4CD;border-radius:3px;"></div>
+              <div style="position:absolute;left:96px;top:212px;width:186px;height:110px;border-radius:12px;background:linear-gradient(160deg,#E5EDF2,#C3CFD9);border:2px solid #8FA2B0;"></div>
+              <div style="position:absolute;left:282px;top:238px;width:46px;height:58px;background:#CFD8DC;border:2px solid #8FA2B0;border-radius:5px;"></div>
+              <div style="position:absolute;left:328px;top:160px;width:186px;height:186px;border-radius:50%;background:linear-gradient(150deg,#FFFFFF,#DDE7EE);border:3px solid #8FA2B0;"></div>
+              <div style="position:absolute;left:389px;top:221px;width:64px;height:64px;border-radius:50%;background:#CFDAE2;border:2px solid #8FA2B0;"></div>
+              <div style="position:absolute;left:404px;top:96px;width:38px;height:70px;background:#9FB0BE;border-radius:4px;"></div>
+              <div style="position:absolute;left:404px;top:96px;width:158px;height:34px;background:#9FB0BE;border-radius:4px;"></div>
+              <div style="position:absolute;left:34px;top:150px;width:78px;height:68px;background:#EEF4F8;border:2px dashed #8FA2B0;border-radius:6px;"></div>
+
+              <div style="display:{{ partTagDisplay }};position:absolute;left:40px;top:224px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.5);border-radius:3px;padding:2px 6px;">{{ t.partFilter }}</div>
+              <div style="display:{{ partTagDisplay }};position:absolute;left:274px;top:304px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.5);border-radius:3px;padding:2px 6px;">{{ t.partBelt }}</div>
+              <div style="display:{{ partTagDisplay }};position:absolute;left:392px;top:296px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.5);border-radius:3px;padding:2px 6px;">{{ t.partImpeller }}</div>
+
+              <sc-for list="{{ graphicTags }}" as="tag" hint-placeholder-count="4">
+                <div style="{{ tag.style }}"><span style="{{ tag.dotStyle }}">{{ tag.dot }}</span>{{ tag.value }}<span style="font-size:10px;font-weight:600;color:#8D8D8D;">{{ tag.label }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="padding:14px 24px 20px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8D8D8D;white-space:nowrap;">asset render placeholder — blower cutaway, drop OEM art here</span>
+            <div style="display:flex;gap:8px;flex-shrink:0;">
+              <span style="font-size:11.5px;font-weight:600;color:#525252;background:#fff;border:1px solid #E1E3E5;border-radius:6px;padding:6px 10px;">BL-1</span>
+              <span style="font-size:11.5px;font-weight:700;color:#161616;background:#fff;border:2px solid #183650;border-radius:6px;padding:5px 9px;">BL-2</span>
+              <span style="font-size:11.5px;font-weight:600;color:#525252;background:#fff;border:1px solid #E1E3E5;border-radius:6px;padding:6px 10px;">BL-3</span>
+            </div>
+          </div>
+        </div>
+
+        <sc-if value="{{ dOpen }}" hint-placeholder-val="{{ true }}">
+        <aside style="width:452px;flex-shrink:0;background:#fff;border-left:1px solid #E1E3E5;box-shadow:-14px 0 34px rgba(15,35,55,.12);display:flex;flex-direction:column;position:relative;">
+
+          <div style="padding:12px 20px 14px;border-bottom:1px solid #E1E3E5;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <div style="display:flex;background:#F4F7FA;border:1px solid #E1E3E5;border-radius:7px;overflow:hidden;">
+                <div onClick="{{ setEn }}" style="{{ langEnStyle }}">EN</div>
+                <div onClick="{{ setHi }}" style="{{ langHiStyle }}">हिं</div>
+              </div>
+              <div style="display:flex;gap:4px;">
+                <div onClick="{{ toggleMenuD }}" style="width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#183650;background:#F4F7FA;cursor:pointer;">⋯</div>
+                <div onClick="{{ closeD }}" style="width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#183650;background:#F4F7FA;cursor:pointer;">✕</div>
+              </div>
+            </div>
+
+            <div style="font-size:21px;font-weight:700;color:#161616;line-height:1.25;margin-top:10px;">{{ eq.name }}</div>
+            <div style="font-size:12.5px;color:#525252;margin-top:3px;">{{ eq.place }}</div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;">
+              <div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:{{ eq.statusColor }};font-variant-numeric:tabular-nums;">
+                <span style="width:9px;height:9px;border-radius:50%;background:{{ eq.dotColor }};"></span>{{ eq.status }}
+              </div>
+              <span style="font-size:11px;font-weight:600;color:#8D8D8D;">{{ eq.updated }}</span>
+            </div>
+
+            <sc-if value="{{ banner.show }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ banner.style }}">
+                <span style="flex:1;line-height:1.5;">{{ banner.text }}</span>
+                <span onClick="{{ retry }}" style="font-weight:700;text-decoration:underline;cursor:pointer;white-space:nowrap;">{{ banner.action }}</span>
+              </div>
+            </sc-if>
+
+            <div onClick="{{ toggleSpecsD }}" style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding:9px 11px;background:#F7F9FB;border:1px solid #E1E3E5;border-radius:8px;cursor:pointer;">
+              <span style="font-size:12.5px;font-weight:600;color:#525252;">{{ specsLabelD }}</span>
+              <span style="font-size:11px;font-weight:700;color:#1A4639;">{{ specsCaretD }}</span>
+            </div>
+            <sc-if value="{{ dSpecsOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px 16px;margin-top:11px;padding:0 2px;">
+                <sc-for list="{{ specs }}" as="s" hint-placeholder-count="4">
+                  <div style="display:flex;flex-direction:column;gap:2px;">
+                    <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">{{ s.label }}</span>
+                    <span style="font-size:13.5px;font-weight:600;color:#161616;">{{ s.value }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <div style="display:{{ healthDisplay }};align-items:center;gap:11px;margin-top:12px;">
+              <div style="display:flex;align-items:baseline;gap:3px;">
+                <span style="font-size:22px;font-weight:700;color:{{ health.numColor }};line-height:1;font-variant-numeric:tabular-nums;">{{ health.score }}</span>
+                <span style="font-size:11.5px;font-weight:600;color:#8D8D8D;">{{ health.outOf }}</span>
+              </div>
+              <div style="flex:1;">
+                <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
+                  <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">{{ t.health }}</span>
+                  <span style="{{ health.bandStyle }}">{{ health.band }}</span>
+                  <span onClick="{{ toggleWhyD }}" style="font-size:11.5px;font-weight:600;color:#1A4639;text-decoration:underline;cursor:pointer;">{{ t.why }}</span>
+                </div>
+                <div style="height:6px;border-radius:3px;background:#EAEDEF;margin-top:6px;overflow:hidden;">
+                  <div style="height:100%;width:{{ health.fill }};background:{{ health.fillColor }};border-radius:3px;"></div>
+                </div>
+              </div>
+            </div>
+            <sc-if value="{{ dWhyOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:11.5px;color:#525252;margin-top:9px;line-height:1.55;background:#F7F9FB;border:1px solid #E1E3E5;border-radius:8px;padding:9px 11px;">{{ health.basis }}</div>
+            </sc-if>
+          </div>
+
+          <div style="display:flex;gap:3px;padding:10px 16px 0;background:#fff;">
+            <sc-for list="{{ dTabs }}" as="tab" hint-placeholder-count="4">
+              <div onClick="{{ tab.onClick }}" style="{{ tab.style }}">
+                <span>{{ tab.label }}</span>
+                <sc-if value="{{ tab.badge }}" hint-placeholder-val="{{ false }}">
+                  <span style="{{ tab.badgeStyle }}">{{ tab.count }}</span>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:12px 16px 16px;background:#F7F9FB;display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ dRows }}" as="row" hint-placeholder-count="4">
+              <div onClick="{{ row.onClick }}" style="{{ row.wrapStyle }}">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+                  <div style="{{ row.titleStyle }}">{{ row.title }}</div>
+                  <span style="{{ row.chipStyle }}">{{ row.chip }}</span>
+                </div>
+                <div style="{{ row.metaStyle }}">{{ row.meta }}</div>
+                <sc-if value="{{ row.showDetail }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:12.5px;color:#161616;line-height:1.55;margin-top:9px;padding-top:9px;border-top:1px solid #F0F0F0;">{{ row.detail }}</div>
+                </sc-if>
+                <sc-if value="{{ row.showAction }}" hint-placeholder-val="{{ false }}">
+                  <div onClick="{{ retry }}" style="display:inline-block;margin-top:11px;font-size:12.5px;font-weight:700;color:#183650;background:#F1F5F9;border:1px solid #D6DEE5;border-radius:7px;padding:8px 13px;cursor:pointer;">{{ row.actionLabel }}</div>
+                </sc-if>
+              </div>
+            </sc-for>
+            <div style="font-size:11.5px;color:#8D8D8D;padding:2px;line-height:1.5;">{{ dRowsNote }}</div>
+          </div>
+
+          <div style="padding:13px 20px 18px;border-top:1px solid #E1E3E5;background:#fff;">
+            <sc-if value="{{ cta.isButton }}" hint-placeholder-val="{{ true }}">
+              <button style="width:100%;border:none;border-radius:9px;padding:16px 18px;font-family:inherit;font-size:15.5px;font-weight:700;color:#fff;background:{{ ctaBg }};display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;text-align:left;">
+                <span>{{ cta.label }}</span><span>→</span>
+              </button>
+            </sc-if>
+            <sc-if value="{{ cta.isCalm }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:8px;padding:14px 16px;background:#F1F8F4;border:1px solid #CDE7D8;border-radius:9px;font-size:14px;font-weight:600;color:#0E6027;">{{ cta.label }}</div>
+            </sc-if>
+            <div style="font-size:11.5px;color:#8D8D8D;margin-top:8px;line-height:1.5;">{{ cta.why }}</div>
+          </div>
+
+          <sc-if value="{{ dMenuOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:52px;right:16px;width:238px;background:#fff;border:1px solid #E1E3E5;border-radius:10px;box-shadow:0 14px 34px rgba(15,35,55,.22);padding:6px;display:flex;flex-direction:column;z-index:5;">
+              <sc-for list="{{ menu }}" as="item" hint-placeholder-count="5">
+                <div onClick="{{ closeMenuD }}" style="{{ item.style }}">{{ item.label }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </aside>
+        </sc-if>
+      </div>
+
+      <div style="max-width:1000px;font-size:12px;color:#8a8a8a;line-height:1.6;">
+        <strong style="color:#c8c8c8;">What changed.</strong> One list, four tabs — you read one thing at a time instead of four cards competing. Each tab keeps its open item on top and its record beneath, so "open, else history" is one place. Specs and the health basis are folded away; run-hours dropped. Rows expand in place. Empty and no-live-data states are designed, not blank.
+      </div>
+    </div>
+
+    <div id="2b" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#141414;background:#3DA385;padding:3px 8px;border-radius:4px;">2b</span>
+        <span style="font-size:12px;font-weight:600;color:#aaa;">Mobile · 390 × 844 · bottom drawer</span>
+      </div>
+
+      <div style="width:390px;height:844px;background:#1c1c1e;border:3px solid #3a3a3c;border-radius:44px;overflow:hidden;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.6);">
+        <div style="position:absolute;inset:0;border-radius:41px;overflow:hidden;background:#EDF3F8;display:flex;flex-direction:column;">
+
+          <div style="background:#183650;color:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:space-between;padding:16px 20px 7px;font-size:11px;font-weight:700;flex-shrink:0;">
+            <span>9:41</span>
+            <span style="display:inline-flex;align-items:flex-end;gap:2px;height:9px;">
+              <span style="display:block;width:2.5px;height:3px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+              <span style="display:block;width:2.5px;height:5px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+              <span style="display:block;width:2.5px;height:7px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+              <span style="display:block;width:2.5px;height:9px;border-radius:1px;background:rgba(255,255,255,.9);"></span>
+            </span>
+          </div>
+
+          <div style="flex:1;padding:14px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="font-size:11.5px;font-weight:600;color:#525252;">{{ t.plantView }}</div>
+            <div onClick="{{ openM }}" style="{{ mReopenStyle }}">
+              <span style="font-size:14.5px;font-weight:700;">{{ t.reopen }}</span><span style="font-size:16px;">↑</span>
+            </div>
+          </div>
+
+          <sc-if value="{{ mOpen }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;left:0;right:0;bottom:0;top:150px;background:#F7F9FB;border-radius:20px 20px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -8px 28px rgba(10,25,40,.3);">
+            <div style="width:38px;height:4px;border-radius:2px;background:#D0D0D0;margin:9px auto 0;flex-shrink:0;"></div>
+
+            <div style="background:#fff;padding:8px 16px 12px;border-bottom:1px solid #E1E3E5;flex-shrink:0;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <div style="display:flex;background:#F4F7FA;border:1px solid #E1E3E5;border-radius:8px;overflow:hidden;">
+                  <div onClick="{{ setEn }}" style="{{ mLangEnStyle }}">EN</div>
+                  <div onClick="{{ setHi }}" style="{{ mLangHiStyle }}">हिं</div>
+                </div>
+                <div style="display:flex;gap:4px;">
+                  <div onClick="{{ toggleMenuM }}" style="width:44px;height:44px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#183650;background:#F4F7FA;cursor:pointer;">⋯</div>
+                  <div onClick="{{ closeM }}" style="width:44px;height:44px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#183650;background:#F4F7FA;cursor:pointer;">✕</div>
+                </div>
+              </div>
+
+              <div style="font-size:19px;font-weight:700;color:#161616;margin-top:9px;line-height:1.25;">{{ eq.name }}</div>
+              <div style="font-size:12.5px;color:#525252;margin-top:2px;">{{ eq.place }}</div>
+
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:9px;">
+                <div style="display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:{{ eq.statusColor }};font-variant-numeric:tabular-nums;">
+                  <span style="width:9px;height:9px;border-radius:50%;background:{{ eq.dotColor }};"></span>{{ eq.status }}
+                </div>
+                <span style="font-size:10.5px;font-weight:600;color:#8D8D8D;">{{ eq.updated }}</span>
+              </div>
+
+              <sc-if value="{{ banner.show }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ banner.style }}">
+                  <span style="flex:1;line-height:1.5;">{{ banner.text }}</span>
+                  <span onClick="{{ retry }}" style="font-weight:700;text-decoration:underline;cursor:pointer;white-space:nowrap;">{{ banner.action }}</span>
+                </div>
+              </sc-if>
+
+              <div style="display:{{ healthDisplay }};align-items:center;gap:10px;margin-top:11px;">
+                <div style="display:flex;align-items:baseline;gap:3px;">
+                  <span style="font-size:21px;font-weight:700;color:{{ health.numColor }};line-height:1;font-variant-numeric:tabular-nums;">{{ health.score }}</span>
+                  <span style="font-size:11px;font-weight:600;color:#8D8D8D;">{{ health.outOf }}</span>
+                </div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                    <span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8D8D8D;">{{ t.health }}</span>
+                    <span style="{{ health.bandStyle }}">{{ health.band }}</span>
+                    <span onClick="{{ toggleWhyM }}" style="font-size:11.5px;font-weight:600;color:#1A4639;text-decoration:underline;cursor:pointer;">{{ t.why }}</span>
+                  </div>
+                  <div style="height:6px;border-radius:3px;background:#EAEDEF;margin-top:6px;overflow:hidden;">
+                    <div style="height:100%;width:{{ health.fill }};background:{{ health.fillColor }};border-radius:3px;"></div>
+                  </div>
+                </div>
+              </div>
+              <sc-if value="{{ mWhyOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:11.5px;color:#525252;margin-top:9px;line-height:1.55;background:#F7F9FB;border:1px solid #E1E3E5;border-radius:8px;padding:9px 11px;">{{ health.basis }}</div>
+              </sc-if>
+
+              <div onClick="{{ toggleSpecsM }}" style="display:flex;align-items:center;justify-content:space-between;margin-top:11px;padding:10px 12px;background:#F7F9FB;border:1px solid #E1E3E5;border-radius:8px;cursor:pointer;">
+                <span style="font-size:12.5px;font-weight:600;color:#525252;">{{ specsLabelM }}</span>
+                <span style="font-size:11px;font-weight:700;color:#1A4639;">{{ specsCaretM }}</span>
+              </div>
+              <sc-if value="{{ mSpecsOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;">
+                  <sc-for list="{{ specs }}" as="s" hint-placeholder-count="4">
+                    <span style="font-size:11.5px;font-weight:600;color:#525252;background:#F4F7FA;border:1px solid #E1E3E5;border-radius:6px;padding:5px 9px;">{{ s.chip }}</span>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+
+            <div style="display:flex;gap:3px;padding:9px 12px 0;background:#fff;flex-shrink:0;">
+              <sc-for list="{{ mTabs }}" as="tab" hint-placeholder-count="4">
+                <div onClick="{{ tab.onClick }}" style="{{ tab.style }}">
+                  <span>{{ tab.label }}</span>
+                  <sc-if value="{{ tab.badge }}" hint-placeholder-val="{{ false }}">
+                    <span style="{{ tab.badgeStyle }}">{{ tab.count }}</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="flex:1;overflow-y:auto;padding:11px 14px 14px;display:flex;flex-direction:column;gap:8px;">
+              <sc-for list="{{ mRows }}" as="row" hint-placeholder-count="4">
+                <div onClick="{{ row.onClick }}" style="{{ row.wrapStyle }}">
+                  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+                    <div style="{{ row.titleStyle }}">{{ row.title }}</div>
+                    <span style="{{ row.chipStyle }}">{{ row.chip }}</span>
+                  </div>
+                  <div style="{{ row.metaStyle }}">{{ row.meta }}</div>
+                  <sc-if value="{{ row.showDetail }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:12.5px;color:#161616;line-height:1.55;margin-top:9px;padding-top:9px;border-top:1px solid #F0F0F0;">{{ row.detail }}</div>
+                  </sc-if>
+                  <sc-if value="{{ row.showAction }}" hint-placeholder-val="{{ false }}">
+                    <div onClick="{{ retry }}" style="display:inline-block;margin-top:11px;font-size:13px;font-weight:700;color:#183650;background:#F1F5F9;border:1px solid #D6DEE5;border-radius:7px;padding:11px 15px;cursor:pointer;">{{ row.actionLabel }}</div>
+                  </sc-if>
+                </div>
+              </sc-for>
+              <div style="font-size:11.5px;color:#8D8D8D;padding:2px;line-height:1.5;">{{ mRowsNote }}</div>
+            </div>
+
+            <div style="padding:11px 14px 18px;border-top:1px solid #E1E3E5;background:#fff;flex-shrink:0;">
+              <sc-if value="{{ cta.isButton }}" hint-placeholder-val="{{ true }}">
+                <button style="width:100%;border:none;border-radius:9px;padding:16px;font-family:inherit;font-size:15.5px;font-weight:700;color:#fff;background:{{ ctaBg }};display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;">
+                  <span>{{ cta.labelShort }}</span><span>→</span>
+                </button>
+              </sc-if>
+              <sc-if value="{{ cta.isCalm }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:15px;background:#F1F8F4;border:1px solid #CDE7D8;border-radius:9px;font-size:14.5px;font-weight:600;color:#0E6027;">{{ cta.label }}</div>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ mMenuOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:56px;right:14px;width:232px;background:#fff;border:1px solid #E1E3E5;border-radius:10px;box-shadow:0 14px 34px rgba(15,35,55,.24);padding:6px;display:flex;flex-direction:column;z-index:5;">
+                <sc-for list="{{ menu }}" as="item" hint-placeholder-count="5">
+                  <div onClick="{{ closeMenuM }}" style="{{ item.styleM }}">{{ item.label }}</div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="max-width:390px;font-size:12px;color:#8a8a8a;line-height:1.6;">
+        <strong style="color:#c8c8c8;">Mobile read.</strong> Same card, same tabs, thumb-sized targets (44 px). Language toggle sits in the sheet header on both platforms. Specs collapse to chips. The CTA never scrolls away.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:2000,&quot;height&quot;:1200},&quot;showHealthScore&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Card composition&quot;},&quot;showPartTags&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Card composition&quot;},&quot;ctaAccent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;navy&quot;,&quot;teal&quot;],&quot;default&quot;:&quot;navy&quot;,&quot;tsType&quot;:&quot;'navy' | 'teal'&quot;,&quot;section&quot;:&quot;Card composition&quot;}}">
+const CHROME = {
+  en: {
+    reopen: 'Open BL-2 card', plantView: 'Aeration · IU-G3 · plant view',
+    health: 'Health', why: 'Why?', specsShow: 'Make, model, installed', specsHide: 'Hide details',
+    partFilter: 'Air filter', partBelt: 'Belt', partImpeller: 'Impeller',
+    tabs: ['Issues', 'Tasks', 'Maintenance', 'History'],
+    tabsShort: ['Issues', 'Tasks', 'Maint.', 'History'],
+    menu: ['Manuals', 'Report an issue', 'Mark maintenance mode', 'Tell supervisor', 'Open group control →'],
+    retry: 'Retry',
+    notes: {
+      issues: 'Newest first. Resolved items keep their root cause.',
+      tasks: 'Open task first, then the last 30 days.',
+      maint: 'Preventive only. Breakdown repairs sit under Issues.',
+      history: 'Asset-relevant events only — not every tap.'
+    }
+  },
+  hi: {
+    reopen: 'BL-2 कार्ड खोलें', plantView: 'एरेशन · IU-G3 · प्लांट व्यू',
+    health: 'स्वास्थ्य', why: 'क्यों?', specsShow: 'मेक, मॉडल, इंस्टॉल', specsHide: 'विवरण छिपाएँ',
+    partFilter: 'एयर फ़िल्टर', partBelt: 'बेल्ट', partImpeller: 'इम्पेलर',
+    tabs: ['इशू', 'कार्य', 'मेंटेनेंस', 'इतिहास'],
+    tabsShort: ['इशू', 'कार्य', 'मेंट.', 'इतिहास'],
+    menu: ['मैनुअल', 'इशू दर्ज करें', 'मेंटेनेंस मोड लगाएँ', 'सुपरवाइज़र को बताएँ', 'ग्रुप कंट्रोल खोलें →'],
+    retry: 'फिर कोशिश करें',
+    notes: {
+      issues: 'नए पहले। हल हुए इशू के साथ मूल कारण।',
+      tasks: 'खुला कार्य पहले, फिर पिछले 30 दिन।',
+      maint: 'सिर्फ़ निवारक। ब्रेकडाउन मरम्मत इशू में।',
+      history: 'सिर्फ़ उपकरण से जुड़ी घटनाएँ।'
+    }
+  }
+};
+
+const CHIP = {
+  major: 'font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#DA1E28;background:#FDECEC;border:1px solid #F7C8C8;border-radius:20px;padding:3px 9px;white-space:nowrap;',
+  open: 'font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1A4639;background:#E5F6F1;border:1px solid rgba(61,163,133,.45);border-radius:20px;padding:3px 9px;white-space:nowrap;',
+  due: 'font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8A6100;background:#FFF6DB;border:1px solid #F1DFA6;border-radius:20px;padding:3px 9px;white-space:nowrap;',
+  done: 'font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#525252;background:#F1F3F4;border:1px solid #E1E3E5;border-radius:20px;padding:3px 9px;white-space:nowrap;',
+  resolved: 'font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0E6027;background:#E9F5ED;border:1px solid #CDE7D8;border-radius:20px;padding:3px 9px;white-space:nowrap;',
+  missed: 'font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#B75000;background:#FFF0E4;border:1px solid #FBD3B4;border-radius:20px;padding:3px 9px;white-space:nowrap;',
+  none: 'display:none;'
+};
+
+const CONTENT = {
+  en: {
+    normal: {
+      eq: { name: 'Aeration Blower BL-2', place: 'Secondary Treatment › Aeration', status: 'Running · 42 Hz · 8.2 A', updated: 'updated 4s ago' },
+      specs: [
+        { label: 'Make', value: 'Kaeser', chip: 'Kaeser' },
+        { label: 'Model', value: 'EB 291 C · 22 kW', chip: 'EB 291 C · 22 kW' },
+        { label: 'Installed', value: '14 Mar 2023', chip: 'Installed 14 Mar 2023' },
+        { label: 'Tag', value: 'BL-2 · AR-2', chip: 'BL-2 · AR-2' }
+      ],
+      health: { score: '72', outOf: '/100', band: 'Fair', fill: '72%', basis: 'Down 6 points in 30 days. Based on motor-current trend and days since the last bearing service, against this blower’s own last 90 days. Confidence: medium.' },
+      cta: { label: 'Start working — discharge pressure high', labelShort: 'Start working — pressure', why: 'Most pressing of 3: the Major issue outranks today’s 16:00 task and the PM due in 14 days.' },
+      issues: [
+        { chip: 'Major', kind: 'major', title: 'Discharge pressure high — 0.72 bar against 0.55 normal', meta: 'Opened 06:12 today by alert · unclaimed · 2 h 14 m to SLA', detail: 'Pressure above 0.65 bar for 12 minutes. First checks: air-filter ΔP, then belt tension. Nobody has claimed this yet.', primary: true },
+        { chip: 'Resolved', kind: 'resolved', title: 'Motor current spike to 11.4 A', meta: '12 Jul · closed by Ramesh in 3 h 40 m', detail: 'Root cause: clogged air filter. Verified against 24 h current trend. No recurrence since.' },
+        { chip: 'Resolved', kind: 'resolved', title: 'Low DO downstream — 1.1 mg/L', meta: '28 Jun · closed by Devid in 2 h 05 m', detail: 'Root cause sat next door: diffuser fouling in Aeration basin 2. BL-2 cleared without intervention.' },
+        { chip: 'False alarm', kind: 'done', title: 'Motor temperature high — 71 °C', meta: '09 Jun · closed by supervisor Anita', detail: 'Sensor drift, no abnormal condition. Threshold retuned from 70 °C to 78 °C the same day.' }
+      ],
+      tasks: [
+        { chip: 'Due 16:00', kind: 'open', title: 'Weekly vibration & bearing-temperature check', meta: 'Due today 16:00 · Ramesh, shift B · not started', detail: '4 steps, about 8 minutes. Last reading 2.1 mm/s on 13 Aug — inside the 4.5 mm/s limit.', primary: true },
+        { chip: 'Done', kind: 'done', title: 'Air-filter ΔP reading', meta: '18 Aug 09:20 · Ramesh · 6 min', detail: 'ΔP 0.18 bar. Within limit, no action raised.' },
+        { chip: 'Done', kind: 'done', title: 'Weekly vibration & bearing-temperature check', meta: '13 Aug 15:40 · Ramesh · 9 min', detail: 'Vibration 2.1 mm/s, bearing 61 °C. Both normal.' },
+        { chip: 'Missed', kind: 'missed', title: 'Panel indicator check', meta: '02 Aug · shift A · not completed', detail: 'Shift ended before the task was closed. Folded into the 06 Aug round.' }
+      ],
+      maint: [
+        { chip: 'Due in 14 days', kind: 'due', title: 'Bearing greasing & belt tension — 500-hour PM', meta: 'Run-hours based · falls around 12 Sep · Ramesh', detail: 'Kit: 2 grease cartridges, 1 V-belt set. Previous one done 11 Apr, about 14 days of running left before this is due.', primary: true },
+        { chip: 'Done', kind: 'done', title: 'Belt replacement', meta: '02 May · Devid · 55 min', detail: 'Belt set replaced, tension set to 0.9 kN. Two photos attached.' },
+        { chip: 'Done', kind: 'done', title: 'Bearing greasing — 500-hour PM', meta: '11 Apr · Ramesh · 40 min', detail: 'Both bearings greased. Bearing temperature dropped 4 °C over the following week.' },
+        { chip: 'Done', kind: 'done', title: 'Annual overhaul — AMC visit', meta: '16 Jan · Kaeser service engineer', detail: 'Impeller clearance reset, filter-housing gasket replaced. Service report AMC-1123.' }
+      ],
+      history: [
+        { title: 'Issue opened · discharge pressure high', meta: 'Today 06:12' },
+        { title: 'Task completed · air-filter ΔP reading', meta: '18 Aug 09:20' },
+        { title: 'Back online after cleaning', meta: '18 Aug 08:05' },
+        { title: 'Maintenance mode set · cleaning', meta: '17 Aug 21:40' },
+        { title: 'Root cause recorded · clogged air filter', meta: '12 Jul 14:10' },
+        { title: 'Threshold changed · motor temp 70 → 78 °C', meta: '09 Jun 11:25' }
+      ]
+    },
+    empty: {
+      eq: { name: 'Aeration Blower BL-4', place: 'Secondary Treatment › Aeration', status: 'Running · 40 Hz · 7.6 A', updated: 'updated 6s ago' },
+      specs: [
+        { label: 'Make', value: 'Kaeser', chip: 'Kaeser' },
+        { label: 'Model', value: 'EB 291 C · 22 kW', chip: 'EB 291 C · 22 kW' },
+        { label: 'Installed', value: '17 Aug 2026', chip: 'Installed 17 Aug 2026' },
+        { label: 'Tag', value: 'BL-4 · AR-2', chip: 'BL-4 · AR-2' }
+      ],
+      health: { score: '—', outOf: '', band: 'Not enough data', fill: '0%', basis: 'A health score needs about 30 days of running. Tracking started 17 Aug 2026, so this fills in around 16 Sep.' },
+      cta: { label: '✓ All normal — nothing needs you', labelShort: '', why: 'No issue, no task due, no PM within 30 days. The card stays quiet rather than inventing a button.', calm: true },
+      issues: [{ empty: true, title: 'No issues yet', meta: 'Tracking started 17 Aug 2026. Anything raised against BL-4 — by an alert or by a person — lands here.' }],
+      tasks: [{ empty: true, title: 'No tasks scheduled', meta: 'Nothing assigned to BL-4 for this shift or the next. Scheduled work will appear here once a supervisor adds it.' }],
+      maint: [{ empty: true, title: 'No PM schedule yet', meta: 'BL-4 was commissioned 3 days ago. Its 500-hour PM appears here once run-hours start counting.' }],
+      history: [{ title: 'Tracking started · BL-4 commissioned', meta: '17 Aug 2026 10:30' }]
+    },
+    offline: {
+      eq: { name: 'Aeration Blower BL-2', place: 'Secondary Treatment › Aeration', status: 'Last known: Running · 42 Hz', updated: 'no data for 14 min' },
+      specs: [
+        { label: 'Make', value: 'Kaeser', chip: 'Kaeser' },
+        { label: 'Model', value: 'EB 291 C · 22 kW', chip: 'EB 291 C · 22 kW' },
+        { label: 'Installed', value: '14 Mar 2023', chip: 'Installed 14 Mar 2023' },
+        { label: 'Tag', value: 'BL-2 · AR-2', chip: 'BL-2 · AR-2' }
+      ],
+      health: { score: '72', outOf: '/100', band: 'Paused', fill: '72%', basis: 'Held at the 09:12 value. The score needs live readings, so it stops updating rather than drifting on stale data.' },
+      cta: { label: 'Start task — vibration check', labelShort: 'Start task — vibration', why: 'The issue rung needs live readings, so the card falls back to today’s task. Values shown are the last known ones, with their time.' },
+      banner: { text: 'No live data for 14 minutes — gateway not reachable. Showing last known values.', action: 'Retry' },
+      issues: [
+        { chip: 'Resolved', kind: 'resolved', title: 'Motor current spike to 11.4 A', meta: '12 Jul · closed by Ramesh in 3 h 40 m', detail: 'Root cause: clogged air filter. Verified against 24 h current trend.' },
+        { error: true, title: 'Couldn’t load open issues', meta: 'Showing what is cached on this device. Anything opened in the last 14 minutes may be missing.', actionLabel: 'Retry' }
+      ],
+      tasks: [
+        { chip: 'Due 16:00', kind: 'open', title: 'Weekly vibration & bearing-temperature check', meta: 'Due today 16:00 · Ramesh, shift B · cached', detail: '4 steps, about 8 minutes. Works offline — readings sync when the gateway is back.', primary: true },
+        { chip: 'Done', kind: 'done', title: 'Air-filter ΔP reading', meta: '18 Aug 09:20 · Ramesh · 6 min', detail: 'ΔP 0.18 bar. Within limit.' }
+      ],
+      maint: [
+        { chip: 'Due in 14 days', kind: 'due', title: 'Bearing greasing & belt tension — 500-hour PM', meta: 'Around 12 Sep · date held at last sync 09:12', detail: 'Run-hours are no longer counting while data is down, so the due date may move once the gateway returns.', primary: true }
+      ],
+      history: [
+        { title: 'Sensor data stopped · gateway unreachable', meta: 'Today 09:12' },
+        { title: 'Task completed · air-filter ΔP reading', meta: '18 Aug 09:20' },
+        { error: true, title: 'Couldn’t load the rest of the history', meta: 'Six events are cached on this device. The full timeline needs a connection.', actionLabel: 'Retry' }
+      ]
+    }
+  },
+  hi: {
+    normal: {
+      eq: { name: 'एरेशन ब्लोअर BL-2', place: 'सेकंडरी ट्रीटमेंट › एरेशन', status: 'चल रहा है · 42 Hz · 8.2 A', updated: '4से पहले' },
+      specs: [
+        { label: 'मेक', value: 'Kaeser', chip: 'Kaeser' },
+        { label: 'मॉडल', value: 'EB 291 C · 22 kW', chip: 'EB 291 C · 22 kW' },
+        { label: 'लगाया', value: '14 मार्च 2023', chip: 'लगाया 14 मार्च 2023' },
+        { label: 'टैग', value: 'BL-2 · AR-2', chip: 'BL-2 · AR-2' }
+      ],
+      health: { score: '72', outOf: '/100', band: 'ठीक-ठाक', fill: '72%', basis: '30 दिनों में 6 अंक गिरा। आधार: मोटर करंट का रुझान और पिछली बेयरिंग सर्विस से बीते दिन, इसी ब्लोअर के पिछले 90 दिनों के मुक़ाबले। भरोसा: मध्यम।' },
+      cta: { label: 'काम शुरू करें — डिस्चार्ज दबाव', labelShort: 'काम शुरू करें — दबाव', why: '3 में सबसे ज़रूरी: बड़ा इशू आज 16:00 के कार्य और 14 दिन बाद के PM से ऊपर है।' },
+      issues: [
+        { chip: 'बड़ा', kind: 'major', title: 'डिस्चार्ज दबाव ज़्यादा — 0.72 bar (सामान्य 0.55)', meta: 'आज 06:12 पर खुला · किसी ने नहीं लिया · 2 घं 14 मि बचे', detail: '12 मिनट तक दबाव 0.65 bar से ऊपर। पहले जाँचें: एयर फ़िल्टर ΔP, फिर बेल्ट टेंशन।', primary: true },
+        { chip: 'हल हुआ', kind: 'resolved', title: 'मोटर करंट 11.4 A तक बढ़ा', meta: '12 जुलाई · रमेश · 3 घं 40 मि', detail: 'मूल कारण: एयर फ़िल्टर जाम। 24 घंटे के करंट रुझान से पुष्टि। दोबारा नहीं हुआ।' },
+        { chip: 'हल हुआ', kind: 'resolved', title: 'डाउनस्ट्रीम DO कम — 1.1 mg/L', meta: '28 जून · देविड · 2 घं 05 मि', detail: 'मूल कारण पास वाला उपकरण था: एरेशन बेसिन 2 में डिफ़्यूज़र जाम। BL-2 ठीक था।' },
+        { chip: 'ग़लत अलार्म', kind: 'done', title: 'मोटर तापमान ज़्यादा — 71 °C', meta: '09 जून · सुपरवाइज़र अनीता ने बंद किया', detail: 'सेंसर ड्रिफ़्ट, कोई असामान्य स्थिति नहीं। उसी दिन सीमा 70 °C से 78 °C की गई।' }
+      ],
+      tasks: [
+        { chip: '16:00 तक', kind: 'open', title: 'साप्ताहिक वाइब्रेशन और बेयरिंग तापमान जाँच', meta: 'आज 16:00 तक · रमेश, शिफ़्ट B · शुरू नहीं', detail: '4 चरण, लगभग 8 मिनट। पिछली रीडिंग 13 अगस्त को 2.1 mm/s — सीमा 4.5 mm/s के अंदर।', primary: true },
+        { chip: 'पूरा', kind: 'done', title: 'एयर फ़िल्टर ΔP रीडिंग', meta: '18 अगस्त 09:20 · रमेश · 6 मि', detail: 'ΔP 0.18 bar। सीमा के अंदर।' },
+        { chip: 'पूरा', kind: 'done', title: 'साप्ताहिक वाइब्रेशन और तापमान जाँच', meta: '13 अगस्त 15:40 · रमेश · 9 मि', detail: 'वाइब्रेशन 2.1 mm/s, बेयरिंग 61 °C। दोनों सामान्य।' },
+        { chip: 'छूटा', kind: 'missed', title: 'पैनल इंडिकेटर जाँच', meta: '02 अगस्त · शिफ़्ट A · पूरा नहीं', detail: 'शिफ़्ट ख़त्म होने तक बंद नहीं हुआ। 06 अगस्त के राउंड में जोड़ा गया।' }
+      ],
+      maint: [
+        { chip: '14 दिन में', kind: 'due', title: 'बेयरिंग ग्रीसिंग और बेल्ट टेंशन — 500 घंटे PM', meta: 'रन-आवर आधारित · लगभग 12 सितंबर · रमेश', detail: 'किट: 2 ग्रीस कार्ट्रिज, 1 V-बेल्ट सेट। पिछला 11 अप्रैल को।', primary: true },
+        { chip: 'पूरा', kind: 'done', title: 'बेल्ट बदली', meta: '02 मई · देविड · 55 मि', detail: 'बेल्ट सेट बदला, टेंशन 0.9 kN। दो फ़ोटो लगी हैं।' },
+        { chip: 'पूरा', kind: 'done', title: 'बेयरिंग ग्रीसिंग — 500 घंटे PM', meta: '11 अप्रैल · रमेश · 40 मि', detail: 'दोनों बेयरिंग ग्रीस हुए। अगले हफ़्ते तापमान 4 °C गिरा।' },
+        { chip: 'पूरा', kind: 'done', title: 'वार्षिक ओवरहॉल — AMC विज़िट', meta: '16 जनवरी · Kaeser सर्विस इंजीनियर', detail: 'इम्पेलर क्लीयरेंस सेट, फ़िल्टर हाउसिंग गैसकेट बदला। रिपोर्ट AMC-1123।' }
+      ],
+      history: [
+        { title: 'इशू खुला · डिस्चार्ज दबाव ज़्यादा', meta: 'आज 06:12' },
+        { title: 'कार्य पूरा · एयर फ़िल्टर ΔP', meta: '18 अग 09:20' },
+        { title: 'सफ़ाई के बाद ऑनलाइन', meta: '18 अग 08:05' },
+        { title: 'मेंटेनेंस मोड · सफ़ाई', meta: '17 अग 21:40' },
+        { title: 'मूल कारण दर्ज · एयर फ़िल्टर जाम', meta: '12 जुल 14:10' },
+        { title: 'सीमा बदली · मोटर तापमान 70 → 78 °C', meta: '09 जून 11:25' }
+      ]
+    },
+    empty: {
+      eq: { name: 'एरेशन ब्लोअर BL-4', place: 'सेकंडरी ट्रीटमेंट › एरेशन', status: 'चल रहा है · 40 Hz · 7.6 A', updated: '6से पहले' },
+      specs: [
+        { label: 'मेक', value: 'Kaeser', chip: 'Kaeser' },
+        { label: 'मॉडल', value: 'EB 291 C · 22 kW', chip: 'EB 291 C · 22 kW' },
+        { label: 'लगाया', value: '17 अगस्त 2026', chip: 'लगाया 17 अगस्त 2026' },
+        { label: 'टैग', value: 'BL-4 · AR-2', chip: 'BL-4 · AR-2' }
+      ],
+      health: { score: '—', outOf: '', band: 'डेटा कम है', fill: '0%', basis: 'स्वास्थ्य स्कोर के लिए लगभग 30 दिन का डेटा चाहिए। ट्रैकिंग 17 अगस्त 2026 से शुरू — यह 16 सितंबर के आसपास दिखेगा।' },
+      cta: { label: '✓ सब सामान्य — कोई कार्रवाई नहीं', labelShort: '', why: 'कोई इशू नहीं, कोई कार्य देय नहीं, 30 दिन में कोई PM नहीं। कार्ड ज़बरदस्ती बटन नहीं बनाता।', calm: true },
+      issues: [{ empty: true, title: 'अभी कोई इशू नहीं', meta: 'ट्रैकिंग 17 अगस्त 2026 से। BL-4 पर खुलने वाला हर इशू यहाँ दिखेगा।' }],
+      tasks: [{ empty: true, title: 'कोई कार्य निर्धारित नहीं', meta: 'इस या अगली शिफ़्ट के लिए कुछ नहीं। सुपरवाइज़र जोड़ेंगे तो यहाँ दिखेगा।' }],
+      maint: [{ empty: true, title: 'PM शेड्यूल अभी नहीं', meta: 'BL-4 तीन दिन पहले चालू हुआ। रन-आवर गिनने पर 500 घंटे PM यहाँ आएगा।' }],
+      history: [{ title: 'ट्रैकिंग शुरू · BL-4 चालू हुआ', meta: '17 अगस्त 2026 10:30' }]
+    },
+    offline: {
+      eq: { name: 'एरेशन ब्लोअर BL-2', place: 'सेकंडरी ट्रीटमेंट › एरेशन', status: 'आख़िरी: चल रहा है · 42 Hz', updated: '14 मिनट से डेटा नहीं' },
+      specs: [
+        { label: 'मेक', value: 'Kaeser', chip: 'Kaeser' },
+        { label: 'मॉडल', value: 'EB 291 C · 22 kW', chip: 'EB 291 C · 22 kW' },
+        { label: 'लगाया', value: '14 मार्च 2023', chip: 'लगाया 14 मार्च 2023' },
+        { label: 'टैग', value: 'BL-2 · AR-2', chip: 'BL-2 · AR-2' }
+      ],
+      health: { score: '72', outOf: '/100', band: 'रुका हुआ', fill: '72%', basis: '09:12 की वैल्यू पर रुका है। लाइव रीडिंग के बिना स्कोर अपडेट नहीं होता — पुराने डेटा पर अनुमान नहीं लगाता।' },
+      cta: { label: 'कार्य शुरू करें — वाइब्रेशन जाँच', labelShort: 'कार्य शुरू करें', why: 'इशू वाली कतार को लाइव डेटा चाहिए, इसलिए कार्ड आज के कार्य पर आ गया। दिखी वैल्यू आख़िरी ज्ञात हैं, समय के साथ।' },
+      banner: { text: '14 मिनट से लाइव डेटा नहीं — गेटवे नहीं मिल रहा। आख़िरी ज्ञात वैल्यू दिख रही हैं।', action: 'फिर कोशिश करें' },
+      issues: [
+        { chip: 'हल हुआ', kind: 'resolved', title: 'मोटर करंट 11.4 A तक बढ़ा', meta: '12 जुलाई · रमेश · 3 घं 40 मि', detail: 'मूल कारण: एयर फ़िल्टर जाम।' },
+        { error: true, title: 'खुले इशू लोड नहीं हुए', meta: 'इस फ़ोन में सेव जानकारी दिख रही है। पिछले 14 मिनट में खुला इशू छूट सकता है।', actionLabel: 'फिर कोशिश करें' }
+      ],
+      tasks: [
+        { chip: '16:00 तक', kind: 'open', title: 'साप्ताहिक वाइब्रेशन और बेयरिंग तापमान जाँच', meta: 'आज 16:00 तक · रमेश · फ़ोन में सेव', detail: 'ऑफ़लाइन भी चलेगा — गेटवे आने पर रीडिंग सिंक हो जाएगी।', primary: true },
+        { chip: 'पूरा', kind: 'done', title: 'एयर फ़िल्टर ΔP रीडिंग', meta: '18 अग 09:20 · रमेश', detail: 'ΔP 0.18 bar। सीमा के अंदर।' }
+      ],
+      maint: [
+        { chip: '14 दिन में', kind: 'due', title: 'बेयरिंग ग्रीसिंग और बेल्ट टेंशन — 500 घंटे PM', meta: 'लगभग 12 सितंबर · 09:12 के सिंक पर आधारित', detail: 'डेटा बंद रहने तक रन-आवर नहीं गिन रहे, इसलिए तारीख़ बदल सकती है।', primary: true }
+      ],
+      history: [
+        { title: 'सेंसर डेटा रुका · गेटवे नहीं मिला', meta: 'आज 09:12' },
+        { title: 'कार्य पूरा · एयर फ़िल्टर ΔP', meta: '18 अग 09:20' },
+        { error: true, title: 'बाक़ी इतिहास लोड नहीं हुआ', meta: 'इस फ़ोन में 6 घटनाएँ सेव हैं। पूरा इतिहास देखने के लिए कनेक्शन चाहिए।', actionLabel: 'फिर कोशिश करें' }
+      ]
+    }
+  }
+};
+
+const TAGS = {
+  live: [
+    { value: '42 Hz', label: 'VFD', dot: '●', ok: true, pos: 'left:0;top:196px;' },
+    { value: '8.2 A', label: '', dot: '●', ok: true, pos: 'left:120px;top:170px;' },
+    { value: '0.72 bar', label: '', dot: '▲', warn: true, pos: 'left:492px;top:52px;' },
+    { value: '1.9 mg/L', label: 'DO', dot: '●', ok: true, pos: 'left:474px;top:262px;' }
+  ],
+  stale: [
+    { value: '42 Hz', label: '09:12', dot: '◌', stale: true, pos: 'left:0;top:196px;' },
+    { value: '8.2 A', label: '09:12', dot: '◌', stale: true, pos: 'left:120px;top:170px;' },
+    { value: '0.68 bar', label: '09:12', dot: '◌', stale: true, pos: 'left:492px;top:52px;' },
+    { value: '1.9 mg/L', label: '09:12', dot: '◌', stale: true, pos: 'left:474px;top:262px;' }
+  ],
+  fresh: [
+    { value: '40 Hz', label: 'VFD', dot: '●', ok: true, pos: 'left:0;top:196px;' },
+    { value: '7.6 A', label: '', dot: '●', ok: true, pos: 'left:120px;top:170px;' },
+    { value: '0.54 bar', label: '', dot: '●', ok: true, pos: 'left:492px;top:52px;' }
+  ]
+};
+
+class Component extends DCLogic {
+  state = {
+    scenario: 'normal', lang: 'en',
+    dOpen: true, mOpen: true,
+    dTab: 0, mTab: 0,
+    dExpanded: 0, mExpanded: 0,
+    dSpecs: false, mSpecs: false,
+    dWhy: false, mWhy: false,
+    dMenu: false, mMenu: false,
+    retried: false
+  };
+
+  set(patch) { this.setState(patch); }
+
+  tabStyle(active, mobile) {
+    const base = 'flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:4px;min-height:' + (mobile ? '44px' : '38px') + ';padding:' + (mobile ? '12px 2px' : '10px 4px') +
+      ';border-radius:8px 8px 0 0;font-size:' + (mobile ? '12px' : '13px') + ';font-weight:700;cursor:pointer;white-space:nowrap;overflow:hidden;';
+    return base + (active
+      ? 'color:#183650;background:#F7F9FB;border-bottom:3px solid #3DA385;'
+      : 'color:#8D8D8D;background:#fff;border-bottom:3px solid transparent;');
+  }
+
+  buildTabs(data, active, mobile, onPick) {
+    const chrome = CHROME[this.state.lang];
+    const labels = mobile ? chrome.tabsShort : chrome.tabs;
+    const counts = [
+      data.issues.filter(r => r.primary).length,
+      data.tasks.filter(r => r.primary).length,
+      data.maint.filter(r => r.primary).length,
+      0
+    ];
+    const colors = ['#DA1E28', '#183650', '#8A6100', ''];
+    return labels.map((label, i) => ({
+      label,
+      count: String(counts[i]),
+      badge: counts[i] > 0,
+      badgeStyle: 'font-size:10px;font-weight:700;color:#fff;background:' + colors[i] + ';border-radius:9px;min-width:16px;text-align:center;padding:1px 5px;',
+      style: this.tabStyle(active === i, mobile),
+      onClick: () => onPick(i)
+    }));
+  }
+
+  buildRows(list, expanded, mobile, onPick) {
+    return list.map((r, i) => {
+      if (r.empty || r.error) {
+        return {
+          title: r.title, meta: r.meta, chip: '', chipStyle: CHIP.none,
+          titleStyle: 'font-size:14px;font-weight:700;color:#161616;line-height:1.4;',
+          metaStyle: 'font-size:12.5px;color:#525252;margin-top:6px;line-height:1.55;',
+          wrapStyle: 'background:#fff;border:1px dashed #C9CDD1;border-radius:10px;padding:16px 15px;cursor:default;',
+          showDetail: false, detail: '',
+          showAction: !!r.actionLabel, actionLabel: r.actionLabel || '',
+          onClick: () => {}
+        };
+      }
+      const isHistory = !r.chip;
+      const open = expanded === i && !!r.detail;
+      return {
+        title: r.title, meta: r.meta, chip: r.chip || '',
+        chipStyle: r.chip ? CHIP[r.kind] : CHIP.none,
+        titleStyle: 'font-size:' + (isHistory ? '13px' : '14px') + ';font-weight:600;color:#161616;line-height:1.4;',
+        metaStyle: 'font-size:12px;color:#525252;margin-top:' + (isHistory ? '3px' : '5px') + ';',
+        wrapStyle: 'background:#fff;border:' + (r.primary ? '1.5px solid #183650' : '1px solid #E1E3E5') +
+          ';border-radius:10px;padding:' + (mobile ? '13px' : '12px 13px') + ';cursor:' + (r.detail ? 'pointer' : 'default') + ';',
+        showDetail: open, detail: r.detail || '',
+        showAction: false, actionLabel: '',
+        onClick: () => { if (r.detail) onPick(open ? -1 : i); }
+      };
+    });
+  }
+
+  renderVals() {
+    const s = this.state, p = this.props;
+    const lang = s.lang, sc = s.scenario;
+    const t = CHROME[lang];
+    const data = CONTENT[lang][sc];
+    const keys = ['issues', 'tasks', 'maint', 'history'];
+    const noteKeys = ['issues', 'tasks', 'maint', 'history'];
+
+    const scenarioLabels = lang === 'en'
+      ? ['Normal', 'New equipment (empty)', 'No live data (failure)']
+      : ['सामान्य', 'नया उपकरण (खाली)', 'लाइव डेटा नहीं'];
+    const scenarioKeys = ['normal', 'empty', 'offline'];
+    const scenarioNotes = {
+      normal: lang === 'en' ? 'One open issue, one task due, PM in 14 days.' : 'एक खुला इशू, एक कार्य, 14 दिन में PM।',
+      empty: lang === 'en' ? 'Commissioned 3 days ago — nothing has happened yet.' : 'तीन दिन पहले चालू — अभी कुछ नहीं हुआ।',
+      offline: lang === 'en' ? 'Gateway unreachable — last known values, cached lists, CTA falls back a rung.' : 'गेटवे नहीं मिल रहा — आख़िरी ज्ञात वैल्यू, सेव सूची।'
+    };
+
+    const tagSet = sc === 'offline' ? TAGS.stale : (sc === 'empty' ? TAGS.fresh : TAGS.live);
+    const graphicTags = tagSet.map(g => ({
+      value: g.value, label: g.label, dot: g.dot,
+      style: 'position:absolute;' + g.pos + 'display:flex;align-items:center;gap:5px;background:' + (g.stale ? '#F4F4F4' : '#fff') +
+        ';border:1px solid ' + (g.warn ? '#FFCFCF' : '#E1E3E5') + ';border-radius:14px;padding:5px 10px;font-size:12.5px;font-weight:700;color:' +
+        (g.stale ? '#8D8D8D' : '#161616') + ';box-shadow:0 2px 6px rgba(20,40,60,.1);',
+      dotStyle: 'font-size:9px;color:' + (g.warn ? '#FF832B' : (g.stale ? '#8D8D8D' : '#198038')) + ';'
+    }));
+
+    const healthHidden = p.showHealthScore === false;
+    const h = data.health;
+    const bandColor = sc === 'normal' ? '#8A6100' : '#525252';
+    const bandBg = sc === 'normal' ? '#FFF6DB' : '#F1F3F4';
+
+    const banner = data.banner && !s.retried
+      ? { show: true, text: data.banner.text, action: data.banner.action,
+          style: 'display:flex;align-items:flex-start;gap:10px;margin-top:11px;padding:10px 12px;background:#FFF8EC;border:1px solid #F3DDB6;border-radius:8px;font-size:12px;color:#6B4C00;' }
+      : { show: false, text: '', action: '', style: 'display:none;' };
+
+    const menu = t.menu.map((label, i) => ({
+      label,
+      style: 'font-size:13px;font-weight:600;color:' + (i === 4 ? '#1A4639' : '#161616') + ';padding:10px 11px;border-radius:7px;cursor:pointer;',
+      styleM: 'font-size:13.5px;font-weight:600;color:' + (i === 4 ? '#1A4639' : '#161616') + ';padding:12px 11px;border-radius:7px;cursor:pointer;'
+    }));
+
+    return {
+      t, eq: {
+        name: data.eq.name, place: data.eq.place, status: data.eq.status, updated: data.eq.updated,
+        dotColor: sc === 'offline' ? '#8D8D8D' : '#198038',
+        statusColor: sc === 'offline' ? '#525252' : '#161616'
+      },
+      specs: data.specs,
+      graphicTags,
+      graphicOpacity: sc === 'offline' ? '0.55' : '1',
+      partTagDisplay: p.showPartTags === false ? 'none' : 'block',
+      ctaBg: p.ctaAccent === 'teal' ? '#1A4639' : '#183650',
+      healthDisplay: healthHidden ? 'none' : 'flex',
+      healthRowDisplay: healthHidden ? 'none' : 'flex',
+      health: {
+        score: h.score, outOf: h.outOf, band: h.band, fill: h.fill, basis: h.basis,
+        numColor: h.score === '—' ? '#8D8D8D' : '#161616',
+        fillColor: sc === 'normal' ? 'linear-gradient(90deg,#3DA385,#F1C21B)' : (sc === 'offline' ? '#C9CDD1' : '#EAEDEF'),
+        bandStyle: 'font-size:11.5px;font-weight:700;color:' + bandColor + ';background:' + bandBg + ';border-radius:4px;padding:1px 6px;'
+      },
+      cta: {
+        isButton: !data.cta.calm, isCalm: !!data.cta.calm,
+        label: data.cta.label, labelShort: data.cta.labelShort || data.cta.label, why: data.cta.why
+      },
+      banner, menu,
+      scenarios: scenarioKeys.map((k, i) => ({
+        label: scenarioLabels[i],
+        style: 'font-size:11.5px;font-weight:700;padding:6px 11px;border-radius:20px;cursor:pointer;' +
+          (sc === k ? 'color:#141414;background:#e8e8e8;' : 'color:#9a9a9a;background:#1f1f1f;border:1px solid #333;'),
+        onClick: () => this.set({ scenario: k, dTab: 0, mTab: 0, dExpanded: 0, mExpanded: 0, retried: false, dOpen: true, mOpen: true })
+      })),
+      scenarioNote: scenarioNotes[sc],
+
+      dOpen: s.dOpen, mOpen: s.mOpen,
+      dReopenStyle: s.dOpen ? 'display:none;' : 'font-size:12px;font-weight:700;color:#fff;background:#183650;border-radius:7px;padding:8px 14px;cursor:pointer;',
+      mReopenStyle: s.mOpen ? 'display:none;' : 'background:#183650;color:#fff;border-radius:12px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;',
+      openD: () => this.set({ dOpen: true }), closeD: () => this.set({ dOpen: false, dMenu: false }),
+      openM: () => this.set({ mOpen: true }), closeM: () => this.set({ mOpen: false, mMenu: false }),
+
+      langEnStyle: 'font-size:12px;font-weight:700;padding:7px 12px;cursor:pointer;' + (lang === 'en' ? 'background:#183650;color:#fff;' : 'color:#525252;'),
+      langHiStyle: 'font-size:12px;font-weight:700;padding:7px 12px;cursor:pointer;' + (lang === 'hi' ? 'background:#183650;color:#fff;' : 'color:#525252;'),
+      mLangEnStyle: 'font-size:12.5px;font-weight:700;min-width:48px;min-height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;' + (lang === 'en' ? 'background:#183650;color:#fff;' : 'color:#525252;'),
+      mLangHiStyle: 'font-size:12.5px;font-weight:700;min-width:48px;min-height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;' + (lang === 'hi' ? 'background:#183650;color:#fff;' : 'color:#525252;'),
+      setEn: () => this.set({ lang: 'en' }), setHi: () => this.set({ lang: 'hi' }),
+
+      dTabs: this.buildTabs(data, s.dTab, false, i => this.set({ dTab: i, dExpanded: 0 })),
+      mTabs: this.buildTabs(data, s.mTab, true, i => this.set({ mTab: i, mExpanded: 0 })),
+      dRows: this.buildRows(data[keys[s.dTab]], s.dExpanded, false, i => this.set({ dExpanded: i })),
+      mRows: this.buildRows(data[keys[s.mTab]], s.mExpanded, true, i => this.set({ mExpanded: i })),
+      dRowsNote: t.notes[noteKeys[s.dTab]],
+      mRowsNote: t.notes[noteKeys[s.mTab]],
+
+      dSpecsOpen: s.dSpecs, mSpecsOpen: s.mSpecs,
+      specsLabelD: s.dSpecs ? t.specsHide : t.specsShow,
+      specsLabelM: s.mSpecs ? t.specsHide : t.specsShow,
+      specsCaretD: s.dSpecs ? '▲' : '▼', specsCaretM: s.mSpecs ? '▲' : '▼',
+      toggleSpecsD: () => this.set({ dSpecs: !s.dSpecs }), toggleSpecsM: () => this.set({ mSpecs: !s.mSpecs }),
+
+      dWhyOpen: s.dWhy, mWhyOpen: s.mWhy,
+      toggleWhyD: () => this.set({ dWhy: !s.dWhy }), toggleWhyM: () => this.set({ mWhy: !s.mWhy }),
+
+      dMenuOpen: s.dMenu, mMenuOpen: s.mMenu,
+      toggleMenuD: () => this.set({ dMenu: !s.dMenu }), closeMenuD: () => this.set({ dMenu: false }),
+      toggleMenuM: () => this.set({ mMenu: !s.mMenu }), closeMenuM: () => this.set({ mMenu: false }),
+
+      retry: () => this.set({ retried: true, scenario: 'normal', dTab: 0, mTab: 0, dExpanded: 0, mExpanded: 0 })
+    };
+  }
+}
+</script>
+</body>
+</html>

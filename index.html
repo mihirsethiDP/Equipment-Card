@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equipment Card &amp; Plant Drill-down — Design handoff</title>
+<meta name="description" content="Design handoff for the equipment card and plant drill-down (Goal 13). Prototypes, design tokens and known gaps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#141414; --panel:#1c1c1c; --panel-hi:#232323;
+    --line:#2e2e2e; --line-hi:#3d3d3d;
+    --ink:#f2f2f2; --ink-2:#c8c8c8; --ink-3:#8a8a8a; --ink-4:#6f6f6f;
+    --teal:#3DA385; --teal-wash:rgba(61,163,133,.12); --teal-line:#2f4a41;
+    --amber:#F1C21B;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans','Noto Sans Devanagari',system-ui,-apple-system,Segoe UI,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding-block:56px 96px;padding-left:24px;padding-right:24px;}
+  .mono{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;}
+  a{color:var(--teal);}
+
+  /* masthead */
+  .eyebrow{
+    display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;color:#141414;background:var(--teal);
+    padding:4px 10px;border-radius:20px;
+  }
+  h1{font-size:clamp(23px,4.4vw,32px);font-weight:700;line-height:1.25;letter-spacing:-.01em;margin:16px 0 0;}
+  .lede{font-size:14.5px;color:var(--ink-3);max-width:70ch;margin-top:14px;}
+  .lede strong{color:var(--ink-2);font-weight:600;}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:11.5px;color:var(--ink-4);}
+  .meta b{color:var(--ink-2);font-weight:600;}
+
+  hr{border:0;border-top:1px solid var(--line);margin:34px 0;}
+
+  h2{
+    font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--ink-4);margin-bottom:14px;
+  }
+
+  /* primary card */
+  .primary{
+    display:block;text-decoration:none;color:inherit;
+    background:linear-gradient(180deg,#1f2b27,#1b1b1b);
+    border:1px solid var(--teal-line);border-radius:14px;
+    padding:22px 24px;transition:border-color .15s,transform .15s;
+  }
+  .primary:hover,.primary:focus-visible{border-color:var(--teal);transform:translateY(-1px);}
+  .primary .tag{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);}
+  .primary h3{font-size:19px;font-weight:700;margin:8px 0 0;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;}
+  .primary h3 .arrow{color:var(--teal);font-weight:400;}
+  .primary p{font-size:13px;color:var(--ink-3);margin-top:9px;max-width:66ch;}
+
+  /* file grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:12px;}
+  .card{
+    display:flex;flex-direction:column;gap:7px;text-decoration:none;color:inherit;
+    background:var(--panel);border:1px solid var(--line);border-radius:11px;
+    padding:15px 16px;transition:border-color .15s,background .15s;
+  }
+  .card:hover,.card:focus-visible{border-color:var(--line-hi);background:var(--panel-hi);}
+  .card .name{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:7px;}
+  .card .name .chev{color:var(--ink-4);font-weight:400;}
+  .card:hover .name .chev{color:var(--teal);}
+  .card .desc{font-size:12px;color:var(--ink-3);}
+  .card .path{font-size:10.5px;color:var(--ink-4);word-break:break-all;}
+  .pill{
+    align-self:flex-start;font-size:9.5px;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;padding:3px 7px;border-radius:4px;
+    color:var(--teal);background:var(--teal-wash);border:1px solid var(--teal-line);
+  }
+  .pill.hist{color:var(--ink-4);background:#202020;border-color:var(--line);}
+
+  /* notes */
+  .note{
+    background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--amber);
+    border-radius:0 9px 9px 0;padding:14px 16px;font-size:12.5px;color:var(--ink-3);
+  }
+  .note + .note{margin-top:10px;}
+  .note b{color:var(--ink-2);font-weight:600;}
+  .note code{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    background:#262626;border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--ink-2);
+  }
+
+  /* ia block */
+  .ia{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:16px 18px;overflow-x:auto;}
+  .ia pre{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-2);line-height:1.75;}
+  .ia pre .lv{color:var(--teal);}
+
+  footer{margin-top:44px;font-size:11.5px;color:var(--ink-4);}
+  footer a{color:var(--ink-3);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="eyebrow">Goal 13 · v3 · gap review applied</span>
+    <h1>Equipment Card &amp; Plant Drill-down</h1>
+    <p class="lede">
+      One card component that describes any node in a water-treatment plant, reached by drilling down
+      <strong>Plant → Unit process → Unit → Equipment</strong>. It carries identity, live sensor
+      readings, the work filed against that node, and exactly one call to action for the most pressing
+      thing. At equipment level the card <strong>composes itself from the equipment's type</strong>
+      rather than being a different card per type.
+    </p>
+    <div class="meta">
+      <span>Design owner <b>Mihir</b></span>
+      <span>Dated <b>16 Sep 2026</b></span>
+      <span>Pilot <b>2 Oct</b></span>
+      <span>Primary user <b>plant operator, on a phone, at the equipment</b></span>
+    </div>
+  </header>
+
+  <hr>
+
+  <section>
+    <h2>Start here</h2>
+    <a class="primary" href="./plant-drilldown-v3-standalone.html">
+      <span class="tag">Current design · self-contained</span>
+      <h3>Plant drill-down v3 <span class="arrow">→</span></h3>
+      <p>
+        Desktop 1440×900 and mobile 390×844 artboards side by side, navigating independently so two
+        states can be compared at once. The state chips in the header flip live data, the health gate
+        and part tags; <span class="mono">EN / हिं</span> switches language for both artboards.
+        Everything is inlined — it opens offline.
+      </p>
+    </a>
+  </section>
+
+  <hr>
+
+  <section>
+    <h2>Information architecture</h2>
+    <div class="ia">
+<pre><span class="lv">Plant</span>  (Kanpur STP)
+└── <span class="lv">Unit process</span>        Preliminary, Primary, Secondary, Tertiary, Sludge Handling
+    └── <span class="lv">Unit</span>            Screen chamber, Blower group IU-G3, Aeration basin 1, …
+        └── <span class="lv">Equipment</span>   Blower BL-2, Tank EQ-1, DO probe DO-1, Fine screen FS-1, …</pre>
+    </div>
+    <div class="note" style="margin-top:12px;border-left-color:var(--teal);">
+      <b>The core rule.</b> Every issue, task and maintenance record is filed against exactly one node
+      and rolls up to every ancestor. It is never duplicated and never re-parented. In the card, items
+      filed at the node you are on appear under <b>Filed here</b>, items inherited from descendants
+      under <b>From below</b>, each tagged with its owning level and name.
+    </div>
+  </section>
+
+  <hr>
+
+  <section>
+    <h2>All prototypes</h2>
+    <div class="grid">
+
+      <a class="card" href="./prototypes/plant-drilldown-v3.dc.html">
+        <span class="pill">Current</span>
+        <span class="name">Plant drill-down v3 <span class="chev">›</span></span>
+        <span class="desc">Source of the current design. One work queue, Covered state, restored no-data.</span>
+        <span class="path mono">prototypes/plant-drilldown-v3.dc.html</span>
+      </a>
+
+      <a class="card" href="./prototypes/equipment-card-v2.dc.html">
+        <span class="pill">States</span>
+        <span class="name">Equipment card v2 <span class="chev">›</span></span>
+        <span class="desc">The card in isolation, with designed empty / offline / failure states.</span>
+        <span class="path mono">prototypes/equipment-card-v2.dc.html</span>
+      </a>
+
+      <a class="card" href="./prototypes/plant-drilldown-v2.dc.html">
+        <span class="pill hist">Previous</span>
+        <span class="name">Plant drill-down v2 <span class="chev">›</span></span>
+        <span class="desc">Introduced type profiles. Kept for diffing against v3.</span>
+        <span class="path mono">prototypes/plant-drilldown-v2.dc.html</span>
+      </a>
+
+      <a class="card" href="./prototypes/plant-drilldown-v1.dc.html">
+        <span class="pill hist">Historical</span>
+        <span class="name">Plant drill-down v1 <span class="chev">›</span></span>
+        <span class="desc">First drill-down: levels and roll-up, before type profiles.</span>
+        <span class="path mono">prototypes/plant-drilldown-v1.dc.html</span>
+      </a>
+
+      <a class="card" href="./prototypes/equipment-card-v1.dc.html">
+        <span class="pill hist">Historical</span>
+        <span class="name">Equipment card v1 <span class="chev">›</span></span>
+        <span class="desc">First equipment card.</span>
+        <span class="path mono">prototypes/equipment-card-v1.dc.html</span>
+      </a>
+
+      <a class="card" href="https://github.com/mihirsethiDP/Equipment-Card#readme">
+        <span class="pill">Spec</span>
+        <span class="name">Full handoff README <span class="chev">›</span></span>
+        <span class="desc">Profiles, screens, CTA resolver, state model, design tokens, known gaps.</span>
+        <span class="path mono">README.md</span>
+      </a>
+
+    </div>
+  </section>
+
+  <hr>
+
+  <section>
+    <h2>Before you build</h2>
+
+    <div class="note">
+      <b>These are design references written in HTML, not production code to copy.</b>
+      Recreate them in the target codebase's existing environment — its component library, routing,
+      state management and i18n. Specifically do not port: the in-memory <code>N</code> node graph
+      (replace with the real asset API), the <code>L</code> string tables (replace with the app's i18n
+      layer), the inline style strings assembled in JS, or the state chips and "jump to" row in the
+      prototype header — those are demo scaffolding for reviewing states. Delete them.
+    </div>
+
+    <div class="note">
+      <b>Fidelity is high</b> for colours, type, spacing, copy, severity vocabulary, block order and
+      interaction behaviour — recreate those faithfully. The equipment illustrations are
+      <b>low-fidelity placeholders</b>: CSS boxes standing in for real OEM artwork. Keep the
+      reading-tag overlay and part-label positions as the contract.
+    </div>
+
+    <div class="note">
+      <b>Two blocking questions are still open.</b> The config model currently allows issue and trigger
+      scoping at <b>equipment only</b>, while the design needs plant, unit-process, unit/group
+      <b>and</b> equipment. And <code>instrument</code> and <code>fixed</code> are not in the locked
+      archetype set AR-1…AR-7. Both need an ADR — see <b>Known gaps</b> in the README.
+    </div>
+
+    <div class="note" style="border-left-color:var(--ink-4);">
+      <b>Note on the source prototypes.</b> The <code>.dc.html</code> files fetch their runtime (React,
+      ReactDOM, Babel) from unpkg at load time, so they need a network connection and take a moment to
+      render. The standalone bundle above needs neither.
+    </div>
+  </section>
+
+  <footer>
+    Design handoff · <a href="https://github.com/mihirsethiDP/Equipment-Card">mihirsethiDP/Equipment-Card</a>
+  </footer>
+
+</div>
+</body>
+</html>
